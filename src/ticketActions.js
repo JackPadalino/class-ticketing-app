@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -148,6 +149,17 @@ export async function addComment(ticketId, { authorId, authorName, authorRole, t
     decision: decision || null,
     createdAt: serverTimestamp(),
   });
+}
+
+export async function updateComment(ticketId, commentId, text) {
+  await updateDoc(doc(db, "tickets", ticketId, "comments", commentId), {
+    text,
+    editedAt: serverTimestamp(),
+  });
+}
+
+export async function deleteComment(ticketId, commentId) {
+  await deleteDoc(doc(db, "tickets", ticketId, "comments", commentId));
 }
 
 export async function markNotificationRead(notificationId) {

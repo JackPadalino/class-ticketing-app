@@ -1,10 +1,93 @@
 import { useState } from "react";
 import { useComments } from "../hooks/useComments";
-import { addComment } from "../ticketActions";
+import { addComment, deleteComment, updateComment } from "../ticketActions";
 
 function formatTime(ts) {
   if (!ts?.toDate) return "";
   return ts.toDate().toLocaleString();
+}
+
+function CommentRow({ ticketId, comment, canEdit }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(comment.text);
+  const [busy, setBusy] = useState(false);
+
+  const saveEdit = async () => {
+    const trimmed = draft.trim();
+    if (!trimmed) return;
+    setBusy(true);
+    try {
+      await updateComment(ticketId, comment.id, trimmed);
+      setEditing(false);
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const remove = async () => {
+    if (!window.confirm("Delete this comment? This cannot be undone.")) return;
+    setBusy(true);
+    try {
+      await deleteComment(ticketId, comment.id);
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <li className={`comment ${comment.decision || ""}`}>
+      <div className="comment-meta">
+        <strong>{comment.authorName}</strong>
+        {comment.decision && (
+          <span className={`decision-badge ${comment.decision}`}>{comment.decision.replace("_", " ")}</span>
+        )}
+        <span className="comment-time">
+          {formatTime(comment.createdAt)}
+          {comment.editedAt && " (edited)"}
+        </span>
+      </div>
+
+      {editing ? (
+        <div className="comment-edit">
+          <textarea value={draft} onChange={(e) => setDraft(e.target.value)} rows={2} />
+          <div className="comment-edit-actions">
+            <button type="button" disabled={busy || !draft.trim()} onClick={saveEdit}>
+              Save
+            </button>
+            <button
+              type="button"
+              className="secondary"
+              disabled={busy}
+              onClick={() => {
+                setDraft(comment.text);
+                setEditing(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <p>{comment.text}</p>
+          {canEdit && (
+            <div className="comment-row-actions">
+              <button type="button" className="link-style" disabled={busy} onClick={() => setEditing(true)}>
+                Edit
+              </button>
+              <button type="button" className="link-style danger" disabled={busy} onClick={remove}>
+                Delete
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </li>
+  );
 }
 
 export function CommentThread({ ticketId, canPost, currentUser }) {
@@ -35,14 +118,12 @@ export function CommentThread({ ticketId, canPost, currentUser }) {
       <ul className="comment-list">
         {comments.length === 0 && <li className="comment-empty">No comments yet.</li>}
         {comments.map((c) => (
-          <li key={c.id} className={`comment ${c.decision || ""}`}>
-            <div className="comment-meta">
-              <strong>{c.authorName}</strong>
-              {c.decision && <span className={`decision-badge ${c.decision}`}>{c.decision.replace("_", " ")}</span>}
-              <span className="comment-time">{formatTime(c.createdAt)}</span>
-            </div>
-            <p>{c.text}</p>
-          </li>
+          <CommentRow
+            key={c.id}
+            ticketId={ticketId}
+            comment={c}
+            canEdit={canPost && c.authorId === currentUser.uid}
+          />
         ))}
       </ul>
       {canPost && (

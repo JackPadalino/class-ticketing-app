@@ -63,7 +63,12 @@ service cloud.firestore {
           (isSignedIn() &&
             get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid);
         allow create: if isLead();
-        allow update: if false;
+        // Only the lead who wrote a comment can edit it, and only its
+        // text - delete stays broad (isLead(), not author-restricted) so
+        // a project's cascade delete can still remove every comment.
+        allow update: if isLead() &&
+          resource.data.authorId == request.auth.uid &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'editedAt']);
         allow delete: if isLead();
       }
 

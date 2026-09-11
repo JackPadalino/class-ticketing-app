@@ -687,6 +687,46 @@ label {
   align-self: flex-end;
 }
 
+.comment-row-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.link-style {
+  background: transparent;
+  color: var(--muted);
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.link-style:hover {
+  background: transparent;
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.link-style.danger:hover {
+  color: var(--red);
+}
+
+.comment-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.comment-edit textarea {
+  resize: vertical;
+}
+
+.comment-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
 /* ---- ticket timeline ---- */
 .ticket-timeline {
   border-top: 1px solid var(--border);

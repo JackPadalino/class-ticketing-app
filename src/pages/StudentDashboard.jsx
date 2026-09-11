@@ -5,10 +5,11 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { useTickets } from "../hooks/useTickets";
 import { TicketBoard } from "../components/TicketBoard";
+import { getPhase } from "../constants";
 
 export function StudentDashboard() {
   const { user, profile } = useAuth();
-  const { projectId } = useParams();
+  const { projectId, phase } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { tickets, loading } = useTickets({ projectId, uid: user.uid, isLead: false });
@@ -22,16 +23,17 @@ export function StudentDashboard() {
   }, [projectId]);
 
   const currentUser = { uid: user.uid, email: user.email, displayName: profile.displayName };
+  const phaseInfo = getPhase(phase);
+  const phaseTickets = tickets.filter((t) => t.phase === phase);
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <div>
-          <button type="button" className="back-link" onClick={() => navigate("/student")}>
-            ← All projects
+          <button type="button" className="back-link" onClick={() => navigate(`/student/${projectId}`)}>
+            ← {project?.name || "Project"}
           </button>
-          <h1>{project?.name || "My Tickets"}</h1>
-          {project?.description && <p className="project-description">{project.description}</p>}
+          <h1>{phaseInfo?.label || "Tickets"}</h1>
         </div>
       </header>
 
@@ -39,7 +41,7 @@ export function StudentDashboard() {
         <p className="loading">Loading tickets...</p>
       ) : (
         <TicketBoard
-          tickets={tickets}
+          tickets={phaseTickets}
           isLead={false}
           currentUser={currentUser}
           openTicketId={openTicketId}

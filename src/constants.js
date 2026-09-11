@@ -37,11 +37,44 @@ export function getStatusLabel(ticket) {
   return null;
 }
 
-export const ENGINEERING_PHASES = [
-  "Planning",
-  "Design",
-  "Development",
-  "Testing & QA",
-  "Code Review",
-  "Deployment",
+// The four phases of "The Engineering Cycle" - each project gives every
+// student one separate Kanban board per phase. ticket.phase stores the
+// key; number/color/label drive the phase-picker wheel and badges.
+export const PHASES = [
+  {
+    key: "planning",
+    number: 1,
+    label: "Planning & Architecture",
+    lines: ["Planning &", "Architecture"],
+    color: "#a11d33",
+  },
+  {
+    key: "design",
+    number: 2,
+    label: "UI/UX Design",
+    lines: ["UI/UX", "Design"],
+    color: "#1d3f72",
+  },
+  {
+    key: "development",
+    number: 3,
+    label: "Development",
+    lines: ["Development"],
+    color: "#1a8a7a",
+  },
+  {
+    key: "testing",
+    number: 4,
+    label: "Testing & Review",
+    lines: ["Testing &", "Review"],
+    color: "#d4a017",
+  },
 ];
+
+export function getPhase(key) {
+  return PHASES.find((p) => p.key === key);
+}
+
+export function getPhaseLabel(key) {
+  return getPhase(key)?.label || key;
+}

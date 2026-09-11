@@ -1,11 +1,11 @@
-import { getStatusLabel } from "../constants";
+import { getPhaseLabel, getStatusLabel } from "../constants";
 
 export function TicketCard({ ticket, onOpen }) {
   const statusLabel = getStatusLabel(ticket);
   return (
     <button type="button" className="ticket-card" onClick={onOpen}>
       <div className="ticket-card-top">
-        <span className="phase-badge">{ticket.phase}</span>
+        <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
         {statusLabel && <span className="status-pill">{statusLabel}</span>}
       </div>
       <h3>{ticket.title}</h3>

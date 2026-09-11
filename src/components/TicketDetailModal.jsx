@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { STATUS, STUDENT_STATUS_OPTIONS, getStatusLabel } from "../constants";
+import { STATUS, STUDENT_STATUS_OPTIONS, getPhaseLabel, getStatusLabel } from "../constants";
 import { LinksEditor } from "./LinksEditor";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
@@ -32,7 +32,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           ✕
         </button>
 
-        <span className="phase-badge">{ticket.phase}</span>
+        <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
         <h2>{ticket.title}</h2>
         {statusLabel && <span className="status-pill">{statusLabel}</span>}
 

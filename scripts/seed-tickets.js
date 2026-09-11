@@ -5,44 +5,31 @@ import { loadRoster } from "./firebaseAdmin.js";
 const auth = getAuth();
 const db = getFirestore();
 
-// One realistic ticket per phase of the engineering cycle — every
-// student gets their own copy of this set.
+// One realistic ticket per phase of "The Engineering Cycle" (see
+// src/constants.js PHASES) — every student gets their own copy of this set.
 const SAMPLE_TICKETS = [
   {
-    phase: "Planning",
+    phase: "planning",
     title: "Write user stories for the login flow",
     description:
       "Draft user stories and acceptance criteria for sign-in/sign-out. Include edge cases like wrong password and empty fields.",
   },
   {
-    phase: "Design",
+    phase: "design",
     title: "Wireframe the ticket board layout",
     description:
-      "Sketch the three-column board (Ready to Start / Working on It / Completed) in a Google Drawing or Figma file. Share the link on this ticket when done.",
+      "Sketch the four-column board (Ready to Start / In Progress / In Review / Completed) in a Google Drawing or Figma file. Share the link on this ticket when done.",
   },
   {
-    phase: "Development",
+    phase: "development",
     title: "Build the ticket card component",
-    description:
-      "Implement a reusable card showing title, phase, and status. Should visually distinguish the five ticket statuses.",
+    description: "Implement a reusable card showing title, phase, and status.",
   },
   {
-    phase: "Testing & QA",
+    phase: "testing",
     title: "Write test cases for the review workflow",
     description:
-      "List manual test cases covering: student marks ready for review, lead approves, lead requests revisions, ticket returns to Working on It.",
-  },
-  {
-    phase: "Code Review",
-    title: "Review a teammate's pull request",
-    description:
-      "Read through an assigned PR, leave at least two substantive comments, and note anything unclear in the diff.",
-  },
-  {
-    phase: "Deployment",
-    title: "Write the release notes for v1.0",
-    description:
-      "Summarize what shipped in this milestone in plain language for a non-technical audience.",
+      "List manual test cases covering: student marks ready for review, lead approves, lead requests revisions, ticket returns to In Progress.",
   },
 ];
 
@@ -92,6 +79,7 @@ async function main() {
         assignedToName: s.displayName || s.email,
         links: [],
         status: "ready_to_start",
+        needsRevision: false,
         createdAt: FieldValue.serverTimestamp(),
         updatedAt: FieldValue.serverTimestamp(),
         reviewedBy: null,

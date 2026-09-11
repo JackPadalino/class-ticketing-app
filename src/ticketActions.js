@@ -79,6 +79,7 @@ export async function updateStudentStatus(ticket, student, newStatus) {
     await addDoc(collection(db, "notifications"), {
       type: "ready_for_review",
       projectId: ticket.projectId,
+      phase: ticket.phase,
       ticketId: ticket.id,
       ticketTitle: ticket.title,
       actorId: student.uid,
@@ -102,6 +103,7 @@ async function notifyStudentOfReview(ticket, lead, decision) {
   await addDoc(collection(db, "notifications"), {
     type: "ticket_reviewed",
     projectId: ticket.projectId,
+    phase: ticket.phase,
     ticketId: ticket.id,
     ticketTitle: ticket.title,
     actorId: lead.uid,

@@ -4,6 +4,7 @@ import { Login } from "./pages/Login";
 import { AppLayout } from "./components/AppLayout";
 import { ProjectsList } from "./pages/ProjectsList";
 import { LeadDashboard } from "./pages/LeadDashboard";
+import { PhaseMenu } from "./pages/PhaseMenu";
 import { StudentDashboard } from "./pages/StudentDashboard";
 
 export default function App() {
@@ -39,6 +40,10 @@ export default function App() {
         />
         <Route
           path="/student/:projectId"
+          element={profile.role === "student" ? <PhaseMenu /> : <Navigate to="/lead" replace />}
+        />
+        <Route
+          path="/student/:projectId/:phase"
           element={profile.role === "student" ? <StudentDashboard /> : <Navigate to="/lead" replace />}
         />
         <Route path="*" element={<Navigate to="/" replace />} />

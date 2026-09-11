@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ENGINEERING_PHASES } from "../constants";
+import { PHASES } from "../constants";
 import { createTicket } from "../ticketActions";
 
 export function CreateTicketModal({ projectId, student, currentUser, onClose }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [phase, setPhase] = useState(ENGINEERING_PHASES[0]);
+  const [phase, setPhase] = useState(PHASES[0].key);
   const [saving, setSaving] = useState(false);
 
   const submit = async (e) => {
@@ -52,9 +52,9 @@ export function CreateTicketModal({ projectId, student, currentUser, onClose }) 
         <label>
           Phase
           <select value={phase} onChange={(e) => setPhase(e.target.value)}>
-            {ENGINEERING_PHASES.map((p) => (
-              <option key={p} value={p}>
-                {p}
+            {PHASES.map((p) => (
+              <option key={p.key} value={p.key}>
+                {p.label}
               </option>
             ))}
           </select>

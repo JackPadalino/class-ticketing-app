@@ -13,7 +13,10 @@ export function AppLayout() {
 
   const openNotification = (n) => {
     if (!n.projectId) return;
-    navigate(`${base}/${n.projectId}`, { state: { openTicketId: n.ticketId } });
+    // The lead's board isn't split by phase, but a student's is - route
+    // straight to the right phase board so the ticket can actually be found.
+    const path = isLead || !n.phase ? `${base}/${n.projectId}` : `${base}/${n.projectId}/${n.phase}`;
+    navigate(path, { state: { openTicketId: n.ticketId } });
   };
 
   return (

@@ -42,6 +42,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
         <LinksEditor
           links={ticket.links || []}
           editable={studentCanEditLinks}
+          addedByRole={isLead ? "lead" : "student"}
           onChange={(links) => run(() => updateLinks(ticket.id, links))}
         />
 

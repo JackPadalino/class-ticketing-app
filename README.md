@@ -115,8 +115,20 @@ npm run dev
 
 Sign in with the lead email + password from `roster.config.json` to see the full board and create more tickets. Each student signs in with their own email + the shared default password.
 
+## Deploying
+
+The app is live on Firebase Hosting at **https://class-ticketing-app.web.app**.
+
+To ship a new build after making changes:
+
+```bash
+firebase login          # one-time, opens a browser to sign in with your Google account
+npm run deploy           # builds the app and pushes it to Hosting
+```
+
+`firebase login` only needs to happen once per machine — after that, `npm run deploy` (which runs `vite build` then `firebase deploy --only hosting`) is all you need. The `.firebaserc` file already points at the `class-ticketing-app` project.
+
 ## Next steps you may want later
 
 - Change each student's password after their first login (currently everyone shares one default password; Firebase Auth has no built-in "force password change" — you'd add a one-time flag on their user doc and prompt them in the UI).
-- Deploy the built app somewhere students can reach it (`npm run build`, then Firebase Hosting, Vercel, or Netlify).
 - Let students post their own comments/replies (currently only the lead can comment, per your spec).

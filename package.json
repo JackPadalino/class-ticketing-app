@@ -12,7 +12,11 @@
     "migrate:test-project": "node scripts/migrate-add-test-project.js",
     "migrate:needs-revision-flag": "node scripts/migrate-needs-revision-flag.js",
     "reset:tickets": "node scripts/reset-tickets-to-ready.js",
-    "delete:all-tickets-and-alerts": "node scripts/delete-all-tickets-and-alerts.js"
+    "delete:all-tickets-and-alerts": "node scripts/delete-all-tickets-and-alerts.js",
+    "seed:drive-folder-ticket": "node scripts/seed-drive-folder-ticket.js",
+    "seed:tech-stack-ticket": "node scripts/seed-tech-stack-ticket.js",
+    "fix:tech-stack-ticket-link": "node scripts/fix-tech-stack-ticket-link.js",
+    "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {
     "firebase": "^11.0.0",
@@ -23,6 +27,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "firebase-admin": "^12.5.0",
+    "firebase-tools": "^15.30.0",
     "vite": "^5.4.0"
   }
 }

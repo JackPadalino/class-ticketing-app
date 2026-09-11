@@ -158,6 +158,9 @@ label {
   padding: 24px 32px;
   max-width: 1400px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 65px); /* 65px ~= .topbar height */
 }
 
 .dashboard-header {
@@ -336,7 +339,8 @@ label {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
+  flex: 1;
 }
 
 .board-column {

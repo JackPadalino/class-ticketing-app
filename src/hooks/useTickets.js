@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
-function byCreatedAtDesc(a, b) {
-  return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0);
+// Oldest first, so a sequence of onboarding tickets (e.g. "Create Google
+// Drive folder" before "Choose Tech Stack") reads top-to-bottom in the
+// order they were assigned.
+function byCreatedAtAsc(a, b) {
+  return (a.createdAt?.toMillis() || 0) - (b.createdAt?.toMillis() || 0);
 }
 
 // Lead sees every ticket in the project; a student sees only their own.
@@ -25,7 +28,7 @@ export function useTickets({ projectId, uid, isLead }) {
 
     const unsub = onSnapshot(q, (snap) => {
       const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      list.sort(byCreatedAtDesc);
+      list.sort(byCreatedAtAsc);
       setTickets(list);
       setLoading(false);
     });

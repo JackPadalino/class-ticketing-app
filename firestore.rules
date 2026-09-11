@@ -1,0 +1,105 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function myProfile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isLead() {
+      return isSignedIn() && myProfile().role == 'lead';
+    }
+
+    // ---- users ----
+    // Profiles are created only by the seed script (Admin SDK), which
+    // bypasses these rules entirely. Clients never write to /users.
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isLead());
+      allow write: if false;
+    }
+
+    // ---- projects ----
+    // Class-wide: every signed-in user (lead or student) can see every
+    // project. Only the lead can create/edit/delete them.
+    match /projects/{projectId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isLead();
+    }
+
+    // ---- tickets ----
+    match /tickets/{ticketId} {
+      allow read: if isLead() ||
+        (isSignedIn() && resource.data.assignedTo == request.auth.uid);
+
+      allow create: if isLead();
+
+      allow delete: if isLead();
+
+      // Lead can change anything. A student who owns the ticket may only
+      // flip it between the working statuses and edit their links -
+      // they can never touch title/description/phase/assignedTo, and
+      // never set status to 'completed' themselves (only the lead's
+      // approval does that). Editing links alone (status unchanged) is
+      // always allowed regardless of which non-completed status it's in.
+      allow update: if isLead() || (
+        isSignedIn() &&
+        resource.data.assignedTo == request.auth.uid &&
+        resource.data.status != 'completed' &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'links', 'updatedAt']) &&
+        (
+          request.resource.data.status == resource.data.status ||
+          request.resource.data.status in ['ready_to_start', 'in_progress', 'ready_for_review']
+        )
+      );
+
+      match /comments/{commentId} {
+        allow read: if isLead() ||
+          (isSignedIn() &&
+            get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid);
+        allow create: if isLead();
+        allow update: if false;
+        allow delete: if isLead();
+      }
+
+      // System-logged lifecycle events (created, started, submitted for
+      // review, needs revision, approved, ...) - visible to the same
+      // people as the ticket itself. Either role can log one, but only
+      // as themselves.
+      match /history/{eventId} {
+        allow read: if isLead() ||
+          (isSignedIn() &&
+            get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid);
+        allow create: if isSignedIn() &&
+          request.resource.data.actorId == request.auth.uid &&
+          (
+            isLead() ||
+            get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid
+          );
+        allow update: if false;
+        allow delete: if isLead();
+      }
+    }
+
+    // ---- notifications ----
+    // Two kinds: "ready_for_review" (a student -> the lead, no single
+    // recipient) and "ticket_reviewed" (the lead -> the specific student
+    // whose ticket was decided on, via recipientId).
+    match /notifications/{notificationId} {
+      allow read, update: if isLead() ||
+        (isSignedIn() && resource.data.recipientId == request.auth.uid);
+      allow delete: if isLead();
+      allow create: if isSignedIn() && (
+        (request.resource.data.type == 'ready_for_review' &&
+          request.resource.data.actorId == request.auth.uid) ||
+        (isLead() && request.resource.data.type == 'ticket_reviewed' &&
+          request.resource.data.actorId == request.auth.uid)
+      );
+    }
+  }
+}

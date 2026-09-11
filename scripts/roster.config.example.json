@@ -1,0 +1,12 @@
+{
+  "lead": {
+    "email": "jpadalino@amsbronx.org",
+    "displayName": "Lead Engineer",
+    "password": "ChangeMe123!"
+  },
+  "defaultStudentPassword": "Welcome123!",
+  "students": [
+    { "email": "student1@example.com", "displayName": "Student One" },
+    { "email": "student2@example.com", "displayName": "Student Two" }
+  ]
+}

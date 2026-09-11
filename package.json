@@ -1,0 +1,28 @@
+{
+  "name": "ticketapp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "seed:students": "node scripts/seed-students.js",
+    "seed:tickets": "node scripts/seed-tickets.js",
+    "migrate:test-project": "node scripts/migrate-add-test-project.js",
+    "migrate:needs-revision-flag": "node scripts/migrate-needs-revision-flag.js",
+    "reset:tickets": "node scripts/reset-tickets-to-ready.js",
+    "delete:all-tickets-and-alerts": "node scripts/delete-all-tickets-and-alerts.js"
+  },
+  "dependencies": {
+    "firebase": "^11.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "firebase-admin": "^12.5.0",
+    "vite": "^5.4.0"
+  }
+}

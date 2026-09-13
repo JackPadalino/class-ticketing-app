@@ -16,7 +16,7 @@ export function TicketBoard({ tickets, isLead, currentUser, openTicketId, onOpen
             </h2>
             <div className="column-tickets">
               {colTickets.map((t) => (
-                <TicketCard key={t.id} ticket={t} isLead={isLead} onOpen={() => onOpenTicket(t.id)} />
+                <TicketCard key={t.id} ticket={t} onOpen={() => onOpenTicket(t.id)} />
               ))}
               {colTickets.length === 0 && <p className="column-empty">Nothing here.</p>}
             </div>

@@ -1,6 +1,6 @@
 import { getPhaseLabel, getStatusLabel } from "../constants";
 
-export function TicketCard({ ticket, isLead, onOpen }) {
+export function TicketCard({ ticket, onOpen }) {
   const statusLabel = getStatusLabel(ticket);
   return (
     <button type="button" className="ticket-card" onClick={onOpen}>
@@ -9,7 +9,7 @@ export function TicketCard({ ticket, isLead, onOpen }) {
         {statusLabel && <span className="status-pill">{statusLabel}</span>}
       </div>
       <h3>{ticket.title}</h3>
-      {isLead && <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>}
+      <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
       {ticket.links?.length > 0 && (
         <p className="ticket-links-count">
           🔗 {ticket.links.length} link{ticket.links.length === 1 ? "" : "s"}

@@ -50,7 +50,7 @@ export function LeadDashboard() {
             <option value="all">All students</option>
             {students.map((s) => (
               <option key={s.id} value={s.id}>
-                {studentLabel(s)}
+                {s.displayName || s.email}
               </option>
             ))}
           </select>

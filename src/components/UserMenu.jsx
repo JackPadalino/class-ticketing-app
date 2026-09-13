@@ -27,6 +27,18 @@ export function UserMenu({ displayName, email, isLead, onSignOut }) {
               className="user-menu-item"
               onClick={() => {
                 setOpen(false);
+                navigate("/lead");
+              }}
+            >
+              Projects
+            </button>
+          )}
+          {isLead && (
+            <button
+              type="button"
+              className="user-menu-item"
+              onClick={() => {
+                setOpen(false);
                 navigate("/lead/dashboard");
               }}
             >

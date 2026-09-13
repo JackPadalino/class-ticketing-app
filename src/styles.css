@@ -521,6 +521,12 @@ label {
   font-size: 15px;
 }
 
+.ticket-assignee {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .ticket-links-count {
   margin: 0;
   font-size: 12px;

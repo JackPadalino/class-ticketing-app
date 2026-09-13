@@ -5,7 +5,7 @@ import { loadRoster } from "./firebaseAdmin.js";
 const auth = getAuth();
 const db = getFirestore();
 
-async function upsertAccount({ email, displayName, password, role }) {
+async function upsertAccount({ email, displayName, password, role, assignedApp }) {
   let userRecord;
   try {
     userRecord = await auth.getUserByEmail(email);
@@ -24,6 +24,7 @@ async function upsertAccount({ email, displayName, password, role }) {
         email,
         displayName,
         role,
+        assignedApp: assignedApp || FieldValue.delete(),
         createdAt: FieldValue.serverTimestamp(),
       },
       { merge: true }
@@ -46,6 +47,7 @@ async function main() {
       displayName: student.displayName,
       password: student.password || roster.defaultStudentPassword,
       role: "student",
+      assignedApp: student.assignedApp,
     });
   }
 

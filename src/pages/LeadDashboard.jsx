@@ -32,8 +32,8 @@ export function LeadDashboard() {
     studentFilter === "all" ? tickets : tickets.filter((t) => t.assignedTo === studentFilter);
 
   const selectedStudent = students.find((s) => s.id === studentFilter);
-  const boardScopeLabel =
-    studentFilter === "all" ? "All students" : selectedStudent?.displayName || selectedStudent?.email || "Student";
+  const studentLabel = (s) => `${s.displayName || s.email}${s.assignedApp ? ` — ${s.assignedApp}` : ""}`;
+  const boardScopeLabel = studentFilter === "all" ? "All students" : selectedStudent ? studentLabel(selectedStudent) : "Student";
 
   return (
     <div className="dashboard">
@@ -50,7 +50,7 @@ export function LeadDashboard() {
             <option value="all">All students</option>
             {students.map((s) => (
               <option key={s.id} value={s.id}>
-                {s.displayName || s.email}
+                {studentLabel(s)}
               </option>
             ))}
           </select>

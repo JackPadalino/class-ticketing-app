@@ -8,10 +8,11 @@ const db = getFirestore();
 
 const PROJECT_NAME = "Unit 1 Project 1 - Google Suite App";
 
-// Reconciles every real student's board with roster.config.json's current
-// assignedApp: deletes any ticket that isn't one of the onboarding tickets
-// or part of the student's current backlog, then creates whatever backlog
-// tickets are missing. Safe to re-run — it's idempotent either way.
+// Reconciles every real student with roster.config.json's current
+// assignedApp: stamps (or clears) assignedApp on their Firestore profile,
+// deletes any ticket that isn't one of the onboarding tickets or part of
+// their current backlog, then creates whatever backlog tickets are
+// missing. Safe to re-run — it's idempotent either way.
 async function main() {
   const roster = loadRoster();
   const realStudents = roster.students.filter((s) => s.email.endsWith("@amsbronx.org"));
@@ -41,6 +42,12 @@ async function main() {
       console.warn(`${student.email}: no backlog found for assignedApp "${student.assignedApp}" — skipping entirely.`);
       continue;
     }
+
+    await db.collection("users").doc(record.uid).set(
+      { assignedApp: student.assignedApp || FieldValue.delete() },
+      { merge: true }
+    );
+
     const wantedTitles = new Set([...ONBOARDING_TITLES, ...(backlog ? backlog.map(ticketTitle) : [])]);
 
     const existing = await db

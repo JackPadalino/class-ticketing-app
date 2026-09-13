@@ -23,7 +23,7 @@ export function AppLayout() {
     <div className="app-shell">
       <nav className="topbar">
         <button type="button" className="brand" onClick={() => navigate(base)}>
-          Engineering Ticket Board
+          AMS SWE 2026-2027 Ticket Board
         </button>
         <div className="topbar-right">
           <NotificationBell notifications={notifications} onSelectNotification={openNotification} />

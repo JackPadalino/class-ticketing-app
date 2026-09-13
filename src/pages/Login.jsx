@@ -24,7 +24,7 @@ export function Login() {
   return (
     <div className="login-page">
       <form className="login-card" onSubmit={submit}>
-        <h1>Engineering Ticket Board</h1>
+        <h1>AMS SWE 2026-2027 Ticket Board</h1>
         <label>
           Email
           <input

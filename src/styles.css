@@ -314,11 +314,6 @@ label {
   gap: 10px;
 }
 
-.whoami {
-  font-size: 13px;
-  color: var(--muted);
-}
-
 .back-link {
   display: block;
   background: transparent;
@@ -978,6 +973,62 @@ label {
   font-size: 13px;
   padding: 8px;
   margin: 0;
+}
+
+/* ---- user menu ---- */
+.user-menu {
+  position: relative;
+}
+
+.user-menu-toggle {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  width: 220px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.user-menu-name {
+  margin: 0;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.user-menu-item {
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.user-menu-item:hover {
+  background: var(--gray-bg);
 }
 
 @media (max-width: 900px) {

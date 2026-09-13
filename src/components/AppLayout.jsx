@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNotifications } from "../hooks/useNotifications";
 import { NotificationBell } from "./NotificationBell";
+import { UserMenu } from "./UserMenu";
 
 export function AppLayout() {
   const { user, profile, logout } = useAuth();
@@ -26,16 +27,8 @@ export function AppLayout() {
           AMS SWE 2026-2027 Ticket Board
         </button>
         <div className="topbar-right">
-          {isLead && (
-            <button type="button" className="secondary" onClick={() => navigate("/lead/dashboard")}>
-              Dashboard
-            </button>
-          )}
           <NotificationBell notifications={notifications} onSelectNotification={openNotification} />
-          <span className="whoami">{profile.displayName || user.email}</span>
-          <button type="button" className="secondary" onClick={logout}>
-            Sign out
-          </button>
+          <UserMenu displayName={profile.displayName} email={user.email} isLead={isLead} onSignOut={logout} />
         </div>
       </nav>
       <div className="app-content">

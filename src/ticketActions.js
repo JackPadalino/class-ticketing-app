@@ -140,13 +140,27 @@ export async function requestRevision(ticket, lead) {
   await notifyStudentOfReview(ticket, lead, "needs_revision");
 }
 
-export async function addComment(ticketId, { authorId, authorName, authorRole, text, decision }) {
-  await addDoc(collection(db, "tickets", ticketId, "comments"), {
+export async function addComment(ticket, { authorId, authorName, authorRole, text }) {
+  await addDoc(collection(db, "tickets", ticket.id, "comments"), {
     authorId,
     authorName,
     authorRole,
     text,
-    decision: decision || null,
+    decision: null,
+    createdAt: serverTimestamp(),
+  });
+
+  await addDoc(collection(db, "notifications"), {
+    type: authorRole === "lead" ? "lead_comment" : "student_comment",
+    projectId: ticket.projectId,
+    phase: ticket.phase,
+    ticketId: ticket.id,
+    ticketTitle: ticket.title,
+    actorId: authorId,
+    actorName: authorName,
+    recipientId: authorRole === "lead" ? ticket.assignedTo : null,
+    decision: null,
+    read: false,
     createdAt: serverTimestamp(),
   });
 }

@@ -3,6 +3,7 @@ import { useAuth } from "./context/AuthContext";
 import { Login } from "./pages/Login";
 import { AppLayout } from "./components/AppLayout";
 import { ProjectsList } from "./pages/ProjectsList";
+import { Dashboard } from "./pages/Dashboard";
 import { LeadDashboard } from "./pages/LeadDashboard";
 import { PhaseMenu } from "./pages/PhaseMenu";
 import { StudentDashboard } from "./pages/StudentDashboard";
@@ -29,6 +30,10 @@ export default function App() {
         <Route
           path="/lead"
           element={profile.role === "lead" ? <ProjectsList isLead /> : <Navigate to="/student" replace />}
+        />
+        <Route
+          path="/lead/dashboard"
+          element={profile.role === "lead" ? <Dashboard /> : <Navigate to="/student" replace />}
         />
         <Route
           path="/lead/:projectId"

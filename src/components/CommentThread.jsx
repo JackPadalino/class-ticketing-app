@@ -90,8 +90,8 @@ function CommentRow({ ticketId, comment, canEdit }) {
   );
 }
 
-export function CommentThread({ ticketId, canPost, currentUser }) {
-  const comments = useComments(ticketId);
+export function CommentThread({ ticket, isLead, currentUser }) {
+  const comments = useComments(ticket.id);
   const [text, setText] = useState("");
   const [posting, setPosting] = useState(false);
 
@@ -100,10 +100,10 @@ export function CommentThread({ ticketId, canPost, currentUser }) {
     if (!trimmed) return;
     setPosting(true);
     try {
-      await addComment(ticketId, {
+      await addComment(ticket, {
         authorId: currentUser.uid,
         authorName: currentUser.displayName || currentUser.email,
-        authorRole: "lead",
+        authorRole: isLead ? "lead" : "student",
         text: trimmed,
       });
       setText("");
@@ -120,25 +120,23 @@ export function CommentThread({ ticketId, canPost, currentUser }) {
         {comments.map((c) => (
           <CommentRow
             key={c.id}
-            ticketId={ticketId}
+            ticketId={ticket.id}
             comment={c}
-            canEdit={canPost && c.authorId === currentUser.uid}
+            canEdit={isLead && c.authorId === currentUser.uid}
           />
         ))}
       </ul>
-      {canPost && (
-        <div className="comment-add">
-          <textarea
-            placeholder="Leave feedback for the student..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            rows={2}
-          />
-          <button type="button" disabled={posting || !text.trim()} onClick={post}>
-            Post comment
-          </button>
-        </div>
-      )}
+      <div className="comment-add">
+        <textarea
+          placeholder={isLead ? "Leave feedback for the student..." : "Ask a question or post an update..."}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          rows={2}
+        />
+        <button type="button" disabled={posting || !text.trim()} onClick={post}>
+          Post comment
+        </button>
+      </div>
     </div>
   );
 }

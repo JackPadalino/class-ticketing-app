@@ -7,7 +7,7 @@ export function AppLayout() {
   const { user, profile, logout } = useAuth();
   const navigate = useNavigate();
   const isLead = profile.role === "lead";
-  const notifications = useNotifications({ role: profile.role, uid: user.uid });
+  const notifications = useNotifications({ role: profile.role, uid: user.uid, alertPrefs: profile.alertPrefs });
 
   const base = isLead ? "/lead" : "/student";
 
@@ -26,6 +26,11 @@ export function AppLayout() {
           AMS SWE 2026-2027 Ticket Board
         </button>
         <div className="topbar-right">
+          {isLead && (
+            <button type="button" className="secondary" onClick={() => navigate("/lead/dashboard")}>
+              Dashboard
+            </button>
+          )}
           <NotificationBell notifications={notifications} onSelectNotification={openNotification} />
           <span className="whoami">{profile.displayName || user.email}</span>
           <button type="button" className="secondary" onClick={logout}>

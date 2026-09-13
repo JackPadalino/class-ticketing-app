@@ -9,6 +9,13 @@ function notificationText(n) {
       </>
     );
   }
+  if (n.type === "student_comment" || n.type === "lead_comment") {
+    return (
+      <>
+        <strong>{n.actorName}</strong> commented on <em>{n.ticketTitle}</em>
+      </>
+    );
+  }
   if (n.decision === "approved") {
     return (
       <>

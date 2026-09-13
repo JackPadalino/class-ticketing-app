@@ -17,10 +17,14 @@ service cloud.firestore {
 
     // ---- users ----
     // Profiles are created only by the seed script (Admin SDK), which
-    // bypasses these rules entirely. Clients never write to /users.
+    // bypasses these rules entirely. The one thing a client can write is
+    // its own alertPrefs (the lead's Dashboard alert toggles) - nothing
+    // else on a profile is client-editable.
     match /users/{userId} {
       allow read: if isSignedIn() && (request.auth.uid == userId || isLead());
-      allow write: if false;
+      allow create, delete: if false;
+      allow update: if isSignedIn() && request.auth.uid == userId &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['alertPrefs']);
     }
 
     // ---- projects ----
@@ -62,7 +66,16 @@ service cloud.firestore {
         allow read: if isLead() ||
           (isSignedIn() &&
             get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid);
-        allow create: if isLead();
+        // Either the lead or the ticket's own student can post a comment,
+        // but only as themselves and with the role that actually matches
+        // who they are - a student can't stamp authorRole 'lead' on one.
+        allow create: if isSignedIn() &&
+          request.resource.data.authorId == request.auth.uid &&
+          (
+            (isLead() && request.resource.data.authorRole == 'lead') ||
+            (request.resource.data.authorRole == 'student' &&
+              get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid)
+          );
         // Only the lead who wrote a comment can edit it, and only its
         // text - delete stays broad (isLead(), not author-restricted) so
         // a project's cascade delete can still remove every comment.
@@ -92,17 +105,18 @@ service cloud.firestore {
     }
 
     // ---- notifications ----
-    // Two kinds: "ready_for_review" (a student -> the lead, no single
-    // recipient) and "ticket_reviewed" (the lead -> the specific student
-    // whose ticket was decided on, via recipientId).
+    // Four kinds: "ready_for_review" and "student_comment" (a student ->
+    // the lead, no single recipient - the lead's Dashboard can toggle
+    // which of these it wants to see), and "ticket_reviewed" and
+    // "lead_comment" (the lead -> the specific student, via recipientId).
     match /notifications/{notificationId} {
       allow read, update: if isLead() ||
         (isSignedIn() && resource.data.recipientId == request.auth.uid);
       allow delete: if isLead();
       allow create: if isSignedIn() && (
-        (request.resource.data.type == 'ready_for_review' &&
+        (request.resource.data.type in ['ready_for_review', 'student_comment'] &&
           request.resource.data.actorId == request.auth.uid) ||
-        (isLead() && request.resource.data.type == 'ticket_reviewed' &&
+        (isLead() && request.resource.data.type in ['ticket_reviewed', 'lead_comment'] &&
           request.resource.data.actorId == request.auth.uid)
       );
     }

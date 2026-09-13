@@ -84,7 +84,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           )}
         </div>
 
-        <CommentThread ticketId={ticket.id} canPost={isLead} currentUser={currentUser} />
+        <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} />
 
         <TicketTimeline ticketId={ticket.id} />
       </div>

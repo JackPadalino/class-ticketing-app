@@ -514,6 +514,8 @@ label {
   max-width: 520px;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
   position: relative;
 }
 
@@ -582,6 +584,11 @@ label {
   align-items: center;
   gap: 8px;
   font-size: 14px;
+}
+
+.links-list li a {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .links-empty {

@@ -18,6 +18,7 @@
     "fix:tech-stack-ticket-link": "node scripts/fix-tech-stack-ticket-link.js",
     "seed:app-backlogs": "node scripts/seed-app-backlog-tickets.js",
     "fix:app-backlog-assignments": "node scripts/fix-app-backlog-assignments.js",
+    "delete:student": "node scripts/delete-student.js",
     "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {

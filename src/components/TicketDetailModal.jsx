@@ -27,67 +27,69 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal ticket-modal" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="modal-close" onClick={onClose}>
           ✕
         </button>
 
-        <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
-        <h2>{ticket.title}</h2>
-        <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
-        {statusLabel && <span className="status-pill">{statusLabel}</span>}
+        <div className="ticket-modal-scroll">
+          <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
+          <h2>{ticket.title}</h2>
+          <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
+          {statusLabel && <span className="status-pill">{statusLabel}</span>}
 
-        <p className="ticket-description">{ticket.description}</p>
+          <p className="ticket-description">{ticket.description}</p>
 
-        <h4>Links</h4>
-        <LinksEditor
-          links={ticket.links || []}
-          editable={studentCanEditLinks}
-          addedByRole={isLead ? "lead" : "student"}
-          onChange={(links) => run(() => updateLinks(ticket.id, links))}
-        />
+          <h4>Links</h4>
+          <LinksEditor
+            links={ticket.links || []}
+            editable={studentCanEditLinks}
+            addedByRole={isLead ? "lead" : "student"}
+            onChange={(links) => run(() => updateLinks(ticket.id, links))}
+          />
 
-        <div className="modal-actions">
-          {!isLead && ticket.status !== STATUS.COMPLETED && (
-            <div className="status-update">
-              <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
-                {STUDENT_STATUS_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-              <button
-                disabled={busy || selectedStatus === ticket.status}
-                onClick={() => run(() => updateStudentStatus(ticket, currentUser, selectedStatus))}
-              >
-                Update status
-              </button>
-            </div>
-          )}
-          {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
-            <p className="waiting-note">Waiting on lead review.</p>
-          )}
+          <div className="modal-actions">
+            {!isLead && ticket.status !== STATUS.COMPLETED && (
+              <div className="status-update">
+                <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+                  {STUDENT_STATUS_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  disabled={busy || selectedStatus === ticket.status}
+                  onClick={() => run(() => updateStudentStatus(ticket, currentUser, selectedStatus))}
+                >
+                  Update status
+                </button>
+              </div>
+            )}
+            {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
+              <p className="waiting-note">Waiting on lead review.</p>
+            )}
 
-          {isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
-            <>
-              <button disabled={busy} onClick={() => run(() => approveTicket(ticket, currentUser))}>
-                Approve
-              </button>
-              <button
-                className="secondary"
-                disabled={busy}
-                onClick={() => run(() => requestRevision(ticket, currentUser))}
-              >
-                Needs revisions
-              </button>
-            </>
-          )}
+            {isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
+              <>
+                <button disabled={busy} onClick={() => run(() => approveTicket(ticket, currentUser))}>
+                  Approve
+                </button>
+                <button
+                  className="secondary"
+                  disabled={busy}
+                  onClick={() => run(() => requestRevision(ticket, currentUser))}
+                >
+                  Needs revisions
+                </button>
+              </>
+            )}
+          </div>
+
+          <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} />
+
+          <TicketTimeline ticketId={ticket.id} />
         </div>
-
-        <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} />
-
-        <TicketTimeline ticketId={ticket.id} />
       </div>
     </div>
   );

@@ -645,9 +645,28 @@ label {
   position: absolute;
   top: 14px;
   right: 14px;
+  z-index: 5;
   background: transparent;
   color: var(--muted);
   padding: 4px 8px;
+}
+
+/* The ticket detail modal can run long (comments, timeline), so its
+   close button lives outside the scrolling area instead - .modal
+   itself stops scrolling and .ticket-modal-scroll takes over, which
+   keeps the close button fixed in place no matter how far you scroll. */
+.ticket-modal {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-modal-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  padding: 28px;
 }
 
 .modal-close:hover {

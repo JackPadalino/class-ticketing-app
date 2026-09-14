@@ -34,6 +34,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
         <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
         <h2>{ticket.title}</h2>
+        <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
         {statusLabel && <span className="status-pill">{statusLabel}</span>}
 
         <p className="ticket-description">{ticket.description}</p>

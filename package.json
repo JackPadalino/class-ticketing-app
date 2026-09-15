@@ -15,6 +15,7 @@
     "delete:all-tickets-and-alerts": "node scripts/delete-all-tickets-and-alerts.js",
     "seed:drive-folder-ticket": "node scripts/seed-drive-folder-ticket.js",
     "seed:tech-stack-ticket": "node scripts/seed-tech-stack-ticket.js",
+    "seed:share-app-ticket": "node scripts/seed-share-app-ticket.js",
     "fix:tech-stack-ticket-link": "node scripts/fix-tech-stack-ticket-link.js",
     "seed:app-backlogs": "node scripts/seed-app-backlog-tickets.js",
     "fix:app-backlog-assignments": "node scripts/fix-app-backlog-assignments.js",

@@ -9,14 +9,18 @@ const PROJECT_NAME = "Unit 1 Project 1 - Google Suite App";
 const TICKET_TITLE = "Choose Tech Stack";
 const TECH_STACK_DOC_URL =
   "https://docs.google.com/document/d/1Tt7ntlKiAMmJ6g4-KRu6Ybqc1KIYG1MvS2MhWcrLA4k/edit?usp=sharing";
+const PROJECT_DESCRIPTION_DOC_URL =
+  "https://docs.google.com/document/d/1CPvqORk73rb10L4M_AbqOAQtKYzLPyzxhBIIZWmbd_A/edit?usp=sharing";
 
-// The doc link lives in the description text itself, not the ticket's
+// The doc links live in the description text itself, not the ticket's
 // links array - links there are meant to be student-added and
 // student-removable, so a lead-provided reference doesn't belong there
 // (a student could otherwise delete it).
 const DESCRIPTION = [
-  'Inside your SWE 2026-2027 Google Drive folder create a new Google Doc titled "Unit 1 Project 1 - Choosing The Tech Stack", then answer the following questions. It may be easier to copy/paste this entire document then begin working:',
+  "Please refer to this document to see a description of your assigned project:",
+  PROJECT_DESCRIPTION_DOC_URL,
   "",
+  'Inside your SWE 2026-2027 Google Drive folder create a new Google Doc titled "Unit 1 Project 1 - Choosing The Tech Stack", then answer the following questions. It may be easier to copy/paste this entire document then begin working:',
   TECH_STACK_DOC_URL,
 ].join("\n");
 

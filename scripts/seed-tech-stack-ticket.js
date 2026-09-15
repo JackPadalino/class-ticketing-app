@@ -18,9 +18,11 @@ const PROJECT_DESCRIPTION_DOC_URL =
 // (a student could otherwise delete it).
 const DESCRIPTION = [
   "Please refer to this document to see a description of your assigned project:",
+  "",
   PROJECT_DESCRIPTION_DOC_URL,
   "",
   'Inside your SWE 2026-2027 Google Drive folder create a new Google Doc titled "Unit 1 Project 1 - Choosing The Tech Stack", then answer the following questions. It may be easier to copy/paste this entire document then begin working:',
+  "",
   TECH_STACK_DOC_URL,
 ].join("\n");
 

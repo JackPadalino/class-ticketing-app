@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import muncherGif from "../assets/arcade/muncher.gif";
+import birdGif from "../assets/arcade/bird-rider.gif";
 
 export function Login() {
   const { login } = useAuth();
@@ -23,8 +25,14 @@ export function Login() {
 
   return (
     <div className="login-page">
+      <div className="scanlines" aria-hidden="true" />
       <form className="login-card" onSubmit={submit}>
-        <h1>AMS SWE 2026-2027 Ticket Board</h1>
+        <div className="login-sprites" aria-hidden="true">
+          <img src={muncherGif} alt="" />
+          <img src={birdGif} alt="" />
+        </div>
+        <h1>AMS SWE ARCADE</h1>
+        <p className="insert-coin blink">INSERT COIN TO CONTINUE</p>
         <label>
           Email
           <input
@@ -47,7 +55,7 @@ export function Login() {
         </label>
         {error && <p className="login-error">{error}</p>}
         <button type="submit" disabled={submitting}>
-          {submitting ? "Signing in..." : "Sign in"}
+          {submitting ? "LOADING..." : "PRESS START"}
         </button>
       </form>
     </div>

@@ -46,7 +46,7 @@ export const PHASES = [
     number: 1,
     label: "Planning & Architecture",
     lines: ["Planning &", "Architecture"],
-    color: "#ff00aa",
+    color: "#0047ab",
   },
   {
     key: "design",

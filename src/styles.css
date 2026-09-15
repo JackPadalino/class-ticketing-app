@@ -1,20 +1,20 @@
 :root {
-  --bg: #ffffe0;
-  --card: #fffef0;
-  --border: #ff00ff;
-  --text: #1a0033;
-  --muted: #6b3fa0;
-  --accent: #ff00ff;
-  --accent-dark: #cc00cc;
-  --green: #008000;
-  --green-bg: #ccffcc;
-  --amber: #cc6600;
+  --bg: #050a12;
+  --card: #eaf6ff;
+  --border: #0af0ff;
+  --text: #001830;
+  --muted: #35607a;
+  --accent: #0099ff;
+  --accent-dark: #0066cc;
+  --green: #00aa33;
+  --green-bg: #ccffdd;
+  --amber: #cc8800;
   --amber-bg: #fff2b3;
-  --blue: #0000cc;
-  --blue-bg: #cceeff;
+  --blue: #0055cc;
+  --blue-bg: #cce6ff;
   --red: #cc0000;
   --red-bg: #ffd6d6;
-  --gray-bg: #f5e6ff;
+  --gray-bg: #e3f6ff;
 }
 
 @keyframes blink {
@@ -28,13 +28,11 @@
 }
 
 @keyframes rainbow-text {
-  0% { color: #ff0000; }
-  16% { color: #ff8800; }
-  33% { color: #ffee00; }
-  50% { color: #00cc44; }
-  66% { color: #0088ff; }
-  83% { color: #aa00ff; }
-  100% { color: #ff0000; }
+  0% { color: #00ff66; }
+  25% { color: #00e0ff; }
+  50% { color: #0088ff; }
+  75% { color: #39ff14; }
+  100% { color: #00ff66; }
 }
 
 @keyframes wiggle {
@@ -48,10 +46,10 @@
 
 body {
   margin: 0;
-  background-color: #4b0082;
-  background-image: radial-gradient(circle, #ffffff 1px, transparent 1px),
-    radial-gradient(circle, #ffffff 1px, transparent 1px),
-    linear-gradient(45deg, #4b0082 25%, #2e0854 25%, #2e0854 50%, #4b0082 50%, #4b0082 75%, #2e0854 75%, #2e0854 100%);
+  background-color: #000000;
+  background-image: radial-gradient(circle, #39ff14 1px, transparent 1px),
+    radial-gradient(circle, #00c8ff 1px, transparent 1px),
+    linear-gradient(45deg, #000000 25%, #001830 25%, #001830 50%, #000000 50%, #000000 75%, #001830 75%, #001830 100%);
   background-size: 40px 40px, 60px 60px, 80px 80px;
   background-position: 0 0, 20px 30px, 0 0;
   color: var(--text);
@@ -70,7 +68,7 @@ button {
   border: 3px outset #e0e0e0;
   border-radius: 0;
   padding: 8px 14px;
-  background: linear-gradient(180deg, #ff66ff, var(--accent));
+  background: linear-gradient(180deg, #39ff14, var(--accent));
   color: white;
   font-size: 14px;
   font-weight: 700;
@@ -79,7 +77,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(180deg, #ff99ff, var(--accent-dark));
+  background: linear-gradient(180deg, #7dff5c, var(--accent-dark));
 }
 
 button:active {
@@ -210,7 +208,7 @@ label {
   justify-content: space-between;
   gap: 12px;
   padding: 14px 32px;
-  background: linear-gradient(90deg, #ffccff, #ccffff, #ffffcc);
+  background: linear-gradient(90deg, #000000, #001830, #000000);
   border-bottom: 4px dashed var(--accent);
   position: sticky;
   top: 0;
@@ -221,17 +219,17 @@ label {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--text);
+  color: #39ff14;
   font-family: "Press Start 2P", cursive;
   font-weight: 400;
   font-size: 12px;
   padding: 0;
-  text-shadow: 2px 2px 0 #fff, 3px 3px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 6px var(--accent), 0 0 2px #000;
 }
 
 .brand:hover {
   background: transparent;
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 .topbar-right {
@@ -243,7 +241,7 @@ label {
 .retro-footer {
   margin-top: auto;
   background: #000;
-  color: #ffd500;
+  color: #33ffcc;
   font-size: 12px;
   padding: 12px 20px;
   display: flex;
@@ -322,7 +320,7 @@ label {
 }
 
 .dashboard-section:nth-of-type(2) {
-  border-color: var(--blue);
+  border-color: #00cc44;
 }
 
 .dashboard-section h2 {
@@ -430,7 +428,7 @@ label {
 }
 
 .alert-feed-item:hover {
-  background: #ffccff;
+  background: #bdf0ff;
 }
 
 .header-right {
@@ -665,7 +663,7 @@ label {
 }
 
 .ticket-card:hover {
-  background: #fffbe0;
+  background: #eafff0;
   border-color: var(--accent);
   transform: translate(-1px, -1px);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
@@ -783,7 +781,7 @@ label {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(75, 0, 130, 0.6);
+  background: rgba(0, 10, 20, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -904,7 +902,7 @@ label {
 }
 
 .links-list li a:visited {
-  color: #800080;
+  color: #004466;
 }
 
 .links-empty {
@@ -956,7 +954,7 @@ label {
 
 .comment {
   background: var(--gray-bg);
-  border: 2px solid #cc99ff;
+  border: 2px solid #66ccff;
   border-radius: 0;
   padding: 10px 12px;
 }
@@ -1142,7 +1140,7 @@ label {
 
 .bell-toggle {
   background: var(--gray-bg);
-  border: 2px outset #e0d0f0;
+  border: 2px outset #a0d8f0;
   box-shadow: none;
   color: var(--text);
   position: relative;
@@ -1212,8 +1210,8 @@ label {
   height: 36px;
   padding: 0;
   border-radius: 50%;
-  border: 2px outset #ff99ff;
-  background: linear-gradient(135deg, #ff66ff, var(--blue));
+  border: 2px outset #39ff14;
+  background: linear-gradient(135deg, #39ff14, var(--blue));
   color: white;
   font-size: 13px;
   font-weight: 700;

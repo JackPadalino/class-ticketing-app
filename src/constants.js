@@ -46,28 +46,28 @@ export const PHASES = [
     number: 1,
     label: "Planning & Architecture",
     lines: ["Planning &", "Architecture"],
-    color: "#a11d33",
+    color: "#ff00aa",
   },
   {
     key: "design",
     number: 2,
     label: "UI/UX Design",
     lines: ["UI/UX", "Design"],
-    color: "#1d3f72",
+    color: "#00c8ff",
   },
   {
     key: "development",
     number: 3,
     label: "Development",
     lines: ["Development"],
-    color: "#1a8a7a",
+    color: "#39ff14",
   },
   {
     key: "testing",
     number: 4,
     label: "Testing & Review",
     lines: ["Testing &", "Review"],
-    color: "#d4a017",
+    color: "#ffd500",
   },
 ];
 

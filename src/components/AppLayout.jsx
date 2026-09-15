@@ -22,6 +22,13 @@ export function AppLayout() {
 
   return (
     <div className="app-shell">
+      <div className="marquee-bar" aria-hidden="true">
+        <div className="marquee-track">
+          ✨🚧 WELCOME TO THE AMS SWE TICKET BOARD 🚧✨ &nbsp; BEST VIEWED AT 800x600 &nbsp; ⭐ SIGN OUR GUESTBOOK ⭐
+          &nbsp; 🔥 NOW WITH 100% MORE TICKETS 🔥 &nbsp; ✨🚧 WELCOME TO THE AMS SWE TICKET BOARD 🚧✨ &nbsp; BEST
+          VIEWED AT 800x600 &nbsp; ⭐ SIGN OUR GUESTBOOK ⭐ &nbsp; 🔥 NOW WITH 100% MORE TICKETS 🔥
+        </div>
+      </div>
       <nav className="topbar">
         <button type="button" className="brand" onClick={() => navigate(base)}>
           AMS SWE 2026-2027 Ticket Board
@@ -34,6 +41,15 @@ export function AppLayout() {
       <div className="app-content">
         <Outlet />
       </div>
+      <footer className="retro-footer">
+        <span className="blink">UNDER CONSTRUCTION</span>
+        <span className="retro-footer-sep">•</span>
+        <span>Best viewed in Netscape Navigator 4.0</span>
+        <span className="retro-footer-sep">•</span>
+        <span className="hit-counter" title="totally real visitor count">
+          YOU ARE VISITOR #{"0" + "0" + "0" + "1" + "3" + "3" + "7"}
+        </span>
+      </footer>
     </div>
   );
 }

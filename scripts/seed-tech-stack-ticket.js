@@ -15,9 +15,9 @@ const TECH_STACK_DOC_URL =
 // student-removable, so a lead-provided reference doesn't belong there
 // (a student could otherwise delete it).
 const DESCRIPTION = [
-  'Inside your SWE 2026-2027 Google Drive folder create a new Google Doc titled "Unit 1 Project 1 - Choosing The Tech Stack", then answer the following questions. It may be easier to copy/paste this entire document then begin working.',
+  'Inside your SWE 2026-2027 Google Drive folder create a new Google Doc titled "Unit 1 Project 1 - Choosing The Tech Stack", then answer the following questions. It may be easier to copy/paste this entire document then begin working:',
   "",
-  `Questions doc: ${TECH_STACK_DOC_URL}`,
+  TECH_STACK_DOC_URL,
 ].join("\n");
 
 async function main() {

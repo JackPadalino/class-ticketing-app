@@ -748,6 +748,33 @@ label {
   font-weight: 700;
 }
 
+.ticket-due-date {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.ticket-due-date.overdue {
+  color: var(--red);
+}
+
+.due-date-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.due-date-field label {
+  margin: 0;
+  font-size: 13px;
+}
+
+.due-date-field input {
+  width: auto;
+}
+
 .ticket-links-count {
   margin: 0;
   font-size: 12px;

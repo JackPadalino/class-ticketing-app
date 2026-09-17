@@ -1,9 +1,22 @@
 import { useState } from "react";
-import { STATUS, STUDENT_STATUS_OPTIONS, getPhaseLabel, getStatusLabel } from "../constants";
+import {
+  STATUS,
+  STUDENT_STATUS_OPTIONS,
+  formatDueDate,
+  getPhaseLabel,
+  getStatusLabel,
+  isOverdue,
+} from "../constants";
 import { LinksEditor } from "./LinksEditor";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
-import { approveTicket, requestRevision, updateLinks, updateStudentStatus } from "../ticketActions";
+import {
+  approveTicket,
+  requestRevision,
+  updateDueDate,
+  updateLinks,
+  updateStudentStatus,
+} from "../ticketActions";
 
 export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   const [busy, setBusy] = useState(false);
@@ -24,6 +37,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
   const studentCanEditLinks = !isLead && ticket.status !== STATUS.COMPLETED;
   const statusLabel = getStatusLabel(ticket);
+  const overdue = isOverdue(ticket.dueDate, ticket.status);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -37,6 +51,24 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           <h2>{ticket.title}</h2>
           <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
           {statusLabel && <span className="status-pill">{statusLabel}</span>}
+
+          {isLead ? (
+            <div className="due-date-field">
+              <label htmlFor="due-date-input">Due date</label>
+              <input
+                id="due-date-input"
+                type="date"
+                value={ticket.dueDate || ""}
+                onChange={(e) => run(() => updateDueDate(ticket.id, e.target.value))}
+              />
+            </div>
+          ) : (
+            ticket.dueDate && (
+              <p className={`ticket-due-date ${overdue ? "overdue" : ""}`}>
+                Due: {formatDueDate(ticket.dueDate)}
+              </p>
+            )
+          )}
 
           <p className="ticket-description">{ticket.description}</p>
 

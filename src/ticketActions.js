@@ -100,6 +100,17 @@ export async function updateLinks(ticketId, links) {
   });
 }
 
+// dueDate is a plain "YYYY-MM-DD" string (matches <input type="date">
+// directly, no timezone math needed) or null to clear it. Firestore
+// rules only let the lead touch this field - a student's update is
+// restricted to hasOnly(['status', 'links', 'updatedAt']).
+export async function updateDueDate(ticketId, dueDate) {
+  await updateDoc(doc(db, "tickets", ticketId), {
+    dueDate: dueDate || null,
+    updatedAt: serverTimestamp(),
+  });
+}
+
 async function notifyStudentOfReview(ticket, lead, decision) {
   await addDoc(collection(db, "notifications"), {
     type: "ticket_reviewed",

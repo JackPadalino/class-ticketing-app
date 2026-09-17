@@ -1,4 +1,4 @@
-import { formatDueDate, getPhaseLabel, getStatusLabel, isOverdue } from "../constants";
+import { STATUS, formatDueDate, getPhaseLabel, getStatusLabel, isOverdue } from "../constants";
 
 export function TicketCard({ ticket, onOpen }) {
   const statusLabel = getStatusLabel(ticket);
@@ -7,7 +7,11 @@ export function TicketCard({ ticket, onOpen }) {
     <button type="button" className="ticket-card" onClick={onOpen}>
       <div className="ticket-card-top">
         <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
-        {statusLabel && <span className="status-pill">{statusLabel}</span>}
+        {statusLabel && (
+          <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
+            {statusLabel}
+          </span>
+        )}
       </div>
       <h3>{ticket.title}</h3>
       <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>

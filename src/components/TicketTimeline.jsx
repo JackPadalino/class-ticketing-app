@@ -8,6 +8,7 @@ const EVENT_LABEL = {
   resumed: "In progress",
   needs_revision: "Needs revisions",
   approved: "Approved",
+  requested_support: "Requested support",
 };
 
 function formatTime(ts) {

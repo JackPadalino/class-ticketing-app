@@ -20,6 +20,7 @@
     "seed:app-backlogs": "node scripts/seed-app-backlog-tickets.js",
     "fix:app-backlog-assignments": "node scripts/fix-app-backlog-assignments.js",
     "delete:student": "node scripts/delete-student.js",
+    "reset:email-prefix-passwords": "node scripts/set-email-prefix-passwords.js",
     "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {

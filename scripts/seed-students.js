@@ -5,6 +5,14 @@ import { loadRoster } from "./firebaseAdmin.js";
 const auth = getAuth();
 const db = getFirestore();
 
+// Every account's password is the part of its email before the @ -
+// simple enough for students to remember/type, at the cost of being
+// guessable by anyone who knows a classmate's school email. Explicit
+// per-account `password` overrides in roster.config.json still win.
+function emailPrefixPassword(email) {
+  return email.split("@")[0];
+}
+
 async function upsertAccount({ email, displayName, password, role, assignedApp }) {
   let userRecord;
   try {
@@ -37,7 +45,7 @@ async function main() {
   await upsertAccount({
     email: roster.lead.email,
     displayName: roster.lead.displayName,
-    password: roster.lead.password,
+    password: roster.lead.password || emailPrefixPassword(roster.lead.email),
     role: "lead",
   });
 
@@ -45,7 +53,7 @@ async function main() {
     await upsertAccount({
       email: student.email,
       displayName: student.displayName,
-      password: student.password || roster.defaultStudentPassword,
+      password: student.password || emailPrefixPassword(student.email),
       role: "student",
       assignedApp: student.assignedApp,
     });

@@ -14,6 +14,13 @@ function notificationText(n) {
       </>
     );
   }
+  if (n.type === "need_support") {
+    return (
+      <>
+        <strong>{n.actorName}</strong> needs support on <em>{n.ticketTitle}</em>
+      </>
+    );
+  }
   return (
     <>
       <strong>{n.actorName}</strong> commented on <em>{n.ticketTitle}</em>

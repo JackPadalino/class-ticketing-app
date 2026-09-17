@@ -16,6 +16,13 @@ function notificationText(n) {
       </>
     );
   }
+  if (n.type === "need_support") {
+    return (
+      <>
+        <strong>{n.actorName}</strong> needs support on <em>{n.ticketTitle}</em>
+      </>
+    );
+  }
   if (n.decision === "approved") {
     return (
       <>

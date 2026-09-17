@@ -9,6 +9,7 @@ export function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showPasswordInfo, setShowPasswordInfo] = useState(true);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -26,6 +27,33 @@ export function Login() {
   return (
     <div className="login-page">
       <div className="scanlines" aria-hidden="true" />
+
+      {showPasswordInfo && (
+        <div className="modal-backdrop" onClick={() => setShowPasswordInfo(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="modal-close"
+              onClick={() => setShowPasswordInfo(false)}
+            >
+              ✕
+            </button>
+            <h2>New sign-in instructions</h2>
+            <p className="ticket-description">
+              Your password is the part of your email before the "@" symbol — everyone's, lead
+              included.
+            </p>
+            <p className="ticket-description">
+              <strong>Example:</strong> jpadalino@amsbronx.org signs in with the password{" "}
+              <strong>jpadalino</strong>.
+            </p>
+            <button type="button" onClick={() => setShowPasswordInfo(false)}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+
       <form className="login-card" onSubmit={submit}>
         <div className="login-sprites" aria-hidden="true">
           <img src={muncherGif} alt="" />

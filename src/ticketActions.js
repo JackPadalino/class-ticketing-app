@@ -63,12 +63,32 @@ const STUDENT_STATUS_EVENT = {
   [STATUS.READY_TO_START]: "reset_to_ready",
   [STATUS.IN_PROGRESS]: "started",
   [STATUS.READY_FOR_REVIEW]: "submitted_for_review",
+  [STATUS.NEED_SUPPORT]: "requested_support",
 };
 
+// A student -> lead ping with no single recipient (the lead's Dashboard
+// alert toggles decide who sees which types). Shared by both
+// "ready for review" and "need support".
+async function notifyLead(type, ticket, student) {
+  await addDoc(collection(db, "notifications"), {
+    type,
+    projectId: ticket.projectId,
+    phase: ticket.phase,
+    ticketId: ticket.id,
+    ticketTitle: ticket.title,
+    actorId: student.uid,
+    actorName: student.displayName || student.email,
+    recipientId: null,
+    decision: null,
+    read: false,
+    createdAt: serverTimestamp(),
+  });
+}
+
 // The one action behind the student's status dropdown + "Update status"
-// button. Only fires the lead's "ready for review" alert when that's
-// actually the destination - moving to ready-to-start or in-progress is
-// just the student managing their own board, nothing for the lead to act on.
+// button. Only fires a lead alert when the destination is one the lead
+// needs to act on - moving to ready-to-start or in-progress is just the
+// student managing their own board.
 export async function updateStudentStatus(ticket, student, newStatus) {
   await updateDoc(doc(db, "tickets", ticket.id), {
     status: newStatus,
@@ -77,20 +97,28 @@ export async function updateStudentStatus(ticket, student, newStatus) {
   await logHistory(ticket.id, { type: STUDENT_STATUS_EVENT[newStatus], actor: student, actorRole: "student" });
 
   if (newStatus === STATUS.READY_FOR_REVIEW) {
-    await addDoc(collection(db, "notifications"), {
-      type: "ready_for_review",
-      projectId: ticket.projectId,
-      phase: ticket.phase,
-      ticketId: ticket.id,
-      ticketTitle: ticket.title,
-      actorId: student.uid,
-      actorName: student.displayName || student.email,
-      recipientId: null,
-      decision: null,
-      read: false,
-      createdAt: serverTimestamp(),
-    });
+    await notifyLead("ready_for_review", ticket, student);
   }
+  if (newStatus === STATUS.NEED_SUPPORT) {
+    await notifyLead("need_support", ticket, student);
+  }
+}
+
+// Marking a ticket "Need support" always requires an explanatory comment
+// (enforced in the UI's prompt) so the lead never sees a bare status
+// flip with no context for what the student is stuck on. Posts the
+// comment directly rather than through addComment() to avoid also
+// firing a redundant "student_comment" alert alongside "need_support".
+export async function markNeedSupport(ticket, student, commentText) {
+  await addDoc(collection(db, "tickets", ticket.id, "comments"), {
+    authorId: student.uid,
+    authorName: student.displayName || student.email,
+    authorRole: "student",
+    text: commentText,
+    decision: null,
+    createdAt: serverTimestamp(),
+  });
+  await updateStudentStatus(ticket, student, STATUS.NEED_SUPPORT);
 }
 
 export async function updateLinks(ticketId, links) {

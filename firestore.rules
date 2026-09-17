@@ -58,7 +58,7 @@ service cloud.firestore {
           .hasOnly(['status', 'links', 'updatedAt']) &&
         (
           request.resource.data.status == resource.data.status ||
-          request.resource.data.status in ['ready_to_start', 'in_progress', 'ready_for_review']
+          request.resource.data.status in ['ready_to_start', 'in_progress', 'ready_for_review', 'need_support']
         )
       );
 
@@ -105,16 +105,17 @@ service cloud.firestore {
     }
 
     // ---- notifications ----
-    // Four kinds: "ready_for_review" and "student_comment" (a student ->
-    // the lead, no single recipient - the lead's Dashboard can toggle
-    // which of these it wants to see), and "ticket_reviewed" and
-    // "lead_comment" (the lead -> the specific student, via recipientId).
+    // Five kinds: "ready_for_review", "student_comment", and
+    // "need_support" (a student -> the lead, no single recipient - the
+    // lead's Dashboard can toggle which of these it wants to see), and
+    // "ticket_reviewed" and "lead_comment" (the lead -> the specific
+    // student, via recipientId).
     match /notifications/{notificationId} {
       allow read, update: if isLead() ||
         (isSignedIn() && resource.data.recipientId == request.auth.uid);
       allow delete: if isLead();
       allow create: if isSignedIn() && (
-        (request.resource.data.type in ['ready_for_review', 'student_comment'] &&
+        (request.resource.data.type in ['ready_for_review', 'student_comment', 'need_support'] &&
           request.resource.data.actorId == request.auth.uid) ||
         (isLead() && request.resource.data.type in ['ticket_reviewed', 'lead_comment'] &&
           request.resource.data.actorId == request.auth.uid)

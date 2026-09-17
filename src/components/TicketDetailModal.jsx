@@ -12,6 +12,7 @@ import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
   approveTicket,
+  markNeedSupport,
   requestRevision,
   updateDueDate,
   updateLinks,
@@ -23,6 +24,8 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   const [selectedStatus, setSelectedStatus] = useState(
     STUDENT_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
   );
+  const [showSupportPrompt, setShowSupportPrompt] = useState(false);
+  const [supportComment, setSupportComment] = useState("");
 
   const run = async (fn) => {
     setBusy(true);
@@ -39,6 +42,29 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   const statusLabel = getStatusLabel(ticket);
   const overdue = isOverdue(ticket.dueDate, ticket.status);
 
+  const handleStatusChange = (value) => {
+    setSelectedStatus(value);
+    if (value !== STATUS.NEED_SUPPORT) setShowSupportPrompt(false);
+  };
+
+  const handleUpdateStatusClick = () => {
+    if (selectedStatus === STATUS.NEED_SUPPORT) {
+      setShowSupportPrompt(true);
+      return;
+    }
+    run(() => updateStudentStatus(ticket, currentUser, selectedStatus));
+  };
+
+  const submitSupportComment = () => {
+    const trimmed = supportComment.trim();
+    if (!trimmed) return;
+    run(async () => {
+      await markNeedSupport(ticket, currentUser, trimmed);
+      setShowSupportPrompt(false);
+      setSupportComment("");
+    });
+  };
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal ticket-modal" onClick={(e) => e.stopPropagation()}>
@@ -50,7 +76,11 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
           <h2>{ticket.title}</h2>
           <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
-          {statusLabel && <span className="status-pill">{statusLabel}</span>}
+          {statusLabel && (
+            <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
+              {statusLabel}
+            </span>
+          )}
 
           {isLead ? (
             <div className="due-date-field">
@@ -83,21 +113,51 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           <div className="modal-actions">
             {!isLead && ticket.status !== STATUS.COMPLETED && (
               <div className="status-update">
-                <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+                <select value={selectedStatus} onChange={(e) => handleStatusChange(e.target.value)}>
                   {STUDENT_STATUS_OPTIONS.map((o) => (
                     <option key={o.value} value={o.value}>
                       {o.label}
                     </option>
                   ))}
                 </select>
-                <button
-                  disabled={busy || selectedStatus === ticket.status}
-                  onClick={() => run(() => updateStudentStatus(ticket, currentUser, selectedStatus))}
-                >
+                <button disabled={busy || selectedStatus === ticket.status} onClick={handleUpdateStatusClick}>
                   Update status
                 </button>
               </div>
             )}
+
+            {!isLead && showSupportPrompt && (
+              <div className="support-prompt">
+                <p className="support-prompt-message">
+                  Let the lead know what you're stuck on — a comment is required before marking a ticket
+                  "Need support."
+                </p>
+                <textarea
+                  value={supportComment}
+                  onChange={(e) => setSupportComment(e.target.value)}
+                  placeholder="What do you need help with?"
+                  rows={3}
+                  autoFocus
+                />
+                <div className="support-prompt-actions">
+                  <button disabled={busy || !supportComment.trim()} onClick={submitSupportComment}>
+                    Submit & mark Need support
+                  </button>
+                  <button
+                    type="button"
+                    className="secondary"
+                    disabled={busy}
+                    onClick={() => {
+                      setShowSupportPrompt(false);
+                      setSupportComment("");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
               <p className="waiting-note">Waiting on lead review.</p>
             )}

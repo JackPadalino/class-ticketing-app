@@ -806,6 +806,12 @@ label {
   color: var(--amber);
 }
 
+.status-pill.need-support {
+  border-color: var(--red);
+  background: var(--red-bg);
+  color: var(--red);
+}
+
 /* ---- engineering cycle diagram ---- */
 .phase-menu-page {
   display: flex;
@@ -956,6 +962,35 @@ label {
   gap: 8px;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.support-prompt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 2px solid var(--red);
+  border-radius: 0;
+  background: var(--red-bg);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.support-prompt-message {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.support-prompt textarea {
+  resize: vertical;
+}
+
+.support-prompt-actions {
+  display: flex;
+  gap: 8px;
 }
 
 .hint {
@@ -1207,6 +1242,10 @@ label {
 
 .timeline-event.approved .timeline-dot {
   background: var(--green);
+}
+
+.timeline-event.requested_support .timeline-dot {
+  background: var(--red);
 }
 
 .timeline-body p {

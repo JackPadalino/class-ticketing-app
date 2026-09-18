@@ -40,12 +40,13 @@ export function Login() {
             </button>
             <h2>New sign-in instructions</h2>
             <p className="ticket-description">
-              Your password is the part of your email before the "@" symbol — everyone's, lead
-              included.
+              Enter your <strong>full email address</strong> in the Email field, same as always.
+              Only the password changed — it's now just the part of your email before the "@"
+              symbol, everyone's, lead included.
             </p>
             <p className="ticket-description">
-              <strong>Example:</strong> jpadalino@amsbronx.org signs in with the password{" "}
-              <strong>jpadalino</strong>.
+              <strong>Example:</strong> for the email <strong>jpadalino@amsbronx.org</strong>, enter
+              that whole address in Email, and enter just <strong>jpadalino</strong> in Password.
             </p>
             <button type="button" onClick={() => setShowPasswordInfo(false)}>
               Got it
@@ -66,6 +67,7 @@ export function Login() {
           <input
             type="email"
             autoComplete="username"
+            placeholder="yourname@amsbronx.org"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

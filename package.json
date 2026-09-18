@@ -21,6 +21,7 @@
     "fix:app-backlog-assignments": "node scripts/fix-app-backlog-assignments.js",
     "delete:student": "node scripts/delete-student.js",
     "reset:email-prefix-passwords": "node scripts/set-email-prefix-passwords.js",
+    "reset:role-passwords": "node scripts/set-role-passwords.js",
     "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {

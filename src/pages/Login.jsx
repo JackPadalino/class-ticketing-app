@@ -50,13 +50,14 @@ export function Login() {
             </button>
             <h2>New sign-in instructions</h2>
             <p className="ticket-description">
-              Sign in with just the part of your email before the "@" symbol — same value in both
-              the Username and Password fields, everyone's, lead included. Your full email still
-              works too if you'd rather type that.
+              Your username is the part of your email before the "@" symbol. Your full email
+              works too, if you'd rather type that instead.
             </p>
             <p className="ticket-description">
-              <strong>Example:</strong> for the email <strong>jpadalino@amsbronx.org</strong>, enter{" "}
-              <strong>jpadalino</strong> in both Username and Password.
+              <strong>Example:</strong> jpadalino@email.com <strong>--&gt;</strong> jpadalino
+            </p>
+            <p className="ticket-description">
+              Ask your teacher if you don't already have your password.
             </p>
             <button type="button" onClick={() => setShowPasswordInfo(false)}>
               Got it

@@ -54,11 +54,9 @@ export function Login() {
               works too, if you'd rather type that instead.
             </p>
             <p className="ticket-description">
-              <strong>Example:</strong> jpadalino@email.com <strong>--&gt;</strong> jpadalino
+              <strong>Example:</strong> jpadalino2006@amsbronx.org <strong>--&gt;</strong> jpadalino2006
             </p>
-            <p className="ticket-description">
-              Ask your teacher if you don't already have your password.
-            </p>
+            <p className="ticket-description">Check Google Classroom for password.</p>
             <button type="button" onClick={() => setShowPasswordInfo(false)}>
               Got it
             </button>

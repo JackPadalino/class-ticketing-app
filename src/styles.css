@@ -1,20 +1,21 @@
 :root {
-  --bg: #050a12;
-  --card: #eaf6ff;
-  --border: #0af0ff;
+  --bg: #000000;
+  --card: #fffef0;
+  --border: #2121ff;
   --text: #001830;
-  --muted: #35607a;
-  --accent: #0099ff;
-  --accent-dark: #0066cc;
+  --muted: #4a4a8a;
+  --accent: #2121ff;
+  --accent-dark: #1414a0;
   --green: #00aa33;
   --green-bg: #ccffdd;
   --amber: #cc8800;
   --amber-bg: #fff2b3;
-  --blue: #0055cc;
-  --blue-bg: #cce6ff;
+  --blue: #2121ff;
+  --blue-bg: #d6d6ff;
   --red: #cc0000;
   --red-bg: #ffd6d6;
-  --gray-bg: #e3f6ff;
+  --gray-bg: #fff9d6;
+  --pac-yellow: #ffff00;
 }
 
 @keyframes blink {
@@ -28,11 +29,11 @@
 }
 
 @keyframes rainbow-text {
-  0% { color: #00ff66; }
-  25% { color: #00e0ff; }
-  50% { color: #0088ff; }
-  75% { color: #39ff14; }
-  100% { color: #00ff66; }
+  0% { color: #ffff00; }
+  25% { color: #ff0000; }
+  50% { color: #ffb8ff; }
+  75% { color: #00ffff; }
+  100% { color: #ffff00; }
 }
 
 @keyframes wiggle {
@@ -47,11 +48,10 @@
 body {
   margin: 0;
   background-color: #000000;
-  background-image: radial-gradient(circle, #39ff14 1px, transparent 1px),
-    radial-gradient(circle, #00c8ff 1px, transparent 1px),
-    linear-gradient(45deg, #000000 25%, #001830 25%, #001830 50%, #000000 50%, #000000 75%, #001830 75%, #001830 100%);
-  background-size: 40px 40px, 60px 60px, 80px 80px;
-  background-position: 0 0, 20px 30px, 0 0;
+  background-image: radial-gradient(circle, #ffff66 1.5px, transparent 1.5px),
+    linear-gradient(45deg, #000000 25%, #0000aa 25%, #0000aa 50%, #000000 50%, #000000 75%, #0000aa 75%, #0000aa 100%);
+  background-size: 36px 36px, 80px 80px;
+  background-position: 18px 18px, 0 0;
   color: var(--text);
   font-family: "Times New Roman", Times, serif;
 }
@@ -68,16 +68,16 @@ button {
   border: 3px outset #e0e0e0;
   border-radius: 0;
   padding: 8px 14px;
-  background: linear-gradient(180deg, #39ff14, var(--accent));
-  color: white;
+  background: linear-gradient(180deg, #ffff99, var(--pac-yellow));
+  color: #000;
   font-size: 14px;
   font-weight: 700;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
   box-shadow: 2px 2px 0 #000;
 }
 
 button:hover {
-  background: linear-gradient(180deg, #7dff5c, var(--accent-dark));
+  background: linear-gradient(180deg, #ffffcc, #ffe600);
 }
 
 button:active {
@@ -191,7 +191,7 @@ label {
   align-items: center;
   gap: 10px;
   background: #000;
-  color: #ffe500;
+  color: var(--pac-yellow);
   font-family: "Press Start 2P", monospace;
   font-size: 11px;
   padding: 4px 12px;
@@ -233,7 +233,7 @@ label {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: #39ff14;
+  color: var(--pac-yellow);
   font-family: "Press Start 2P", monospace;
   font-weight: 400;
   font-size: 12px;
@@ -255,7 +255,7 @@ label {
 .retro-footer {
   margin-top: auto;
   background: #000;
-  color: #33ffcc;
+  color: var(--pac-yellow);
   font-size: 12px;
   padding: 12px 20px;
   display: flex;
@@ -274,7 +274,7 @@ label {
 .hit-counter {
   font-family: "Press Start 2P", monospace;
   background: #111;
-  color: #39ff14;
+  color: var(--pac-yellow);
   padding: 3px 6px;
   border: 2px inset #444;
   letter-spacing: 1px;
@@ -845,7 +845,7 @@ label {
 }
 
 .phase-box-number {
-  fill: rgba(255, 255, 255, 0.55);
+  fill: rgba(0, 0, 0, 0.35);
   font-size: 30px;
   font-weight: 800;
   font-family: inherit;
@@ -854,6 +854,9 @@ label {
 
 .phase-box-label {
   fill: white;
+  stroke: #000;
+  stroke-width: 3px;
+  paint-order: stroke fill;
   font-size: 17px;
   font-weight: 700;
   font-family: inherit;
@@ -1335,9 +1338,9 @@ label {
   height: 36px;
   padding: 0;
   border-radius: 50%;
-  border: 2px outset #39ff14;
-  background: linear-gradient(135deg, #39ff14, var(--blue));
-  color: white;
+  border: 2px outset var(--pac-yellow);
+  background: linear-gradient(135deg, var(--pac-yellow), var(--blue));
+  color: #000;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;

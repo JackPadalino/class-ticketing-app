@@ -4,8 +4,9 @@ import { useNotifications } from "../hooks/useNotifications";
 import { NotificationBell } from "./NotificationBell";
 import { UserMenu } from "./UserMenu";
 import muncherGif from "../assets/arcade/muncher.gif";
-import ghostGif from "../assets/arcade/ghost.gif";
-import centipedeGif from "../assets/arcade/centipede.gif";
+import ghostRedGif from "../assets/arcade/ghost-red.gif";
+import ghostPinkGif from "../assets/arcade/ghost-pink.gif";
+import dotsGif from "../assets/arcade/dots.gif";
 
 export function AppLayout() {
   const { user, profile, logout } = useAuth();
@@ -34,7 +35,8 @@ export function AppLayout() {
             WELCOME TO THE AMS SWE ARCADE ★ INSERT TICKET TO CONTINUE ★ 1UP READY ★
           </div>
         </div>
-        <img src={ghostGif} alt="" className="marquee-sprite" />
+        <img src={ghostRedGif} alt="" className="marquee-sprite" />
+        <img src={ghostPinkGif} alt="" className="marquee-sprite" />
       </div>
       <nav className="topbar">
         <button type="button" className="brand" onClick={() => navigate(base)}>
@@ -49,7 +51,7 @@ export function AppLayout() {
         <Outlet />
       </div>
       <footer className="retro-footer">
-        <img src={centipedeGif} alt="" className="footer-sprite" />
+        <img src={dotsGif} alt="" className="footer-sprite" />
         <span className="blink">INSERT COIN</span>
         <span className="retro-footer-sep">•</span>
         <span className="hit-counter" title="totally real high score">

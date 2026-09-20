@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import muncherGif from "../assets/arcade/muncher.gif";
-import birdGif from "../assets/arcade/bird-rider.gif";
+import ghostRedGif from "../assets/arcade/ghost-red.gif";
+import ghostPinkGif from "../assets/arcade/ghost-pink.gif";
+import cherryGif from "../assets/arcade/cherry.gif";
 
 const EMAIL_DOMAIN = "amsbronx.org";
 
@@ -66,8 +68,10 @@ export function Login() {
 
       <form className="login-card" onSubmit={submit}>
         <div className="login-sprites" aria-hidden="true">
+          <img src={ghostPinkGif} alt="" />
           <img src={muncherGif} alt="" />
-          <img src={birdGif} alt="" />
+          <img src={ghostRedGif} alt="" />
+          <img src={cherryGif} alt="" />
         </div>
         <h1>AMS SWE ARCADE</h1>
         <p className="insert-coin blink">INSERT COIN TO CONTINUE</p>

@@ -105,4 +105,4 @@ export function ticketTitle(item) {
 // Ticket titles that exist independent of any app backlog — every student
 // gets these regardless of assignedApp, and they're never touched by the
 // backlog-reassignment script.
-export const ONBOARDING_TITLES = ["Create Google Drive folder", "Choose Tech Stack"];
+export const ONBOARDING_TITLES = ["Create Google Drive folder", "Choose Tech Stack", "Share app"];

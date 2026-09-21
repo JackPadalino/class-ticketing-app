@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { useTickets } from "../hooks/useTickets";
 import { useStudents } from "../hooks/useStudents";
+import { useProjects } from "../hooks/useProjects";
 import { TicketBoard } from "../components/TicketBoard";
 import { CreateTicketModal } from "../components/CreateTicketModal";
 
@@ -15,6 +16,7 @@ export function LeadDashboard() {
   const location = useLocation();
   const { tickets, loading } = useTickets({ projectId, uid: user.uid, isLead: true });
   const students = useStudents(true);
+  const { projects } = useProjects();
   const [project, setProject] = useState(null);
   const [openTicketId, setOpenTicketId] = useState(location.state?.openTicketId || null);
   const [showCreate, setShowCreate] = useState(false);
@@ -54,16 +56,13 @@ export function LeadDashboard() {
               </option>
             ))}
           </select>
-          {selectedStudent && (
-            <button type="button" onClick={() => setShowCreate(true)}>
-              + New ticket
-            </button>
-          )}
+          <button type="button" onClick={() => setShowCreate(true)}>
+            + New ticket
+          </button>
         </div>
       </header>
 
       <h2 className="board-scope">{boardScopeLabel}</h2>
-      {!selectedStudent && <p className="hint">Select a student above to add a ticket to their board.</p>}
 
       {loading ? (
         <p className="loading">Loading tickets...</p>
@@ -78,12 +77,17 @@ export function LeadDashboard() {
         />
       )}
 
-      {showCreate && selectedStudent && (
+      {showCreate && (
         <CreateTicketModal
-          projectId={projectId}
-          student={selectedStudent}
+          projects={projects}
+          defaultProjectId={projectId}
+          students={students}
+          defaultTarget={studentFilter === "all" ? "all" : studentFilter}
           currentUser={currentUser}
           onClose={() => setShowCreate(false)}
+          onCreated={(createdProjectId) => {
+            if (createdProjectId !== projectId) navigate(`/lead/${createdProjectId}`);
+          }}
         />
       )}
     </div>

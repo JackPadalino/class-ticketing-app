@@ -129,3 +129,9 @@ export function isOverdue(dueDate, status) {
   today.setHours(0, 0, 0, 0);
   return new Date(`${dueDate}T00:00:00`) < today;
 }
+
+// Class-wide admin setting (settings/global.allowStudentStatusUpdates) -
+// missing/undefined counts as enabled, same opt-out pattern as alertPrefs.
+export function isStudentStatusUpdateAllowed(settings) {
+  return settings?.allowStudentStatusUpdates !== false;
+}

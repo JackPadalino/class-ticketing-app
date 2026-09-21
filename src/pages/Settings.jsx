@@ -1,10 +1,11 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { useNotifications } from "../hooks/useNotifications";
+import { useSettings } from "../hooks/useSettings";
 import { markNotificationRead } from "../ticketActions";
-import { ALERT_TYPES, isAlertEnabled } from "../constants";
+import { ALERT_TYPES, isAlertEnabled, isStudentStatusUpdateAllowed } from "../constants";
 
 function notificationText(n) {
   if (n.type === "ready_for_review") {
@@ -28,15 +29,20 @@ function notificationText(n) {
   );
 }
 
-export function Dashboard() {
+export function Settings() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
+  const settings = useSettings();
   const notifications = useNotifications({ role: "lead", uid: user.uid, alertPrefs: profile.alertPrefs });
 
   const toggleAlert = (key, enabled) => {
     updateDoc(doc(db, "users", user.uid), {
       alertPrefs: { ...profile.alertPrefs, [key]: enabled },
     });
+  };
+
+  const toggleStudentStatusUpdates = (enabled) => {
+    setDoc(doc(db, "settings", "global"), { allowStudentStatusUpdates: enabled }, { merge: true });
   };
 
   const openNotification = async (n) => {
@@ -47,11 +53,34 @@ export function Dashboard() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Dashboard</h1>
+        <h1>Settings</h1>
       </header>
 
       <section className="dashboard-section">
-        <h2>Alert preferences</h2>
+        <h2>Administrative</h2>
+        <ul className="alert-pref-list">
+          <li className="alert-pref-row">
+            <div>
+              <p className="alert-pref-label">Allow students to update ticket status</p>
+              <p className="alert-pref-description">
+                When off, only you can change a ticket's status - students can still edit links
+                and leave comments. You can always update any ticket's status yourself, either way.
+              </p>
+            </div>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={isStudentStatusUpdateAllowed(settings)}
+                onChange={(e) => toggleStudentStatusUpdates(e.target.checked)}
+              />
+              <span className="switch-track" />
+            </label>
+          </li>
+        </ul>
+      </section>
+
+      <section className="dashboard-section">
+        <h2>Alerts</h2>
         <p className="hint">Choose which alerts show up in your notification bell.</p>
         <ul className="alert-pref-list">
           {ALERT_TYPES.map((t) => {

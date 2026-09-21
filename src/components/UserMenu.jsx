@@ -39,10 +39,10 @@ export function UserMenu({ displayName, email, isLead, onSignOut }) {
               className="user-menu-item"
               onClick={() => {
                 setOpen(false);
-                navigate("/lead/dashboard");
+                navigate("/lead/settings");
               }}
             >
-              Alert preferences
+              Settings
             </button>
           )}
           <button

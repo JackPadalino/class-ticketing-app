@@ -6,7 +6,9 @@ import {
   getPhaseLabel,
   getStatusLabel,
   isOverdue,
+  isStudentStatusUpdateAllowed,
 } from "../constants";
+import { useSettings } from "../hooks/useSettings";
 import { LinksEditor } from "./LinksEditor";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
@@ -20,6 +22,8 @@ import {
 } from "../ticketActions";
 
 export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
+  const settings = useSettings();
+  const canStudentUpdateStatus = isStudentStatusUpdateAllowed(settings);
   const [busy, setBusy] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(
     STUDENT_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
@@ -112,21 +116,25 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
           <div className="modal-actions">
             {!isLead && ticket.status !== STATUS.COMPLETED && (
-              <div className="status-update">
-                <select value={selectedStatus} onChange={(e) => handleStatusChange(e.target.value)}>
-                  {STUDENT_STATUS_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-                <button disabled={busy || selectedStatus === ticket.status} onClick={handleUpdateStatusClick}>
-                  Update status
-                </button>
-              </div>
+              canStudentUpdateStatus ? (
+                <div className="status-update">
+                  <select value={selectedStatus} onChange={(e) => handleStatusChange(e.target.value)}>
+                    {STUDENT_STATUS_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                  <button disabled={busy || selectedStatus === ticket.status} onClick={handleUpdateStatusClick}>
+                    Update status
+                  </button>
+                </div>
+              ) : (
+                <p className="hint">Only your lead can update this ticket's status right now.</p>
+              )
             )}
 
-            {!isLead && showSupportPrompt && (
+            {!isLead && canStudentUpdateStatus && showSupportPrompt && (
               <div className="support-prompt">
                 <p className="support-prompt-message">
                   Let the lead know what you're stuck on — a comment is required before marking a ticket

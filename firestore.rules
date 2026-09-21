@@ -27,6 +27,16 @@ service cloud.firestore {
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['alertPrefs']);
     }
 
+    // ---- settings ----
+    // A single global config doc (settings/global) the lead controls from
+    // Settings -> Administrative, e.g. allowStudentStatusUpdates. Readable
+    // by everyone (students need to know whether they're currently
+    // allowed to change ticket status), writable only by the lead.
+    match /settings/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isLead();
+    }
+
     // ---- projects ----
     // Class-wide: every signed-in user (lead or student) can see every
     // project. Only the lead can create/edit/delete them.
@@ -49,7 +59,10 @@ service cloud.firestore {
       // they can never touch title/description/phase/assignedTo, and
       // never set status to 'completed' themselves (only the lead's
       // approval does that). Editing links alone (status unchanged) is
-      // always allowed regardless of which non-completed status it's in.
+      // always allowed regardless of which non-completed status it's in;
+      // actually changing status additionally requires the lead's
+      // settings/global.allowStudentStatusUpdates toggle to not be off
+      // (missing doc/field defaults to allowed, matching the client).
       allow update: if isLead() || (
         isSignedIn() &&
         resource.data.assignedTo == request.auth.uid &&
@@ -58,7 +71,13 @@ service cloud.firestore {
           .hasOnly(['status', 'links', 'updatedAt']) &&
         (
           request.resource.data.status == resource.data.status ||
-          request.resource.data.status in ['ready_to_start', 'in_progress', 'ready_for_review', 'need_support']
+          (
+            request.resource.data.status in ['ready_to_start', 'in_progress', 'ready_for_review', 'need_support'] &&
+            (
+              !exists(/databases/$(database)/documents/settings/global) ||
+              get(/databases/$(database)/documents/settings/global).data.allowStudentStatusUpdates != false
+            )
+          )
         )
       );
 

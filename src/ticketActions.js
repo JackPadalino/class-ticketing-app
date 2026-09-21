@@ -182,13 +182,17 @@ export async function requestRevision(ticket, lead) {
 // The lead's own status dropdown + "Update status" button - available
 // on every ticket no matter the "allow students to update ticket
 // status" setting, since the lead can always change status themselves.
-// Completed routes through approveTicket() so the review trail
-// (reviewedBy, reviewedAt, the "approved" history entry, and the
-// student's notification) stays the same regardless of which control
-// set it.
+// Approve and Needs revisions route through approveTicket()/
+// requestRevision() so the review trail (reviewedBy, reviewedAt, the
+// history entry, and the student's notification) stays the same
+// regardless of which control set it.
 export async function updateTicketStatusAsLead(ticket, lead, newStatus) {
   if (newStatus === STATUS.COMPLETED) {
     await approveTicket(ticket, lead);
+    return;
+  }
+  if (newStatus === STATUS.NEEDS_REVISION) {
+    await requestRevision(ticket, lead);
     return;
   }
   await updateDoc(doc(db, "tickets", ticket.id), {

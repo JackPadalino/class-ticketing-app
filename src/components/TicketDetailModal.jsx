@@ -14,10 +14,8 @@ import { LinksEditor } from "./LinksEditor";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
-  approveTicket,
   deleteTicket,
   markNeedSupport,
-  requestRevision,
   updateDueDate,
   updateLinks,
   updateStudentStatus,
@@ -203,21 +201,6 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
             {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
               <p className="waiting-note">Waiting on lead review.</p>
-            )}
-
-            {isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
-              <>
-                <button disabled={busy} onClick={() => run(() => approveTicket(ticket, currentUser))}>
-                  Approve
-                </button>
-                <button
-                  className="secondary"
-                  disabled={busy}
-                  onClick={() => run(() => requestRevision(ticket, currentUser))}
-                >
-                  Needs revisions
-                </button>
-              </>
             )}
           </div>
 

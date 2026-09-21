@@ -10,6 +10,7 @@ import {
   isStudentStatusUpdateAllowed,
 } from "../constants";
 import { useSettings } from "../hooks/useSettings";
+import { linkify } from "../utils/linkify";
 import { LinksEditor } from "./LinksEditor";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
@@ -119,7 +120,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
             )
           )}
 
-          <p className="ticket-description">{ticket.description}</p>
+          <p className="ticket-description">{linkify(ticket.description)}</p>
 
           <h4>Links</h4>
           <LinksEditor

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useComments } from "../hooks/useComments";
 import { addComment, deleteComment, updateComment } from "../ticketActions";
+import { linkify } from "../utils/linkify";
 
 function formatTime(ts) {
   if (!ts?.toDate) return "";
@@ -73,7 +74,7 @@ function CommentRow({ ticketId, comment, canEdit }) {
         </div>
       ) : (
         <>
-          <p>{comment.text}</p>
+          <p>{linkify(comment.text)}</p>
           {canEdit && (
             <div className="comment-row-actions">
               <button type="button" className="link-style" disabled={busy} onClick={() => setEditing(true)}>

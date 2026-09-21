@@ -238,6 +238,24 @@ export async function markNotificationRead(notificationId) {
   await updateDoc(doc(db, "notifications", notificationId), { read: true });
 }
 
+// Deletes a single ticket along with its comments, history, and any
+// notifications that reference it. Firestore doesn't cascade deletes
+// on its own, so this has to walk the tree itself.
+export async function deleteTicket(ticketId) {
+  const [commentsSnap, historySnap, notificationsSnap] = await Promise.all([
+    getDocs(collection(db, "tickets", ticketId, "comments")),
+    getDocs(collection(db, "tickets", ticketId, "history")),
+    getDocs(query(collection(db, "notifications"), where("ticketId", "==", ticketId))),
+  ]);
+
+  const batch = writeBatch(db);
+  commentsSnap.docs.forEach((d) => batch.delete(d.ref));
+  historySnap.docs.forEach((d) => batch.delete(d.ref));
+  notificationsSnap.docs.forEach((d) => batch.delete(d.ref));
+  batch.delete(doc(db, "tickets", ticketId));
+  await batch.commit();
+}
+
 // Deletes a project and everything that belongs to it: every ticket in
 // it (plus each ticket's comments and history), and every notification
 // that references it. Firestore doesn't cascade deletes on its own, so

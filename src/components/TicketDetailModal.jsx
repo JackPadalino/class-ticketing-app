@@ -15,6 +15,7 @@ import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
   approveTicket,
+  deleteTicket,
   markNeedSupport,
   requestRevision,
   updateDueDate,
@@ -71,6 +72,17 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
       await markNeedSupport(ticket, currentUser, trimmed);
       setShowSupportPrompt(false);
       setSupportComment("");
+    });
+  };
+
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Delete "${ticket.title}"? This permanently deletes it along with its comments and history. This cannot be undone.`
+    );
+    if (!confirmed) return;
+    run(async () => {
+      await deleteTicket(ticket.id);
+      onClose();
     });
   };
 
@@ -212,6 +224,14 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} />
 
           <TicketTimeline ticketId={ticket.id} />
+
+          {isLead && (
+            <div className="ticket-danger-zone">
+              <button type="button" className="danger" disabled={busy} onClick={handleDelete}>
+                Delete ticket
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

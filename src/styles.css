@@ -96,6 +96,16 @@ button.secondary:hover {
   background: linear-gradient(180deg, #ffffff, #e6ccff);
 }
 
+button.danger {
+  background: linear-gradient(180deg, #ff8888, var(--red));
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+button.danger:hover {
+  background: linear-gradient(180deg, #ffaaaa, #a00000);
+}
+
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -1189,6 +1199,12 @@ label {
 /* ---- ticket timeline ---- */
 .ticket-timeline {
   border-top: 3px dashed var(--accent);
+  padding-top: 14px;
+  margin-top: 16px;
+}
+
+.ticket-danger-zone {
+  border-top: 3px dashed var(--red);
   padding-top: 14px;
   margin-top: 16px;
 }

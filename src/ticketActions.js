@@ -59,7 +59,7 @@ export async function createTicket({ projectId, title, description, phase, assig
   await logHistory(ref.id, { type: "created", actor: createdBy, actorRole: "lead" });
 }
 
-const STUDENT_STATUS_EVENT = {
+const STATUS_EVENT = {
   [STATUS.READY_TO_START]: "reset_to_ready",
   [STATUS.IN_PROGRESS]: "started",
   [STATUS.READY_FOR_REVIEW]: "submitted_for_review",
@@ -94,7 +94,7 @@ export async function updateStudentStatus(ticket, student, newStatus) {
     status: newStatus,
     updatedAt: serverTimestamp(),
   });
-  await logHistory(ticket.id, { type: STUDENT_STATUS_EVENT[newStatus], actor: student, actorRole: "student" });
+  await logHistory(ticket.id, { type: STATUS_EVENT[newStatus], actor: student, actorRole: "student" });
 
   if (newStatus === STATUS.READY_FOR_REVIEW) {
     await notifyLead("ready_for_review", ticket, student);
@@ -177,6 +177,25 @@ export async function requestRevision(ticket, lead) {
   });
   await logHistory(ticket.id, { type: "needs_revision", actor: lead, actorRole: "lead" });
   await notifyStudentOfReview(ticket, lead, "needs_revision");
+}
+
+// The lead's own status dropdown + "Update status" button - available
+// on every ticket no matter the "allow students to update ticket
+// status" setting, since the lead can always change status themselves.
+// Completed routes through approveTicket() so the review trail
+// (reviewedBy, reviewedAt, the "approved" history entry, and the
+// student's notification) stays the same regardless of which control
+// set it.
+export async function updateTicketStatusAsLead(ticket, lead, newStatus) {
+  if (newStatus === STATUS.COMPLETED) {
+    await approveTicket(ticket, lead);
+    return;
+  }
+  await updateDoc(doc(db, "tickets", ticket.id), {
+    status: newStatus,
+    updatedAt: serverTimestamp(),
+  });
+  await logHistory(ticket.id, { type: STATUS_EVENT[newStatus], actor: lead, actorRole: "lead" });
 }
 
 export async function addComment(ticket, { authorId, authorName, authorRole, text }) {

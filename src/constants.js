@@ -37,6 +37,16 @@ export const STUDENT_STATUS_OPTIONS = [
   { value: STATUS.NEED_SUPPORT, label: "Need support" },
 ];
 
+// The lead's own status dropdown - everything a student can pick, plus
+// Completed. Selecting Completed still routes through the same
+// approveTicket() the Approve button uses (reviewedBy/reviewedAt,
+// history, and the student notification all stay consistent regardless
+// of which control triggered it).
+export const LEAD_STATUS_OPTIONS = [
+  ...STUDENT_STATUS_OPTIONS,
+  { value: STATUS.COMPLETED, label: "Completed" },
+];
+
 export function getStatusLabel(ticket) {
   if (ticket.status === STATUS.NEED_SUPPORT) return "Need support";
   if (ticket.needsRevision && ticket.status !== STATUS.COMPLETED) return "Needs revision";

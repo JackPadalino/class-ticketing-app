@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  LEAD_STATUS_OPTIONS,
   STATUS,
   STUDENT_STATUS_OPTIONS,
   formatDueDate,
@@ -19,6 +20,7 @@ import {
   updateDueDate,
   updateLinks,
   updateStudentStatus,
+  updateTicketStatusAsLead,
 } from "../ticketActions";
 
 export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
@@ -27,6 +29,9 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   const [busy, setBusy] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(
     STUDENT_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
+  );
+  const [selectedLeadStatus, setSelectedLeadStatus] = useState(
+    LEAD_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
   );
   const [showSupportPrompt, setShowSupportPrompt] = useState(false);
   const [supportComment, setSupportComment] = useState("");
@@ -115,6 +120,24 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           />
 
           <div className="modal-actions">
+            {isLead && (
+              <div className="status-update">
+                <select value={selectedLeadStatus} onChange={(e) => setSelectedLeadStatus(e.target.value)}>
+                  {LEAD_STATUS_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  disabled={busy || selectedLeadStatus === ticket.status}
+                  onClick={() => run(() => updateTicketStatusAsLead(ticket, currentUser, selectedLeadStatus))}
+                >
+                  Update status
+                </button>
+              </div>
+            )}
+
             {!isLead && ticket.status !== STATUS.COMPLETED && (
               canStudentUpdateStatus ? (
                 <div className="status-update">

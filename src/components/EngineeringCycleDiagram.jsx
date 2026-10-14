@@ -63,6 +63,9 @@ export function EngineeringCycleDiagram({ onSelectPhase }) {
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSelectPhase(phase.key)}
           >
             <rect x={x} y={y} width={BOX_W} height={BOX_H} rx={18} fill={phase.color} />
+            <text x={x + BOX_W - 24} y={y + 46} textAnchor="end" className="phase-box-emoji">
+              {phase.emoji}
+            </text>
             <text x={x + 20} y={y + 42} className="phase-box-number">
               {phase.number}
             </text>

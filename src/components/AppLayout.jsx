@@ -3,10 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNotifications } from "../hooks/useNotifications";
 import { NotificationBell } from "./NotificationBell";
 import { UserMenu } from "./UserMenu";
-import muncherGif from "../assets/arcade/muncher.gif";
-import ghostRedGif from "../assets/arcade/ghost-red.gif";
-import ghostPinkGif from "../assets/arcade/ghost-pink.gif";
-import dotsGif from "../assets/arcade/dots.gif";
+import { SpaceFloaters } from "./SpaceFloaters";
 
 export function AppLayout() {
   const { user, profile, logout } = useAuth();
@@ -27,20 +24,21 @@ export function AppLayout() {
   return (
     <div className="app-shell">
       <div className="scanlines" aria-hidden="true" />
+      <SpaceFloaters />
       <div className="marquee-bar" aria-hidden="true">
-        <img src={muncherGif} alt="" className="marquee-sprite" />
+        <span className="marquee-sprite">🚀</span>
         <div className="marquee-viewport">
           <div className="marquee-track">
-            ★ HIGH SCORE ★ WELCOME TO THE AMS SWE ARCADE ★ INSERT TICKET TO CONTINUE ★ 1UP READY ★ HIGH SCORE ★
-            WELCOME TO THE AMS SWE ARCADE ★ INSERT TICKET TO CONTINUE ★ 1UP READY ★
+            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
+            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
           </div>
         </div>
-        <img src={ghostRedGif} alt="" className="marquee-sprite" />
-        <img src={ghostPinkGif} alt="" className="marquee-sprite" />
+        <span className="marquee-sprite">👾</span>
+        <span className="marquee-sprite">👽</span>
       </div>
       <nav className="topbar">
         <button type="button" className="brand" onClick={() => navigate(base)}>
-          AMS SWE ARCADE
+          👾 AMS SWE INVADERS 🚀
         </button>
         <div className="topbar-right">
           <NotificationBell notifications={notifications} onSelectNotification={openNotification} />
@@ -51,7 +49,7 @@ export function AppLayout() {
         <Outlet />
       </div>
       <footer className="retro-footer">
-        <img src={dotsGif} alt="" className="footer-sprite" />
+        <span className="footer-sprite">👾👾👾👾👾</span>
         <span className="blink">INSERT COIN</span>
         <span className="retro-footer-sep">•</span>
         <span className="hit-counter" title="totally real high score">

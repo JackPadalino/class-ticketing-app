@@ -1,21 +1,21 @@
 :root {
   --bg: #000000;
-  --card: #fffef0;
-  --border: #2121ff;
-  --text: #001830;
-  --muted: #4a4a8a;
-  --accent: #2121ff;
-  --accent-dark: #1414a0;
+  --card: #f1fff4;
+  --border: #00b341;
+  --text: #02150a;
+  --muted: #2f6a52;
+  --accent: #00b341;
+  --accent-dark: #006b26;
   --green: #00aa33;
   --green-bg: #ccffdd;
   --amber: #cc8800;
   --amber-bg: #fff2b3;
-  --blue: #2121ff;
-  --blue-bg: #d6d6ff;
+  --blue: #0a6fd6;
+  --blue-bg: #d6ebff;
   --red: #cc0000;
   --red-bg: #ffd6d6;
-  --gray-bg: #fff9d6;
-  --pac-yellow: #ffff00;
+  --gray-bg: #e4fbe9;
+  --neon: #39ff14;
 }
 
 @keyframes blink {
@@ -29,24 +29,72 @@
 }
 
 @keyframes rainbow-text {
-  0% { color: #ffff00; }
-  25% { color: #ff0000; }
-  50% { color: #ffb8ff; }
-  75% { color: #00ffff; }
-  100% { color: #ffff00; }
+  0% { color: #39ff14; }
+  25% { color: #00e5ff; }
+  50% { color: #ffe600; }
+  75% { color: #ff4040; }
+  100% { color: #39ff14; }
+}
+
+@keyframes invader-drift {
+  0% { transform: translate(0, -80px) rotate(0deg); opacity: 0; }
+  6% { opacity: 0.95; }
+  20% { transform: translate(40px, 22vh) rotate(8deg); }
+  40% { transform: translate(-30px, 44vh) rotate(-8deg); }
+  60% { transform: translate(40px, 66vh) rotate(8deg); }
+  80% { transform: translate(-30px, 88vh) rotate(-8deg); opacity: 0.95; }
+  100% { transform: translate(10px, 112vh) rotate(0deg); opacity: 0; }
+}
+
+@keyframes invader-bob {
+  0%, 100% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes invader-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 * {
   box-sizing: border-box;
 }
 
+.space-floaters {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.space-floaters span {
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  animation: invader-drift linear infinite;
+  filter: drop-shadow(0 0 6px rgba(57, 255, 20, 0.55));
+}
+
+body:has(.projects-page) .space-floaters {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space-floaters { display: none; }
+  .marquee-sprite, .login-sprites span, .footer-sprite, .board-column h2::before { animation: none !important; }
+}
+
 body {
   margin: 0;
-  background-color: #000000;
-  background-image: radial-gradient(circle, #ffff66 1.5px, transparent 1.5px),
-    linear-gradient(45deg, #000000 25%, #0000aa 25%, #0000aa 50%, #000000 50%, #000000 75%, #0000aa 75%, #0000aa 100%);
-  background-size: 36px 36px, 80px 80px;
-  background-position: 18px 18px, 0 0;
+  background-color: #00030f;
+  background-image: radial-gradient(circle, #ffffff 1px, transparent 1.5px),
+    radial-gradient(circle, #7fdcff 1px, transparent 1.5px),
+    radial-gradient(circle, #39ff14 1.2px, transparent 1.7px),
+    radial-gradient(ellipse at 50% 120%, #06214d 0%, #00030f 65%);
+  background-size: 97px 97px, 61px 61px, 143px 143px, 100% 100%;
+  background-position: 13px 29px, 40px 8px, 70px 90px, 0 0;
+  background-attachment: scroll, scroll, scroll, fixed;
   color: var(--text);
   font-family: "Times New Roman", Times, serif;
 }
@@ -63,7 +111,7 @@ button {
   border: 3px outset #e0e0e0;
   border-radius: 0;
   padding: 8px 14px;
-  background: linear-gradient(180deg, #ffff99, var(--pac-yellow));
+  background: linear-gradient(180deg, #d4ffc4, var(--neon));
   color: #000;
   font-size: 14px;
   font-weight: 700;
@@ -72,7 +120,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(180deg, #ffffcc, #ffe600);
+  background: linear-gradient(180deg, #e6ffdb, #7dff5c);
 }
 
 button:active {
@@ -88,7 +136,7 @@ button.secondary {
 }
 
 button.secondary:hover {
-  background: linear-gradient(180deg, #ffffff, #e6ccff);
+  background: linear-gradient(180deg, #ffffff, #c9f5d4);
 }
 
 button.danger {
@@ -160,14 +208,15 @@ label {
   margin: 0 0 20px;
   text-align: center;
   animation: rainbow-text 4s linear infinite;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 
 .login-card h1::before {
-  content: "★ ";
+  content: "👾 ";
 }
 
 .login-card h1::after {
-  content: " ★";
+  content: " 🚀";
 }
 
 .login-error {
@@ -180,7 +229,8 @@ label {
 .loading {
   padding: 40px;
   text-align: center;
-  color: var(--muted);
+  color: #c9ffd6;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   font-weight: 700;
 }
 
@@ -196,7 +246,7 @@ label {
   align-items: center;
   gap: 10px;
   background: #000;
-  color: var(--pac-yellow);
+  color: var(--neon);
   font-family: "Press Start 2P", monospace;
   font-size: 11px;
   padding: 4px 12px;
@@ -215,11 +265,14 @@ label {
 }
 
 .marquee-sprite {
-  width: 28px;
-  height: 28px;
+  font-size: 22px;
+  line-height: 28px;
   flex-shrink: 0;
-  image-rendering: pixelated;
+  animation: invader-bob 0.8s steps(2, end) infinite;
 }
+
+.marquee-sprite:nth-of-type(2) { animation-delay: -0.2s; }
+.marquee-sprite:nth-of-type(3) { animation-delay: -0.4s; }
 
 .topbar {
   display: flex;
@@ -227,7 +280,7 @@ label {
   justify-content: space-between;
   gap: 12px;
   padding: 14px 32px;
-  background: linear-gradient(90deg, #000000, #001830, #000000);
+  background: linear-gradient(90deg, #000000, #001a33, #000000);
   border-bottom: 4px dashed var(--accent);
   position: sticky;
   top: 0;
@@ -238,7 +291,7 @@ label {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--pac-yellow);
+  color: var(--neon);
   font-family: "Press Start 2P", monospace;
   font-weight: 400;
   font-size: 12px;
@@ -260,7 +313,7 @@ label {
 .retro-footer {
   margin-top: auto;
   background: #000;
-  color: var(--pac-yellow);
+  color: var(--neon);
   font-size: 12px;
   padding: 12px 20px;
   display: flex;
@@ -279,16 +332,17 @@ label {
 .hit-counter {
   font-family: "Press Start 2P", monospace;
   background: #111;
-  color: var(--pac-yellow);
+  color: var(--neon);
   padding: 3px 6px;
   border: 2px inset #444;
   letter-spacing: 1px;
 }
 
 .footer-sprite {
-  width: 100px;
-  height: 20px;
-  image-rendering: pixelated;
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: 2px;
+  animation: invader-bob 1s steps(2, end) infinite;
 }
 
 /* CRT scanline overlay - a fixed, click-through strip pattern over the
@@ -316,17 +370,22 @@ label {
   margin-bottom: 8px;
 }
 
-.login-sprites img {
-  width: 48px;
-  height: 48px;
-  image-rendering: pixelated;
+.login-sprites span {
+  font-size: 40px;
+  line-height: 1;
+  display: inline-block;
+  animation: invader-bob 0.9s steps(2, end) infinite;
 }
+
+.login-sprites span:nth-child(2) { animation-delay: -0.2s; }
+.login-sprites span:nth-child(3) { animation-delay: -0.4s; }
+.login-sprites span:nth-child(4) { animation-delay: -0.6s; }
 
 .insert-coin {
   text-align: center;
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
-  color: #ffe500;
+  color: var(--accent-dark);
   margin: 0 0 20px;
 }
 
@@ -350,6 +409,10 @@ label {
   gap: 12px;
 }
 
+.dashboard-header h1::before {
+  content: "👾 ";
+}
+
 .dashboard-header h1 {
   font-family: "Press Start 2P", monospace;
   font-size: 18px;
@@ -359,13 +422,14 @@ label {
 
 .projects-page .dashboard-header h1 {
   animation: none;
-  color: var(--pac-yellow);
+  color: var(--neon);
 }
 
 .project-description {
   margin: 6px 0 0;
   font-size: 13px;
-  color: var(--muted);
+  color: #c9ffd6;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   max-width: 520px;
   font-weight: 700;
 }
@@ -373,7 +437,8 @@ label {
 .board-scope {
   font-size: 16px;
   font-weight: 700;
-  color: var(--accent-dark);
+  color: #c9ffd6;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   margin: -8px 0 16px;
   text-decoration: underline wavy var(--accent);
 }
@@ -497,7 +562,7 @@ label {
 }
 
 .alert-feed-item:hover {
-  background: #bdf0ff;
+  background: #d6f5ff;
 }
 
 .header-right {
@@ -511,7 +576,8 @@ label {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--blue);
+  color: #7fdcff;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   padding: 0;
   font-size: 13px;
   font-weight: 700;
@@ -521,7 +587,7 @@ label {
 
 .back-link:hover {
   background: transparent;
-  color: var(--accent);
+  color: #fff;
 }
 
 /* ---- project list ---- */
@@ -682,6 +748,17 @@ label {
 .board-column:nth-child(4) {
   border-color: var(--green);
 }
+
+.board-column h2::before {
+  display: inline-block;
+  font-size: 18px;
+  animation: invader-pop 1.8s ease-in-out infinite;
+}
+
+.board-column:nth-child(1) h2::before { content: "🌍"; }
+.board-column:nth-child(2) h2::before { content: "🚀"; animation-delay: -0.5s; }
+.board-column:nth-child(3) h2::before { content: "🛸"; animation-delay: -1s; }
+.board-column:nth-child(4) h2::before { content: "👾"; animation-delay: -1.4s; }
 
 .board-column h2 {
   font-family: "Press Start 2P", monospace;
@@ -853,6 +930,11 @@ label {
   outline: none;
 }
 
+.phase-box-emoji {
+  font-size: 34px;
+  pointer-events: none;
+}
+
 .phase-box-number {
   fill: rgba(0, 0, 0, 0.35);
   font-size: 30px;
@@ -885,7 +967,7 @@ label {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 10, 20, 0.7);
+  background: rgba(0, 6, 18, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1053,7 +1135,7 @@ label {
 }
 
 .links-list li a:visited {
-  color: #004466;
+  color: #00395c;
 }
 
 .links-empty {
@@ -1105,7 +1187,7 @@ label {
 
 .comment {
   background: var(--gray-bg);
-  border: 2px solid #66ccff;
+  border: 2px solid #39ff14;
   border-radius: 0;
   padding: 10px 12px;
 }
@@ -1302,7 +1384,7 @@ label {
 
 .bell-toggle {
   background: var(--gray-bg);
-  border: 2px outset #a0d8f0;
+  border: 2px outset #9fe8b0;
   box-shadow: none;
   color: var(--text);
   position: relative;
@@ -1372,8 +1454,8 @@ label {
   height: 36px;
   padding: 0;
   border-radius: 50%;
-  border: 2px outset var(--pac-yellow);
-  background: linear-gradient(135deg, var(--pac-yellow), var(--blue));
+  border: 2px outset var(--neon);
+  background: linear-gradient(135deg, var(--neon), var(--blue));
   color: #000;
   font-size: 13px;
   font-weight: 700;

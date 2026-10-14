@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import muncherGif from "../assets/arcade/muncher.gif";
-import ghostRedGif from "../assets/arcade/ghost-red.gif";
-import ghostPinkGif from "../assets/arcade/ghost-pink.gif";
-import cherryGif from "../assets/arcade/cherry.gif";
+import { SpaceFloaters } from "../components/SpaceFloaters";
 
 const EMAIL_DOMAIN = "amsbronx.org";
 
@@ -39,6 +36,7 @@ export function Login() {
   return (
     <div className="login-page">
       <div className="scanlines" aria-hidden="true" />
+      <SpaceFloaters />
 
       {showPasswordInfo && (
         <div className="modal-backdrop" onClick={() => setShowPasswordInfo(false)}>
@@ -68,12 +66,12 @@ export function Login() {
 
       <form className="login-card" onSubmit={submit}>
         <div className="login-sprites" aria-hidden="true">
-          <img src={ghostPinkGif} alt="" />
-          <img src={muncherGif} alt="" />
-          <img src={ghostRedGif} alt="" />
-          <img src={cherryGif} alt="" />
+          <span>👾</span>
+          <span>🚀</span>
+          <span>🛸</span>
+          <span>👽</span>
         </div>
-        <h1>AMS SWE ARCADE</h1>
+        <h1>AMS SWE INVADERS</h1>
         <p className="insert-coin blink">INSERT COIN TO CONTINUE</p>
         <label>
           Username

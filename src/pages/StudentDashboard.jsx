@@ -38,7 +38,7 @@ export function StudentDashboard() {
       </header>
 
       {loading ? (
-        <p className="loading">Loading tickets...</p>
+        <p className="loading">Incoming tickets...</p>
       ) : (
         <TicketBoard
           tickets={phaseTickets}

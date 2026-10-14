@@ -97,12 +97,14 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
         <div className="ticket-modal-scroll">
           <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
-          <h2>{ticket.title}</h2>
-          {isLead && (
-            <button type="button" className="secondary" onClick={() => setShowEdit(true)}>
-              Edit ticket
-            </button>
-          )}
+          <div className="ticket-title-row">
+            <h2>{ticket.title}</h2>
+            {isLead && (
+              <button type="button" className="link-style" onClick={() => setShowEdit(true)}>
+                Edit ticket
+              </button>
+            )}
+          </div>
           <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
           {statusLabel && (
             <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>

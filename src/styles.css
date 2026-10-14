@@ -949,6 +949,24 @@ label {
   background: #ff3333;
 }
 
+.ticket-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 10px;
+}
+
+.ticket-title-row h2 {
+  margin: 0;
+  min-width: 0;
+}
+
+.ticket-title-row .link-style {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
 .ticket-description {
   white-space: pre-wrap;
   color: var(--text);

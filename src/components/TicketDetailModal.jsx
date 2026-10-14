@@ -12,6 +12,7 @@ import {
 import { useSettings } from "../hooks/useSettings";
 import { linkify } from "../utils/linkify";
 import { LinksEditor } from "./LinksEditor";
+import { EditTicketModal } from "./EditTicketModal";
 import { CommentThread } from "./CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
@@ -33,6 +34,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   const [selectedLeadStatus, setSelectedLeadStatus] = useState(
     LEAD_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
   );
+  const [showEdit, setShowEdit] = useState(false);
   const [showSupportPrompt, setShowSupportPrompt] = useState(false);
   const [supportComment, setSupportComment] = useState("");
 
@@ -86,6 +88,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   };
 
   return (
+    <>
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal ticket-modal" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="modal-close" onClick={onClose}>
@@ -95,6 +98,11 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
         <div className="ticket-modal-scroll">
           <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
           <h2>{ticket.title}</h2>
+          {isLead && (
+            <button type="button" className="secondary" onClick={() => setShowEdit(true)}>
+              Edit ticket
+            </button>
+          )}
           <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
           {statusLabel && (
             <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
@@ -219,5 +227,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
         </div>
       </div>
     </div>
+    {showEdit && <EditTicketModal ticket={ticket} onClose={() => setShowEdit(false)} />}
+    </>
   );
 }

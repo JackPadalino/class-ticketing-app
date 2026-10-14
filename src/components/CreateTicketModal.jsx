@@ -10,6 +10,7 @@ export function CreateTicketModal({ projects, defaultProjectId, students, defaul
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [phase, setPhase] = useState(PHASES[0].key);
+  const [dueDate, setDueDate] = useState("");
   const [saving, setSaving] = useState(false);
 
   const targetStudents =
@@ -27,6 +28,7 @@ export function CreateTicketModal({ projects, defaultProjectId, students, defaul
             title: title.trim(),
             description: description.trim(),
             phase,
+            dueDate,
             assignedTo: student.id,
             assignedToName: student.displayName || student.email || "",
             links: [],
@@ -96,6 +98,11 @@ export function CreateTicketModal({ projects, defaultProjectId, students, defaul
               </option>
             ))}
           </select>
+        </label>
+
+        <label>
+          Due date (optional)
+          <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
         </label>
 
         <div className="modal-actions">

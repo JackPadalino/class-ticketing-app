@@ -40,12 +40,13 @@ export async function updateProject(projectId, { name, description }) {
   });
 }
 
-export async function createTicket({ projectId, title, description, phase, assignedTo, assignedToName, links, createdBy }) {
+export async function createTicket({ projectId, title, description, phase, dueDate, assignedTo, assignedToName, links, createdBy }) {
   const ref = await addDoc(collection(db, "tickets"), {
     projectId,
     title,
     description,
     phase,
+    dueDate: dueDate || null,
     assignedTo,
     assignedToName,
     links: links || [],
@@ -57,6 +58,43 @@ export async function createTicket({ projectId, title, description, phase, assig
     reviewedAt: null,
   });
   await logHistory(ref.id, { type: "created", actor: createdBy, actorRole: "lead" });
+}
+
+// Tickets have no shared id across students, so "the same ticket for
+// everyone" is every ticket in the project with the same title and phase
+// (that's how "Add ticket -> All students" creates them). Includes the
+// ticket itself.
+export async function findMatchingTickets(ticket) {
+  const snap = await getDocs(
+    query(
+      collection(db, "tickets"),
+      where("projectId", "==", ticket.projectId),
+      where("title", "==", ticket.title)
+    )
+  );
+  return snap.docs.filter((d) => d.data().phase === ticket.phase);
+}
+
+// `changes` should only hold the fields the lead actually edited, so
+// applying to everyone doesn't overwrite fields that legitimately differ
+// per student (e.g. a per-student description).
+export async function updateTicketDetails(ticket, changes, applyToAll) {
+  const data = { ...changes, updatedAt: serverTimestamp() };
+  if ("dueDate" in data) data.dueDate = data.dueDate || null;
+
+  if (!applyToAll) {
+    await updateDoc(doc(db, "tickets", ticket.id), data);
+    return 1;
+  }
+
+  const matches = await findMatchingTickets(ticket);
+  const CHUNK_SIZE = 450;
+  for (let i = 0; i < matches.length; i += CHUNK_SIZE) {
+    const batch = writeBatch(db);
+    matches.slice(i, i + CHUNK_SIZE).forEach((d) => batch.update(d.ref, data));
+    await batch.commit();
+  }
+  return matches.length;
 }
 
 const STATUS_EVENT = {

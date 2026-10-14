@@ -36,11 +36,6 @@
   100% { color: #ffff00; }
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
-}
-
 * {
   box-sizing: border-box;
 }
@@ -362,6 +357,11 @@ label {
   animation: rainbow-text 4s linear infinite;
 }
 
+.projects-page .dashboard-header h1 {
+  animation: none;
+  color: var(--pac-yellow);
+}
+
 .project-description {
   margin: 6px 0 0;
   font-size: 13px;
@@ -544,7 +544,6 @@ label {
 
 .project-card:has(.project-card-main:hover) {
   border-color: var(--blue);
-  animation: wiggle 0.3s ease-in-out infinite;
 }
 
 .project-card-main {

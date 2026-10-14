@@ -40,7 +40,7 @@ export function ProjectsList({ isLead }) {
   };
 
   return (
-    <div className="dashboard">
+    <div className="dashboard projects-page">
       <header className="dashboard-header">
         <h1>Projects</h1>
         {isLead && (

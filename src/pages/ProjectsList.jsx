@@ -53,7 +53,7 @@ export function ProjectsList({ isLead }) {
       </header>
 
       {loading ? (
-        <p className="loading">Preheating projects...</p>
+        <p className="loading">Loading projects...</p>
       ) : projects.length === 0 ? (
         <p className="loading">
           {isLead ? "No projects yet — create one to get started." : "No projects yet. Check back soon."}

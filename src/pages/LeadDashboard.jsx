@@ -65,7 +65,7 @@ export function LeadDashboard() {
       <h2 className="board-scope">{boardScopeLabel}</h2>
 
       {loading ? (
-        <p className="loading">Cooking up tickets...</p>
+        <p className="loading">Loading tickets...</p>
       ) : (
         <TicketBoard
           tickets={visibleTickets}

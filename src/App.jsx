@@ -12,7 +12,7 @@ export default function App() {
   const { user, profile, loading } = useAuth();
 
   if (loading) {
-    return <div className="loading-screen">Loading...</div>;
+    return <div className="loading-screen">Warming up the oven...</div>;
   }
 
   if (!user || !profile) {

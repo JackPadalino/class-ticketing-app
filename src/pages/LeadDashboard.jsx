@@ -34,16 +34,13 @@ export function LeadDashboard() {
     studentFilter === "all" ? tickets : tickets.filter((t) => t.assignedTo === studentFilter);
 
   const selectedStudent = students.find((s) => s.id === studentFilter);
-  const studentLabel = (s) => `${s.displayName || s.email}${s.assignedApp ? ` — ${s.assignedApp}` : ""}`;
+  const studentLabel = (s) => `${s.displayName}`;
   const boardScopeLabel = studentFilter === "all" ? "All students" : selectedStudent ? studentLabel(selectedStudent) : "Student";
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <div>
-          <button type="button" className="back-link" onClick={() => navigate("/lead")}>
-            ← All projects
-          </button>
           <h1>{project?.name || "Tickets"}</h1>
           {project?.description && <p className="project-description">{project.description}</p>}
         </div>

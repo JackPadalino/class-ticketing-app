@@ -8,6 +8,9 @@
  *     student filter, then clears the router state. It runs on every navigation
  *     so it also works when already on this board.
  *   - "+ New ticket" opens CreateTicketModal (any project, one student or all).
+ *
+ * Where things are used:
+ *   - LeadDashboard: App.jsx
  */
 
 import { useEffect, useState } from "react";

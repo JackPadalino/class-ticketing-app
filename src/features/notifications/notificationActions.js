@@ -6,6 +6,13 @@
  *     ("approved" or "needs_revision").
  *   - markNotificationRead(id), markAllNotificationsRead(ids): mark read (the bulk
  *     version batches 450 at a time).
+ *
+ * Where things are used:
+ *   - notifyLead: features/tickets/ticketActions.js
+ *   - notifyStudentOfReview: features/tickets/ticketActions.js
+ *   - markNotificationRead: features/notifications/NotificationBell.jsx,
+ *       features/settings/Settings.jsx
+ *   - markAllNotificationsRead: features/notifications/NotificationBell.jsx
  */
 
 import {

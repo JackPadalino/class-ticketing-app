@@ -4,6 +4,9 @@
  *     alertPrefs (see alerts.js).
  *   - Student: unread pings addressed to them (review decisions, lead comments).
  * Sorted client-side to avoid needing a Firestore composite index.
+ *
+ * Where things are used:
+ *   - useNotifications: components/layout/AppLayout.jsx, features/settings/Settings.jsx
  */
 
 import { useEffect, useState } from "react";

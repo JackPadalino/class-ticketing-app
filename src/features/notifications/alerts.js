@@ -4,6 +4,13 @@
  *   - isAlertEnabled(alertPrefs, key): missing or anything but false counts as
  *     enabled, so new types need no migration.
  *   - getEnabledAlertTypes(alertPrefs): the enabled keys (used to filter the bell).
+ *
+ * Where things are used:
+ *   - ALERT_TYPES: features/settings/Settings.jsx; also inside this file by
+ *       getEnabledAlertTypes
+ *   - isAlertEnabled: features/settings/Settings.jsx; also inside this file by
+ *       getEnabledAlertTypes
+ *   - getEnabledAlertTypes: features/notifications/useNotifications.js
  */
 
 // Alert types the lead can toggle on/off from their Dashboard. Missing

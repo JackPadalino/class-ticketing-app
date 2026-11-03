@@ -5,6 +5,10 @@
  *   - SHIPS:      the emoji used
  *   - FLOATERS:   per-emoji position/size/speed/delay, computed once from the index
  *   - SpaceFloaters: renders the spans; the CSS animation does the movement.
+ *
+ * Where things are used:
+ *   - SpaceFloaters: components/layout/AppLayout.jsx, features/auth/Login.jsx
+ *   - Local helpers (only used in this file): SHIPS, FLOATERS
  */
 
 const SHIPS = ["👾", "👽", "🛸", "🚀", "☄️", "👾", "🛰️", "👾", "🌟", "🛸", "👽", "🪐", "👾", "🚀"];

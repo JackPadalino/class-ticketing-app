@@ -7,6 +7,9 @@
  *     to the ticket's board with { openTicketId, studentId } in router state so
  *     the board can open the ticket modal (and, for the lead, filter to that
  *     student). Students go to the right phase board; the lead to the project.
+ *
+ * Where things are used:
+ *   - AppLayout: App.jsx
  */
 
 import { Outlet, useNavigate } from "react-router-dom";

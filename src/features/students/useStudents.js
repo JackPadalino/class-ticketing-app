@@ -1,6 +1,9 @@
 /**
  * useStudents(enabled): live list of student profiles sorted by name. Only
  * subscribes when `enabled` is true (the lead's screens).
+ *
+ * Where things are used:
+ *   - useStudents: features/boards/LeadDashboard.jsx
  */
 
 import { useEffect, useState } from "react";

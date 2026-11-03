@@ -4,6 +4,14 @@
  *   - PHASES: [{ key, number, label, lines, color, emoji }] - ticket.phase stores
  *     the key; the rest drive the phase diagram and badges.
  *   - getPhase(key) / getPhaseLabel(key): look up a phase / its display name.
+ *
+ * Where things are used:
+ *   - PHASES: features/boards/EngineeringCycleDiagram.jsx,
+ *       features/tickets/components/CreateTicketModal.jsx,
+ *       features/tickets/components/EditTicketModal.jsx; also inside this file by getPhase
+ *   - getPhase: features/boards/StudentDashboard.jsx; also inside this file by getPhaseLabel
+ *   - getPhaseLabel: features/tickets/components/TicketCard.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
  */
 
 // The four phases of "The Engineering Cycle" - each project gives every

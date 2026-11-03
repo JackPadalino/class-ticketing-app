@@ -9,6 +9,9 @@
  *     A lead hitting a student URL (or vice versa) is redirected to their own home.
  * This is only UI routing - Firestore security rules (firestore.rules) are what
  * actually enforce who can read/write what.
+ *
+ * Where things are used:
+ *   - App: main.jsx
  */
 
 import { Navigate, Route, Routes } from "react-router-dom";

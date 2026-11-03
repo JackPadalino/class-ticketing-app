@@ -2,6 +2,9 @@
  *   - logHistory(ticketId, { type, actor, actorRole }): appends an entry to a
  *     ticket's history subcollection (created, started, submitted_for_review,
  *     needs_revision, approved...). The timeline on the ticket modal reads these.
+ *
+ * Where things are used:
+ *   - logHistory: features/tickets/ticketActions.js
  */
 
 import {

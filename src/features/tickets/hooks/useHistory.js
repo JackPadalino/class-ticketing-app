@@ -1,6 +1,9 @@
 /**
  * useHistory(ticketId): live history entries for one ticket, oldest first.
  * Feeds the timeline on the ticket modal.
+ *
+ * Where things are used:
+ *   - useHistory: features/tickets/components/TicketTimeline.jsx
  */
 
 import { useEffect, useState } from "react";

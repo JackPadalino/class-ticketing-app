@@ -1,6 +1,10 @@
 /**
  * useSettings(): live copy of the class-wide settings/global document.
  * Returns {} if it doesn't exist yet - treat missing fields as their default.
+ *
+ * Where things are used:
+ *   - useSettings: features/settings/Settings.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
  */
 
 import { useEffect, useState } from "react";

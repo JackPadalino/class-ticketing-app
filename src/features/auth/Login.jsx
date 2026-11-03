@@ -5,6 +5,10 @@
  *     with an "@" is used as typed.
  *   - Login: username + password form, plus a sign-in instructions modal that
  *     shows on load (showPasswordInfo). Shows a generic error on failure.
+ *
+ * Where things are used:
+ *   - Login: App.jsx
+ *   - Local helpers (only used in this file): EMAIL_DOMAIN, resolveEmail
  */
 
 import { useState } from "react";

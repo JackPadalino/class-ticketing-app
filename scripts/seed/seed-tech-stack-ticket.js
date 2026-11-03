@@ -3,6 +3,11 @@
  * live in the description text (not the links array) so students can't delete them.
  *   - DESCRIPTION: the ticket's instructions.
  * Run: npm run seed:tech-stack-ticket
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, PROJECT_NAME, TICKET_TITLE,
+ *       TECH_STACK_DOC_URL, PROJECT_DESCRIPTION_DOC_URL, DESCRIPTION, main
+ *   - Run with: npm run seed:tech-stack-ticket
  */
 
 import { getAuth } from "firebase-admin/auth";

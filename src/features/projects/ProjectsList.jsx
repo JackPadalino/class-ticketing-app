@@ -4,6 +4,10 @@
  * menu to edit or delete a project.
  *   - handleDelete(e, project): confirms, then deleteProjectCascade() removes the
  *     project plus all its tickets/comments/history/notifications.
+ *
+ * Where things are used:
+ *   - ProjectsList: App.jsx
+ *   - Local helpers (only used in this file): formatDate
  */
 
 import { useState } from "react";

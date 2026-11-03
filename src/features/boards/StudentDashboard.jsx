@@ -3,6 +3,9 @@
  * only that student's own tickets in that phase, in the four status columns.
  *   - openTicketId + navigation effect: opens the ticket modal when arriving from
  *     a notification (router state { openTicketId }).
+ *
+ * Where things are used:
+ *   - StudentDashboard: App.jsx
  */
 
 import { useEffect, useState } from "react";

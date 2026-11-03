@@ -2,6 +2,11 @@
  * Gives every real student the "Share app" ticket (share the finished app with the
  * lead and paste the link).
  * Run: npm run seed:share-app-ticket
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, PROJECT_NAME, TICKET_TITLE,
+ *       DESCRIPTION, main
+ *   - Run with: npm run seed:share-app-ticket
  */
 
 import { getAuth } from "firebase-admin/auth";

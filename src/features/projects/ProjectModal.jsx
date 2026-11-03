@@ -3,6 +3,9 @@
  *   - submit(): calls createProject / updateProject, then onSaved(projectId).
  * Creating a project needs no per-student setup - every student automatically
  * gets their own board for it.
+ *
+ * Where things are used:
+ *   - ProjectModal: features/projects/ProjectsList.jsx
  */
 
 import { useState } from "react";

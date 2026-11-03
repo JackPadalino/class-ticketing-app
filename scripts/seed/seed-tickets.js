@@ -3,6 +3,11 @@
  * phase.
  *   - SAMPLE_TICKETS: the tickets created for each student.
  * Run: npm run seed:tickets
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, SAMPLE_TICKETS,
+ *       getOrCreateTestProject, main
+ *   - Run with: npm run seed:tickets
  */
 
 import { getAuth } from "firebase-admin/auth";

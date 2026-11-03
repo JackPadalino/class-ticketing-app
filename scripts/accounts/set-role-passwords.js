@@ -3,6 +3,10 @@
  * students get their own override or defaultStudentPassword). Re-run whenever the
  * password scheme changes.
  * Run: npm run reset:role-passwords
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, main
+ *   - Run with: npm run reset:role-passwords
  */
 
 import { getAuth } from "firebase-admin/auth";

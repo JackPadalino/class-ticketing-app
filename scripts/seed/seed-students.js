@@ -3,6 +3,10 @@
  *   - upsertAccount(...): creates the Firebase Auth user (if missing) and writes
  *     the users/{uid} profile. A password is only set when the account is created.
  * Run: npm run seed:students
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, upsertAccount, main
+ *   - Run with: npm run seed:students
  */
 
 import { getAuth } from "firebase-admin/auth";

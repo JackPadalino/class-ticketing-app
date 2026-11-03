@@ -4,6 +4,11 @@
  *     new tab, rel="noreferrer noopener") ready to render inside a React element.
  *     Trailing punctuation like ")" "." "," is kept out of the link itself.
  * Used for ticket descriptions and comments.
+ *
+ * Where things are used:
+ *   - linkify: features/comments/CommentThread.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
+ *   - Local helpers (only used in this file): URL_REGEX, TRAILING_PUNCTUATION
  */
 
 const URL_REGEX = /https?:\/\/[^\s]+/g;

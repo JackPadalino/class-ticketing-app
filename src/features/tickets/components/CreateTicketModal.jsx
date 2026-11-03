@@ -4,6 +4,10 @@
  * board), title, description, phase and an optional due date.
  *   - ALL_STUDENTS: sentinel value for the "all" option.
  *   - submit(): creates one ticket per target student, then onCreated(projectId).
+ *
+ * Where things are used:
+ *   - CreateTicketModal: features/boards/LeadDashboard.jsx
+ *   - Local helpers (only used in this file): ALL_STUDENTS
  */
 
 import { useState } from "react";

@@ -6,6 +6,13 @@
  *   - useAuth(): returns { user, profile, loading, login(email, password), logout() }.
  *     Throws if used outside AuthProvider.
  * `profile.role` ("lead" | "student") drives routing and what each screen shows.
+ *
+ * Where things are used:
+ *   - AuthProvider: main.jsx
+ *   - useAuth: App.jsx, components/layout/AppLayout.jsx, features/auth/Login.jsx,
+ *       features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx,
+ *       features/projects/ProjectsList.jsx, features/settings/Settings.jsx
+ *   - Local helpers (only used in this file): AuthContext
  */
 
 import { createContext, useContext, useEffect, useState } from "react";

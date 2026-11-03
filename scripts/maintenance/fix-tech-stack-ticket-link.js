@@ -2,6 +2,10 @@
  * One-off patch: moves the reference doc link out of the "Choose Tech Stack"
  * tickets' links array into the description. No-op once fixed.
  * Run: npm run fix:tech-stack-ticket-link
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): db, TICKET_TITLE, TECH_STACK_DOC_URL, main
+ *   - Run with: npm run fix:tech-stack-ticket-link
  */
 
 import { getFirestore } from "firebase-admin/firestore";

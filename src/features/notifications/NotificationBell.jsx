@@ -4,6 +4,10 @@
  *   - Clicking an alert closes the dropdown, calls onSelectNotification(n) (which
  *     navigates to the ticket) and marks it read.
  *   - "Mark all as read" marks every alert currently listed as read.
+ *
+ * Where things are used:
+ *   - NotificationBell: components/layout/AppLayout.jsx
+ *   - Local helpers (only used in this file): notificationText
  */
 
 import { useState } from "react";

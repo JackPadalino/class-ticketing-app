@@ -3,6 +3,10 @@
  * approved...), read from the ticket's history.
  *   - EVENT_LABEL: history event type -> display text.
  *   - formatTime(ts): Firestore timestamp -> local date/time string.
+ *
+ * Where things are used:
+ *   - TicketTimeline: features/tickets/components/TicketDetailModal.jsx
+ *   - Local helpers (only used in this file): EVENT_LABEL, formatTime
  */
 
 import { useHistory } from "../hooks/useHistory";

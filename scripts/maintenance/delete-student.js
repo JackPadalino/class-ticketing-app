@@ -2,6 +2,10 @@
  * Fully removes one student: tickets (with comments/history), related
  * notifications, Firestore profile and Firebase Auth account.
  * Run: npm run delete:student -- <email>
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, main
+ *   - Run with: npm run delete:student
  */
 
 import { getAuth } from "firebase-admin/auth";

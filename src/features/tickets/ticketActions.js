@@ -15,6 +15,22 @@
  *   - deleteTicket(ticketId): deletes the ticket with its comments, history and
  *     related notifications.
  *   - STATUS_EVENT (private): maps a status to its history event type.
+ *
+ * Where things are used:
+ *   - createTicket: features/tickets/components/CreateTicketModal.jsx
+ *   - findMatchingTickets: features/tickets/components/EditTicketModal.jsx; also inside this
+ *       file by updateTicketDetails
+ *   - updateTicketDetails: features/tickets/components/EditTicketModal.jsx
+ *   - updateStudentStatus: features/tickets/components/TicketDetailModal.jsx; also inside this
+ *       file by markNeedSupport
+ *   - markNeedSupport: features/tickets/components/TicketDetailModal.jsx
+ *   - updateLinks: features/tickets/components/TicketDetailModal.jsx
+ *   - updateDueDate: features/tickets/components/TicketDetailModal.jsx
+ *   - approveTicket: also inside this file by updateTicketStatusAsLead
+ *   - requestRevision: also inside this file by updateTicketStatusAsLead
+ *   - updateTicketStatusAsLead: features/tickets/components/TicketDetailModal.jsx
+ *   - deleteTicket: features/tickets/components/TicketDetailModal.jsx
+ *   - Local helpers (only used in this file): STATUS_EVENT
  */
 
 import {

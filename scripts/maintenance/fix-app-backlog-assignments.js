@@ -4,6 +4,10 @@
  * (ONBOARDING_TITLES) nor part of their current backlog, then creates missing
  * backlog tickets. Idempotent.
  * Run: npm run fix:app-backlog-assignments
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, PROJECT_NAME, main
+ *   - Run with: npm run fix:app-backlog-assignments
  */
 
 import { getAuth } from "firebase-admin/auth";

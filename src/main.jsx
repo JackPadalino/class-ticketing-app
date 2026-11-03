@@ -4,6 +4,9 @@
  *   - BrowserRouter: client-side routing (routes are defined in App.jsx)
  *   - AuthProvider:  exposes the signed-in user + profile via useAuth()
  * Also loads the global stylesheet (styles/index.css).
+ *
+ * Where things are used:
+ *   - (entry point: loaded by index.html)
  */
 
 import React from "react";

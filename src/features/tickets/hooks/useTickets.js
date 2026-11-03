@@ -3,6 +3,10 @@
  * The lead gets every ticket; a student only their own. Returns { tickets, loading }.
  * Uses only equality filters and sorts client-side so no Firestore composite
  * index is required.
+ *
+ * Where things are used:
+ *   - useTickets: features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx
+ *   - Local helpers (only used in this file): byCreatedAtAsc
  */
 
 import { useEffect, useState } from "react";

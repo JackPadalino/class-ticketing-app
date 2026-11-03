@@ -4,6 +4,12 @@
  *     bug you get from parsing the string as UTC).
  *   - isOverdue(dueDate, status): true if the date has passed and the ticket
  *     isn't completed.
+ *
+ * Where things are used:
+ *   - formatDueDate: features/tickets/components/TicketCard.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
+ *   - isOverdue: features/tickets/components/TicketCard.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
  */
 
 import { STATUS } from "../constants/status";

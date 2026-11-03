@@ -2,6 +2,10 @@
  * Creates each student's app backlog tickets (from lib/appBacklogs.js) based on the
  * assignedApp in roster.config.json. Skips tickets that already exist.
  * Run: npm run seed:app-backlogs
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, db, PROJECT_NAME, main
+ *   - Run with: npm run seed:app-backlogs
  */
 
 import { getAuth } from "firebase-admin/auth";

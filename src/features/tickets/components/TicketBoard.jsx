@@ -3,6 +3,9 @@
  * status, renders a TicketCard for each, and shows the ticket detail modal for
  * `openTicketId`.
  *   - Props: tickets, isLead, currentUser, openTicketId, onOpenTicket, onCloseTicket.
+ *
+ * Where things are used:
+ *   - TicketBoard: features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx
  */
 
 import { COLUMNS } from "../constants/status";

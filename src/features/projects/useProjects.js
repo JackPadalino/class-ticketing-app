@@ -1,6 +1,9 @@
 /**
  * Live list of all projects (class-wide - every signed-in user sees them all),
  * newest first. Returns { projects, loading }.
+ *
+ * Where things are used:
+ *   - useProjects: features/boards/LeadDashboard.jsx, features/projects/ProjectsList.jsx
  */
 
 import { useEffect, useState } from "react";

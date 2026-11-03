@@ -10,6 +10,9 @@
  *   - run(fn): runs an action with a busy flag and alerts on error.
  *   - handleUpdateStatusClick / submitSupportComment: student status flow.
  *   - handleDelete: confirms, then deleteTicket().
+ *
+ * Where things are used:
+ *   - TicketDetailModal: features/tickets/components/TicketBoard.jsx
  */
 
 import { useState } from "react";

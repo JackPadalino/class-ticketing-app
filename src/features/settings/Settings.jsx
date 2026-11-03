@@ -5,6 +5,10 @@
  *   - Alerts: a switch per ALERT_TYPES entry (saved in the lead's alertPrefs).
  *   - Needs your attention: the lead's unread alerts; clicking one opens the ticket.
  *   - notificationText(n): sentence for each alert type.
+ *
+ * Where things are used:
+ *   - Settings: App.jsx
+ *   - Local helpers (only used in this file): notificationText
  */
 
 import { doc, setDoc, updateDoc } from "firebase/firestore";

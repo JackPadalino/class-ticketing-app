@@ -1,5 +1,8 @@
 /**
  * useComments(ticketId): live comments for one ticket, oldest first.
+ *
+ * Where things are used:
+ *   - useComments: features/comments/CommentThread.jsx
  */
 
 import { useEffect, useState } from "react";

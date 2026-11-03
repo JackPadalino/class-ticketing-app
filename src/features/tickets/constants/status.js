@@ -8,6 +8,18 @@
  *   - LEAD_STATUS_OPTIONS: the student options plus Needs revisions and Approve.
  *   - getStatusLabel(ticket): the badge text ("Need support" / "Needs revision")
  *     or null when no badge applies.
+ *
+ * Where things are used:
+ *   - STATUS: features/tickets/components/TicketCard.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx, features/tickets/ticketActions.js,
+ *       features/tickets/utils/dueDate.js; also inside this file by COLUMNS,
+ *       STUDENT_STATUS_OPTIONS, LEAD_STATUS_OPTIONS, getStatusLabel
+ *   - COLUMNS: features/tickets/components/TicketBoard.jsx
+ *   - STUDENT_STATUS_OPTIONS: features/tickets/components/TicketDetailModal.jsx; also inside
+ *       this file by LEAD_STATUS_OPTIONS
+ *   - LEAD_STATUS_OPTIONS: features/tickets/components/TicketDetailModal.jsx
+ *   - getStatusLabel: features/tickets/components/TicketCard.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
  */
 
 export const STATUS = {

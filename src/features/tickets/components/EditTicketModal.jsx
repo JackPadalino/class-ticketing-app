@@ -5,6 +5,9 @@
  *   - changes: only the fields actually edited, so applying to everyone doesn't
  *     overwrite per-student differences (e.g. a student's own description).
  *   - matchCount: how many copies exist, shown in the dropdown.
+ *
+ * Where things are used:
+ *   - EditTicketModal: features/tickets/components/TicketDetailModal.jsx
  */
 
 import { useEffect, useState } from "react";

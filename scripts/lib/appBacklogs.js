@@ -7,6 +7,13 @@
  *     prefixed for stretch items).
  *   - ONBOARDING_TITLES: tickets every student has that are not part of an app
  *     backlog (e.g. "Share app"); reconciliation must never delete these.
+ *
+ * Where things are used:
+ *   - BACKLOGS: scripts/maintenance/fix-app-backlog-assignments.js,
+ *       scripts/seed/seed-app-backlog-tickets.js
+ *   - ticketTitle: scripts/maintenance/fix-app-backlog-assignments.js,
+ *       scripts/seed/seed-app-backlog-tickets.js
+ *   - ONBOARDING_TITLES: scripts/maintenance/fix-app-backlog-assignments.js
  */
 
 // Straight from unit1_project_ticket_backlogs.docx — one backlog per app on

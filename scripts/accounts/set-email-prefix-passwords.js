@@ -3,6 +3,10 @@
  * before the "@". Superseded by set-role-passwords.js.
  *   - emailPrefixPassword(email): that prefix.
  * Run: npm run reset:email-prefix-passwords
+ *
+ * Where things are used:
+ *   - Local helpers (only used in this file): auth, emailPrefixPassword, main
+ *   - Run with: npm run reset:email-prefix-passwords
  */
 
 import { getAuth } from "firebase-admin/auth";

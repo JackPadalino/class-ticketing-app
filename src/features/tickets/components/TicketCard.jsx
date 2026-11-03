@@ -2,6 +2,9 @@
  * One ticket card on the board: phase badge, optional "Need support"/"Needs
  * revision" pill, title, assignee, due date (red when overdue) and link count.
  * Clicking it calls onOpen().
+ *
+ * Where things are used:
+ *   - TicketCard: features/tickets/components/TicketBoard.jsx
  */
 
 import { getPhaseLabel } from "../constants/phases";

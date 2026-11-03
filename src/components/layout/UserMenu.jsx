@@ -3,6 +3,10 @@
  *   - getInitials(name, email): the 1-2 letter avatar text.
  *   - UserMenu: shows the user's name; the lead also gets Projects and Settings
  *     links; everyone gets Sign out.
+ *
+ * Where things are used:
+ *   - UserMenu: components/layout/AppLayout.jsx
+ *   - Local helpers (only used in this file): getInitials
  */
 
 import { useState } from "react";

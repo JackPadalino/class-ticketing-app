@@ -280,6 +280,19 @@ export async function markNotificationRead(notificationId) {
   await updateDoc(doc(db, "notifications", notificationId), { read: true });
 }
 
+// Marks every notification in the list read, in batches (a single
+// batch write is capped at 500 operations).
+export async function markAllNotificationsRead(notificationIds) {
+  const CHUNK_SIZE = 450;
+  for (let i = 0; i < notificationIds.length; i += CHUNK_SIZE) {
+    const batch = writeBatch(db);
+    notificationIds.slice(i, i + CHUNK_SIZE).forEach((id) => {
+      batch.update(doc(db, "notifications", id), { read: true });
+    });
+    await batch.commit();
+  }
+}
+
 // Deletes a single ticket along with its comments, history, and any
 // notifications that reference it. Firestore doesn't cascade deletes
 // on its own, so this has to walk the tree itself.

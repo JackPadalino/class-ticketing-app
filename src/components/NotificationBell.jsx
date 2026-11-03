@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { markNotificationRead } from "../ticketActions";
+import { markAllNotificationsRead, markNotificationRead } from "../ticketActions";
 
 function notificationText(n) {
   if (n.type === "ready_for_review") {
@@ -40,6 +40,14 @@ function notificationText(n) {
 export function NotificationBell({ notifications, onSelectNotification }) {
   const [open, setOpen] = useState(false);
 
+  const handleMarkAllRead = async () => {
+    try {
+      await markAllNotificationsRead(notifications.map((n) => n.id));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   const handleClick = async (n) => {
     setOpen(false);
     onSelectNotification(n);
@@ -55,6 +63,11 @@ export function NotificationBell({ notifications, onSelectNotification }) {
       {open && (
         <div className="bell-dropdown">
           {notifications.length === 0 && <p className="bell-empty">No new alerts.</p>}
+          {notifications.length > 0 && (
+            <button type="button" className="bell-mark-all" onClick={handleMarkAllRead}>
+              Mark all as read
+            </button>
+          )}
           {notifications.map((n) => (
             <button key={n.id} type="button" className="bell-item" onClick={() => handleClick(n)}>
               {notificationText(n)}

@@ -1436,6 +1436,28 @@ label {
   background: var(--gray-bg);
 }
 
+.bell-mark-all {
+  position: sticky;
+  top: -6px;
+  z-index: 1;
+  margin: -6px -6px 4px;
+  padding: 8px;
+  background: var(--card);
+  border: none;
+  border-bottom: 2px dashed var(--accent);
+  box-shadow: none;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  text-shadow: none;
+}
+
+.bell-mark-all:hover {
+  background: var(--gray-bg);
+  text-decoration: underline;
+}
+
 .bell-empty {
   color: var(--muted);
   font-size: 13px;

@@ -11,7 +11,7 @@
  *   - handleUpdateStatusClick / submitSupportComment: student status flow.
  *   - handleDelete: confirms, then deleteTicket().
  *
- * Where things are used:
+ * Appears in the following files:
  *   - TicketDetailModal: features/tickets/components/TicketBoard.jsx
  */
 

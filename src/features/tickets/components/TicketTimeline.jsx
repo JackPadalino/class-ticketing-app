@@ -4,7 +4,7 @@
  *   - EVENT_LABEL: history event type -> display text.
  *   - formatTime(ts): Firestore timestamp -> local date/time string.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - TicketTimeline: features/tickets/components/TicketDetailModal.jsx
  *   - Local helpers (only used in this file): EVENT_LABEL, formatTime
  */

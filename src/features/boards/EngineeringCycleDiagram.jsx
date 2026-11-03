@@ -7,7 +7,7 @@
  *   - EngineeringCycleDiagram({ onSelectPhase }): each box is a keyboard-
  *     accessible button; its color, number, label and emoji come from PHASES.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - EngineeringCycleDiagram: features/boards/PhaseMenu.jsx
  *   - Local helpers (only used in this file): BOX_W, BOX_H, GAP_X, GAP_Y, MARGIN, COL1_X,
  *       COL2_X, ROW1_Y, ROW2_Y, WIDTH, HEIGHT, BOX_POS, ARROWS

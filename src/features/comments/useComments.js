@@ -1,7 +1,7 @@
 /**
  * useComments(ticketId): live comments for one ticket, oldest first.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - useComments: features/comments/CommentThread.jsx
  */
 

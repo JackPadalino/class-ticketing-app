@@ -4,7 +4,7 @@
  * password scheme changes.
  * Run: npm run reset:role-passwords
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): auth, main
  *   - Run with: npm run reset:role-passwords
  */

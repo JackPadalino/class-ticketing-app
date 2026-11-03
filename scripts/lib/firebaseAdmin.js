@@ -5,7 +5,7 @@
  *   - loadRoster(): reads scripts/roster.config.json (gitignored) - the lead and
  *     student accounts, passwords and assigned apps - and exits if it's missing.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - loadRoster: scripts/accounts/set-email-prefix-passwords.js,
  *       scripts/accounts/set-role-passwords.js,
  *       scripts/maintenance/fix-app-backlog-assignments.js,

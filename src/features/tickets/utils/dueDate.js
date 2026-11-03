@@ -5,7 +5,7 @@
  *   - isOverdue(dueDate, status): true if the date has passed and the ticket
  *     isn't completed.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - formatDueDate: features/tickets/components/TicketCard.jsx,
  *       features/tickets/components/TicketDetailModal.jsx
  *   - isOverdue: features/tickets/components/TicketCard.jsx,

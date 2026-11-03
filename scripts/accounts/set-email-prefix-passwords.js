@@ -4,7 +4,7 @@
  *   - emailPrefixPassword(email): that prefix.
  * Run: npm run reset:email-prefix-passwords
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): auth, emailPrefixPassword, main
  *   - Run with: npm run reset:email-prefix-passwords
  */

@@ -2,7 +2,7 @@
  *   - isStudentStatusUpdateAllowed(settings): whether students may change ticket
  *     status. Missing/undefined counts as allowed (opt-out setting).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - isStudentStatusUpdateAllowed: features/settings/Settings.jsx,
  *       features/tickets/components/TicketDetailModal.jsx
  */

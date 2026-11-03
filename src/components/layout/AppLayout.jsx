@@ -8,7 +8,7 @@
  *     the board can open the ticket modal (and, for the lead, filter to that
  *     student). Students go to the right phase board; the lead to the project.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - AppLayout: App.jsx
  */
 

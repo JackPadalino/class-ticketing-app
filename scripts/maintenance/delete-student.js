@@ -3,7 +3,7 @@
  * notifications, Firestore profile and Firebase Auth account.
  * Run: npm run delete:student -- <email>
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): auth, db, main
  *   - Run with: npm run delete:student
  */

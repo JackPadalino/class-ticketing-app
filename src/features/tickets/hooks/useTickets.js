@@ -4,7 +4,7 @@
  * Uses only equality filters and sorts client-side so no Firestore composite
  * index is required.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - useTickets: features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx
  *   - Local helpers (only used in this file): byCreatedAtAsc
  */

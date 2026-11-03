@@ -4,7 +4,7 @@
  *   - UserMenu: shows the user's name; the lead also gets Projects and Settings
  *     links; everyone gets Sign out.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - UserMenu: components/layout/AppLayout.jsx
  *   - Local helpers (only used in this file): getInitials
  */

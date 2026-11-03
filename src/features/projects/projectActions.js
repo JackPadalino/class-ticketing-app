@@ -7,7 +7,7 @@
  *     has no cascading delete, so it collects every reference first and deletes
  *     in batches of 450 (a batch write is capped at 500 operations).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - createProject: features/projects/ProjectModal.jsx
  *   - updateProject: features/projects/ProjectModal.jsx
  *   - deleteProjectCascade: features/projects/ProjectsList.jsx

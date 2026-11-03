@@ -5,7 +5,7 @@
  *   - db:   Firestore instance
  * Everything that talks to Firebase imports these two from here.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - auth: features/auth/AuthContext.jsx
  *   - db: features/auth/AuthContext.jsx, features/boards/LeadDashboard.jsx,
  *       features/boards/PhaseMenu.jsx, features/boards/StudentDashboard.jsx,

@@ -3,7 +3,7 @@
  * revision" pill, title, assignee, due date (red when overdue) and link count.
  * Clicking it calls onOpen().
  *
- * Where things are used:
+ * Appears in the following files:
  *   - TicketCard: features/tickets/components/TicketBoard.jsx
  */
 

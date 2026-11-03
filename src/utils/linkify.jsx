@@ -5,7 +5,7 @@
  *     Trailing punctuation like ")" "." "," is kept out of the link itself.
  * Used for ticket descriptions and comments.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - linkify: features/comments/CommentThread.jsx,
  *       features/tickets/components/TicketDetailModal.jsx
  *   - Local helpers (only used in this file): URL_REGEX, TRAILING_PUNCTUATION

@@ -6,7 +6,7 @@
  *   - FLOATERS:   per-emoji position/size/speed/delay, computed once from the index
  *   - SpaceFloaters: renders the spans; the CSS animation does the movement.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - SpaceFloaters: components/layout/AppLayout.jsx, features/auth/Login.jsx
  *   - Local helpers (only used in this file): SHIPS, FLOATERS
  */

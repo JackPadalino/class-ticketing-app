@@ -6,7 +6,7 @@
  *   - Needs your attention: the lead's unread alerts; clicking one opens the ticket.
  *   - notificationText(n): sentence for each alert type.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Settings: App.jsx
  *   - Local helpers (only used in this file): notificationText
  */

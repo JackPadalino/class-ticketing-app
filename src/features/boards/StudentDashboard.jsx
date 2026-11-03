@@ -4,7 +4,7 @@
  *   - openTicketId + navigation effect: opens the ticket modal when arriving from
  *     a notification (router state { openTicketId }).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - StudentDashboard: App.jsx
  */
 

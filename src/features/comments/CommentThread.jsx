@@ -6,7 +6,7 @@
  *   - CommentThread: loads comments with useComments and posts via addComment,
  *     stamping the author's role (lead/student).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - CommentThread: features/tickets/components/TicketDetailModal.jsx
  *   - Local helpers (only used in this file): formatTime, CommentRow
  */

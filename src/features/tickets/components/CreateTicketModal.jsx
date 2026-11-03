@@ -5,7 +5,7 @@
  *   - ALL_STUDENTS: sentinel value for the "all" option.
  *   - submit(): creates one ticket per target student, then onCreated(projectId).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - CreateTicketModal: features/boards/LeadDashboard.jsx
  *   - Local helpers (only used in this file): ALL_STUDENTS
  */

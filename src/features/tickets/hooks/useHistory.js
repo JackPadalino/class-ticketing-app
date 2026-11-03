@@ -2,7 +2,7 @@
  * useHistory(ticketId): live history entries for one ticket, oldest first.
  * Feeds the timeline on the ticket modal.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - useHistory: features/tickets/components/TicketTimeline.jsx
  */
 

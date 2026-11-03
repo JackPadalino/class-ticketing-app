@@ -3,7 +3,7 @@
  * "needs_revision", so the "Needs revision" badge persists after resubmission.
  * Run: npm run migrate:needs-revision-flag
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): db, main
  *   - Run with: npm run migrate:needs-revision-flag
  */

@@ -5,7 +5,7 @@
  *   - handleDelete(e, project): confirms, then deleteProjectCascade() removes the
  *     project plus all its tickets/comments/history/notifications.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - ProjectsList: App.jsx
  *   - Local helpers (only used in this file): formatDate
  */

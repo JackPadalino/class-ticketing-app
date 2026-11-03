@@ -6,7 +6,7 @@
  *   - updateComment(ticketId, commentId, text): edits text, stamps editedAt.
  *   - deleteComment(ticketId, commentId).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - addComment: features/comments/CommentThread.jsx
  *   - updateComment: features/comments/CommentThread.jsx
  *   - deleteComment: features/comments/CommentThread.jsx

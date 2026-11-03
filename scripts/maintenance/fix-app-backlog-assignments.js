@@ -5,7 +5,7 @@
  * backlog tickets. Idempotent.
  * Run: npm run fix:app-backlog-assignments
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): auth, db, PROJECT_NAME, main
  *   - Run with: npm run fix:app-backlog-assignments
  */

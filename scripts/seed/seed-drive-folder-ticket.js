@@ -5,7 +5,7 @@
  *   - buildDescription(): the ticket's instructions text.
  * Run: npm run seed:drive-folder-ticket
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): __dirname, auth, db, APPS, PROJECT_NAME,
  *       LEAD_EMAIL_FOR_SHARING, TICKET_TITLE, buildDescription, shuffle, main
  *   - Run with: npm run seed:drive-folder-ticket

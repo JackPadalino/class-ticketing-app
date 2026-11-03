@@ -5,7 +5,7 @@
  *     enabled, so new types need no migration.
  *   - getEnabledAlertTypes(alertPrefs): the enabled keys (used to filter the bell).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - ALERT_TYPES: features/settings/Settings.jsx; also inside this file by
  *       getEnabledAlertTypes
  *   - isAlertEnabled: features/settings/Settings.jsx; also inside this file by

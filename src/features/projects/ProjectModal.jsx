@@ -4,7 +4,7 @@
  * Creating a project needs no per-student setup - every student automatically
  * gets their own board for it.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - ProjectModal: features/projects/ProjectsList.jsx
  */
 

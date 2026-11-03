@@ -3,7 +3,7 @@
  *   - collectRefs(): gathers all document references to delete.
  * Run: npm run delete:all-tickets-and-alerts   (destructive, cannot be undone)
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): db, collectRefs, main
  *   - Run with: npm run delete:all-tickets-and-alerts
  */

@@ -9,7 +9,7 @@
  *   - getStatusLabel(ticket): the badge text ("Need support" / "Needs revision")
  *     or null when no badge applies.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - STATUS: features/tickets/components/TicketCard.jsx,
  *       features/tickets/components/TicketDetailModal.jsx, features/tickets/ticketActions.js,
  *       features/tickets/utils/dueDate.js; also inside this file by COLUMNS,

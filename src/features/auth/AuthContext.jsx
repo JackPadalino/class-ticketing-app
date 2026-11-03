@@ -7,7 +7,7 @@
  *     Throws if used outside AuthProvider.
  * `profile.role` ("lead" | "student") drives routing and what each screen shows.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - AuthProvider: main.jsx
  *   - useAuth: App.jsx, components/layout/AppLayout.jsx, features/auth/Login.jsx,
  *       features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx,

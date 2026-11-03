@@ -6,7 +6,7 @@
  *     overwrite per-student differences (e.g. a student's own description).
  *   - matchCount: how many copies exist, shown in the dropdown.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - EditTicketModal: features/tickets/components/TicketDetailModal.jsx
  */
 

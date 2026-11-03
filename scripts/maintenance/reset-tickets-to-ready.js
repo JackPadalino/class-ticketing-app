@@ -2,7 +2,7 @@
  * Resets EVERY ticket back to "ready_to_start" and clears its review fields.
  * Run: npm run reset:tickets   (affects all students' tickets)
  *
- * Where things are used:
+ * Appears in the following files:
  *   - Local helpers (only used in this file): db, main
  *   - Run with: npm run reset:tickets
  */

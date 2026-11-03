@@ -5,7 +5,7 @@
  *   - AuthProvider:  exposes the signed-in user + profile via useAuth()
  * Also loads the global stylesheet (styles/index.css).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - (entry point: loaded by index.html)
  */
 

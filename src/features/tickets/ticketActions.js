@@ -16,7 +16,7 @@
  *     related notifications.
  *   - STATUS_EVENT (private): maps a status to its history event type.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - createTicket: features/tickets/components/CreateTicketModal.jsx
  *   - findMatchingTickets: features/tickets/components/EditTicketModal.jsx; also inside this
  *       file by updateTicketDetails

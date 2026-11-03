@@ -9,7 +9,7 @@
  *     so it also works when already on this board.
  *   - "+ New ticket" opens CreateTicketModal (any project, one student or all).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - LeadDashboard: App.jsx
  */
 

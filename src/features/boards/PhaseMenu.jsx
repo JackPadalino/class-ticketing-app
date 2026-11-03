@@ -2,7 +2,7 @@
  * Student page for one project (/student/:projectId): shows the Engineering Cycle
  * diagram; clicking a phase goes to that phase's board.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - PhaseMenu: App.jsx
  */
 

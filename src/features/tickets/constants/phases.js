@@ -5,7 +5,7 @@
  *     the key; the rest drive the phase diagram and badges.
  *   - getPhase(key) / getPhaseLabel(key): look up a phase / its display name.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - PHASES: features/boards/EngineeringCycleDiagram.jsx,
  *       features/tickets/components/CreateTicketModal.jsx,
  *       features/tickets/components/EditTicketModal.jsx; also inside this file by getPhase

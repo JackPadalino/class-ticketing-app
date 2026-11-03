@@ -10,7 +10,7 @@
  * This is only UI routing - Firestore security rules (firestore.rules) are what
  * actually enforce who can read/write what.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - App: main.jsx
  */
 

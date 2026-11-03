@@ -7,7 +7,7 @@
  *   - markNotificationRead(id), markAllNotificationsRead(ids): mark read (the bulk
  *     version batches 450 at a time).
  *
- * Where things are used:
+ * Appears in the following files:
  *   - notifyLead: features/tickets/ticketActions.js
  *   - notifyStudentOfReview: features/tickets/ticketActions.js
  *   - markNotificationRead: features/notifications/NotificationBell.jsx,

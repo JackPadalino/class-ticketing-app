@@ -4,7 +4,7 @@
  * `openTicketId`.
  *   - Props: tickets, isLead, currentUser, openTicketId, onOpenTicket, onCloseTicket.
  *
- * Where things are used:
+ * Appears in the following files:
  *   - TicketBoard: features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx
  */
 

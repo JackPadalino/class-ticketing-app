@@ -1,0 +1,154 @@
+/* ---- app shell / persistent top nav ---- */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.marquee-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #000;
+  color: var(--neon);
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-bottom: 3px ridge var(--accent);
+}
+
+.marquee-viewport {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-block;
+  animation: marquee-scroll 18s linear infinite;
+}
+
+.marquee-sprite {
+  font-size: 22px;
+  line-height: 28px;
+  flex-shrink: 0;
+  animation: invader-bob 0.8s steps(2, end) infinite;
+}
+
+.marquee-sprite:nth-of-type(2) { animation-delay: -0.2s; }
+.marquee-sprite:nth-of-type(3) { animation-delay: -0.4s; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 32px;
+  background: linear-gradient(90deg, #000000, #001a33, #000000);
+  border-bottom: 4px dashed var(--accent);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.brand {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--neon);
+  font-family: "Press Start 2P", monospace;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 0;
+  text-shadow: 0 0 6px var(--accent), 0 0 2px #000;
+}
+
+.brand:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.retro-footer {
+  margin-top: auto;
+  background: #000;
+  color: var(--neon);
+  font-size: 12px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-top: 3px ridge var(--accent);
+  text-align: center;
+}
+
+.retro-footer-sep {
+  color: var(--accent);
+}
+
+.hit-counter {
+  font-family: "Press Start 2P", monospace;
+  background: #111;
+  color: var(--neon);
+  padding: 3px 6px;
+  border: 2px inset #444;
+  letter-spacing: 1px;
+}
+
+.footer-sprite {
+  display: inline-block;
+  font-size: 15px;
+  letter-spacing: 2px;
+  animation: invader-bob 1s steps(2, end) infinite;
+}
+
+/* CRT scanline overlay - a fixed, click-through strip pattern over the
+   whole viewport so every page reads like it's on an arcade monitor. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+.login-sprites {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.login-sprites span {
+  font-size: 40px;
+  line-height: 1;
+  display: inline-block;
+  animation: invader-bob 0.9s steps(2, end) infinite;
+}
+
+.login-sprites span:nth-child(2) { animation-delay: -0.2s; }
+.login-sprites span:nth-child(3) { animation-delay: -0.4s; }
+.login-sprites span:nth-child(4) { animation-delay: -0.6s; }
+
+.insert-coin {
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--accent-dark);
+  margin: 0 0 20px;
+}

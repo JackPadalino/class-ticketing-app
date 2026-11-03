@@ -1,0 +1,80 @@
+/* ---- ticket timeline ---- */
+.ticket-timeline {
+  border-top: 3px dashed var(--accent);
+  padding-top: 14px;
+  margin-top: 16px;
+}
+
+.ticket-danger-zone {
+  border-top: 3px dashed var(--red);
+  padding-top: 14px;
+  margin-top: 16px;
+}
+
+.ticket-timeline h4 {
+  margin: 0 0 10px;
+  color: var(--accent-dark);
+}
+
+.timeline-empty {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-event {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 16px;
+  position: relative;
+}
+
+.timeline-event:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 12px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  margin-top: 5px;
+  border: 1px solid #000;
+}
+
+.timeline-event.needs_revision .timeline-dot {
+  background: var(--amber);
+}
+
+.timeline-event.approved .timeline-dot {
+  background: var(--green);
+}
+
+.timeline-event.requested_support .timeline-dot {
+  background: var(--red);
+}
+
+.timeline-body p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.timeline-time {
+  font-size: 11px;
+  color: var(--muted);
+}

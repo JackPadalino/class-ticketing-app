@@ -1,0 +1,64 @@
+/* ---- engineering cycle diagram ---- */
+.phase-menu-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.phase-diagram {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.phase-box {
+  cursor: pointer;
+}
+
+.phase-box rect {
+  transition: opacity 0.15s ease;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.4));
+}
+
+.phase-box:hover rect,
+.phase-box:focus rect {
+  opacity: 0.85;
+}
+
+.phase-box:focus {
+  outline: none;
+}
+
+.phase-box-emoji {
+  font-size: 34px;
+  pointer-events: none;
+}
+
+.phase-box-number {
+  fill: rgba(0, 0, 0, 0.35);
+  font-size: 30px;
+  font-weight: 800;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+.phase-box-label {
+  fill: white;
+  stroke: #000;
+  stroke-width: 3px;
+  paint-order: stroke fill;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.phase-arrow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-dasharray: 6 4;
+}

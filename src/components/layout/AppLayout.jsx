@@ -1,0 +1,63 @@
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/AuthContext";
+import { useNotifications } from "../../features/notifications/useNotifications";
+import { NotificationBell } from "../../features/notifications/NotificationBell";
+import { UserMenu } from "./UserMenu";
+import { SpaceFloaters } from "../effects/SpaceFloaters";
+
+export function AppLayout() {
+  const { user, profile, logout } = useAuth();
+  const navigate = useNavigate();
+  const isLead = profile.role === "lead";
+  const notifications = useNotifications({ role: profile.role, uid: user.uid, alertPrefs: profile.alertPrefs });
+
+  const base = isLead ? "/lead" : "/student";
+
+  const openNotification = (n) => {
+    if (!n.projectId) return;
+    // The lead's board isn't split by phase, but a student's is - route
+    // straight to the right phase board so the ticket can actually be found.
+    const path = isLead || !n.phase ? `${base}/${n.projectId}` : `${base}/${n.projectId}/${n.phase}`;
+    // For the lead, actorId is the student who triggered the alert - used to
+    // filter the board down to that student's tickets.
+    navigate(path, { state: { openTicketId: n.ticketId, studentId: isLead ? n.actorId : null } });
+  };
+
+  return (
+    <div className="app-shell">
+      <div className="scanlines" aria-hidden="true" />
+      <SpaceFloaters />
+      <div className="marquee-bar" aria-hidden="true">
+        <span className="marquee-sprite">🚀</span>
+        <div className="marquee-viewport">
+          <div className="marquee-track">
+            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
+            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
+          </div>
+        </div>
+        <span className="marquee-sprite">👾</span>
+        <span className="marquee-sprite">👽</span>
+      </div>
+      <nav className="topbar">
+        <button type="button" className="brand" onClick={() => navigate(base)}>
+          👾 AMS SWE INVADERS 🚀
+        </button>
+        <div className="topbar-right">
+          <NotificationBell notifications={notifications} onSelectNotification={openNotification} />
+          <UserMenu displayName={profile.displayName} email={user.email} isLead={isLead} onSignOut={logout} />
+        </div>
+      </nav>
+      <div className="app-content">
+        <Outlet />
+      </div>
+      <footer className="retro-footer">
+        <span className="footer-sprite">👾👾👾👾👾</span>
+        <span className="blink">INSERT COIN</span>
+        <span className="retro-footer-sep">•</span>
+        <span className="hit-counter" title="totally real high score">
+          HIGH SCORE {"0" + "0" + "1" + "3" + "3" + "7" + "0" + "0"}
+        </span>
+      </footer>
+    </div>
+  );
+}

@@ -1,0 +1,57 @@
+/* ---- user menu ---- */
+.user-menu {
+  position: relative;
+}
+
+.user-menu-toggle {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px outset var(--neon);
+  background: linear-gradient(135deg, var(--neon), var(--blue));
+  color: #000;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 #000;
+  width: 220px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.user-menu-name {
+  margin: 0;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  border-bottom: 2px dotted var(--border);
+  margin-bottom: 4px;
+}
+
+.user-menu-item {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 8px;
+}
+
+.user-menu-item:hover {
+  background: var(--gray-bg);
+}

@@ -1,0 +1,52 @@
+/* ---- login ---- */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: var(--card);
+  padding: 32px;
+  border: 4px double var(--accent);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 #000;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.login-card h1 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  text-align: center;
+  animation: rainbow-text 4s linear infinite;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.login-card h1::before {
+  content: "👾 ";
+}
+
+.login-card h1::after {
+  content: " 🚀";
+}
+
+.login-error {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.loading-screen,
+.loading {
+  padding: 40px;
+  text-align: center;
+  color: #c9ffd6;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  font-weight: 700;
+}

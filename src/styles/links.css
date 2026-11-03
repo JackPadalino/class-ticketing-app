@@ -1,0 +1,52 @@
+/* ---- links editor ---- */
+.links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.links-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.links-list li a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--blue);
+}
+
+.links-list li a:visited {
+  color: #00395c;
+}
+
+.links-empty {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.link-remove {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--muted);
+  padding: 0 4px;
+  font-size: 12px;
+}
+
+.links-add {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.links-add input {
+  flex: 1;
+  min-width: 140px;
+}

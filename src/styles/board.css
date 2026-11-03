@@ -1,0 +1,181 @@
+/* ---- board ---- */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  flex: 1;
+}
+
+.board-column {
+  background: var(--gray-bg);
+  border: 3px ridge var(--accent);
+  border-radius: 0;
+  padding: 14px;
+  min-height: 200px;
+}
+
+.board-column:nth-child(1) {
+  border-color: var(--blue);
+}
+
+.board-column:nth-child(2) {
+  border-color: var(--amber);
+}
+
+.board-column:nth-child(3) {
+  border-color: #ff8800;
+}
+
+.board-column:nth-child(4) {
+  border-color: var(--green);
+}
+
+.board-column h2::before {
+  display: inline-block;
+  font-size: 18px;
+  animation: invader-pop 1.8s ease-in-out infinite;
+}
+
+.board-column:nth-child(1) h2::before { content: "🌍"; }
+.board-column:nth-child(2) h2::before { content: "🚀"; animation-delay: -0.5s; }
+.board-column:nth-child(3) h2::before { content: "🛸"; animation-delay: -1s; }
+.board-column:nth-child(4) h2::before { content: "👾"; animation-delay: -1.4s; }
+
+.board-column h2 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin: 4px 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.column-count {
+  background: white;
+  border: 2px solid var(--text);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.column-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.column-empty {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 8px;
+  font-weight: 700;
+}
+
+.ticket-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 2px solid var(--text);
+  border-radius: 0;
+  padding: 12px 14px;
+  color: var(--text);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease;
+}
+
+.ticket-card:hover {
+  background: #eafff0;
+  border-color: var(--accent);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ticket-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.ticket-card h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.ticket-assignee {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.ticket-due-date {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.ticket-due-date.overdue {
+  color: var(--red);
+}
+
+.due-date-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.due-date-field label {
+  margin: 0;
+  font-size: 13px;
+}
+
+.due-date-field input {
+  width: auto;
+}
+
+.ticket-links-count {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---- badges ---- */
+.phase-badge {
+  display: inline-block;
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+}
+
+/* The only status pill left is "Needs revision" (see getStatusLabel) -
+   every other status is conveyed by which column the ticket sits in. */
+.status-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border: 1px solid var(--amber);
+  border-radius: 999px;
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+
+.status-pill.need-support {
+  border-color: var(--red);
+  background: var(--red-bg);
+  color: var(--red);
+}

@@ -56,6 +56,46 @@ notifications/{notificationId}
 
 Security rules (`firestore.rules`) enforce all of this server-side: every signed-in user can read the `projects` list (it's class-wide), only the lead can create/edit projects, students can only read/update their own tickets (and only flip status/links, never approve their own work), only the lead can create tickets or post comments, and `users` documents are never writable from the client.
 
+## Project structure
+
+Code is organized by feature. Each feature folder holds its own components, hooks and Firestore actions, so everything for one part of the app lives together.
+
+```
+src/
+  main.jsx, App.jsx          entry point and routes
+  lib/firebase.js            Firebase app/auth/db setup
+  utils/linkify.jsx          turns URLs in text into links
+  components/
+    layout/                  AppLayout (top bar, ticker, footer), UserMenu
+    effects/                 SpaceFloaters (drifting background emoji)
+  features/
+    auth/                    AuthContext, Login
+    projects/                ProjectsList, ProjectModal, useProjects, projectActions
+    boards/                  LeadDashboard, StudentDashboard, PhaseMenu, EngineeringCycleDiagram
+    tickets/
+      components/            TicketBoard, TicketCard, TicketDetailModal, Create/EditTicketModal,
+                             TicketTimeline, LinksEditor
+      hooks/                 useTickets, useHistory
+      constants/             status.js (statuses, columns, dropdown options), phases.js
+      utils/dueDate.js       due date formatting / overdue check
+      ticketActions.js       create, edit, status changes, approve, delete
+      ticketHistory.js       writes timeline entries
+    comments/                CommentThread, useComments, commentActions
+    notifications/           NotificationBell, useNotifications, notificationActions, alerts.js
+    settings/                Settings page, useSettings, statusUpdates.js
+    students/                useStudents
+  styles/                    index.css imports one stylesheet per area, in cascade order
+
+scripts/                     admin scripts (run with npm run ...; see package.json)
+  lib/                       shared Firebase Admin setup and app backlog definitions
+  seed/                      create students, tickets and backlogs
+  migrations/                one-time data migrations
+  maintenance/               resets, deletes and fixes
+  accounts/                  password resets
+  serviceAccountKey.json     (gitignored) Firebase Admin key
+  roster.config.json         (gitignored) class roster and passwords
+```
+
 ## Authentication
 
 Uses Firebase Authentication's **Email/Password** provider (not Google sign-in). Student and lead accounts are pre-created by you via an admin script — there is no self-signup page. Passwords are managed securely by Firebase Auth itself (never stored as plain text in Firestore); the `users` collection only holds each person's profile (name, email, role).

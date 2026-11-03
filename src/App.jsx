@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
-import { Login } from "./pages/Login";
-import { AppLayout } from "./components/AppLayout";
-import { ProjectsList } from "./pages/ProjectsList";
-import { Settings } from "./pages/Settings";
-import { LeadDashboard } from "./pages/LeadDashboard";
-import { PhaseMenu } from "./pages/PhaseMenu";
-import { StudentDashboard } from "./pages/StudentDashboard";
+import { useAuth } from "./features/auth/AuthContext";
+import { Login } from "./features/auth/Login";
+import { AppLayout } from "./components/layout/AppLayout";
+import { ProjectsList } from "./features/projects/ProjectsList";
+import { Settings } from "./features/settings/Settings";
+import { LeadDashboard } from "./features/boards/LeadDashboard";
+import { PhaseMenu } from "./features/boards/PhaseMenu";
+import { StudentDashboard } from "./features/boards/StudentDashboard";
 
 export default function App() {
   const { user, profile, loading } = useAuth();

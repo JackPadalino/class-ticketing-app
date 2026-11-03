@@ -3,8 +3,7 @@
  *   - EMAIL_DOMAIN / resolveEmail(raw): lets users type just their username
  *     ("jpadalino") - it is turned into "jpadalino@amsbronx.org". A full email
  *     with an "@" is used as typed.
- *   - Login: username + password form, plus a sign-in instructions modal that
- *     shows on load (showPasswordInfo). Shows a generic error on failure.
+ *   - Login: username + password form. Shows a generic error on failure.
  *
  * Appears in the following files:
  *   - Login: App.jsx
@@ -31,7 +30,6 @@ export function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [showPasswordInfo, setShowPasswordInfo] = useState(true);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -50,32 +48,6 @@ export function Login() {
     <div className="login-page">
       <div className="scanlines" aria-hidden="true" />
       <SpaceFloaters />
-
-      {showPasswordInfo && (
-        <div className="modal-backdrop" onClick={() => setShowPasswordInfo(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="modal-close"
-              onClick={() => setShowPasswordInfo(false)}
-            >
-              ✕
-            </button>
-            <h2>New sign-in instructions</h2>
-            <p className="ticket-description">
-              Your username is the part of your email before the "@" symbol. Your full email
-              works too, if you'd rather type that instead.
-            </p>
-            <p className="ticket-description">
-              <strong>Example:</strong> jpadalino2006@amsbronx.org <strong>--&gt;</strong> jpadalino2006
-            </p>
-            <p className="ticket-description">Check Google Classroom for password.</p>
-            <button type="button" onClick={() => setShowPasswordInfo(false)}>
-              Got it
-            </button>
-          </div>
-        </div>
-      )}
 
       <form className="login-card" onSubmit={submit}>
         <div className="login-sprites" aria-hidden="true">

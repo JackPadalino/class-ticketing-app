@@ -1,3 +1,16 @@
+/**
+ * Top-level routes and role-based access control.
+ *   - While auth is loading: shows a loading screen.
+ *   - Signed out (or no profile document): every path renders <Login />.
+ *   - Signed in: everything renders inside <AppLayout /> (top bar, ticker, footer).
+ *       Lead:    /lead (projects), /lead/settings, /lead/:projectId (board)
+ *       Student: /student (projects), /student/:projectId (phase menu),
+ *                /student/:projectId/:phase (phase board)
+ *     A lead hitting a student URL (or vice versa) is redirected to their own home.
+ * This is only UI routing - Firestore security rules (firestore.rules) are what
+ * actually enforce who can read/write what.
+ */
+
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./features/auth/AuthContext";
 import { Login } from "./features/auth/Login";

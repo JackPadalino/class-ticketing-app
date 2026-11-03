@@ -1,3 +1,9 @@
+/**
+ * Deletes EVERY ticket (with its comments and history) and EVERY notification.
+ *   - collectRefs(): gathers all document references to delete.
+ * Run: npm run delete:all-tickets-and-alerts   (destructive, cannot be undone)
+ */
+
 import { getFirestore } from "firebase-admin/firestore";
 import "../lib/firebaseAdmin.js";
 

@@ -1,3 +1,10 @@
+/**
+ * Gives every real student the "Choose Tech Stack" ticket. The reference doc links
+ * live in the description text (not the links array) so students can't delete them.
+ *   - DESCRIPTION: the ticket's instructions.
+ * Run: npm run seed:tech-stack-ticket
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { loadRoster } from "../lib/firebaseAdmin.js";

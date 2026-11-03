@@ -1,3 +1,13 @@
+/**
+ * Firestore writes for projects.
+ *   - createProject({ name, description, createdBy }): returns the new project id.
+ *   - updateProject(projectId, { name, description })
+ *   - deleteProjectCascade(projectId): deletes the project and everything under
+ *     it (tickets with their comments and history, and notifications). Firestore
+ *     has no cascading delete, so it collects every reference first and deletes
+ *     in batches of 450 (a batch write is capped at 500 operations).
+ */
+
 import {
   addDoc,
   collection,

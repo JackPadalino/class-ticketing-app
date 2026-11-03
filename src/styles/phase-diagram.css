@@ -1,3 +1,8 @@
+/*
+   Engineering Cycle diagram: phase boxes, their number/label/emoji text and the
+   dashed arrows.
+*/
+
 /* ---- engineering cycle diagram ---- */
 .phase-menu-page {
   display: flex;

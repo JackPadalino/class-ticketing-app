@@ -1,3 +1,14 @@
+/**
+ * Page chrome shared by every signed-in screen: scanlines overlay, drifting
+ * space emoji, scrolling ticker, top bar (brand, notification bell, user menu),
+ * the routed page content (<Outlet />), and the footer.
+ *   - AppLayout: also subscribes to the user's notifications (useNotifications).
+ *   - openNotification(n): what happens when a notification is clicked. Navigates
+ *     to the ticket's board with { openTicketId, studentId } in router state so
+ *     the board can open the ticket modal (and, for the lead, filter to that
+ *     student). Students go to the right phase board; the lead to the project.
+ */
+
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../../features/auth/AuthContext";
 import { useNotifications } from "../../features/notifications/useNotifications";

@@ -1,3 +1,8 @@
+/**
+ * Student page for one project (/student/:projectId): shows the Engineering Cycle
+ * diagram; clicking a phase goes to that phase's board.
+ */
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";

@@ -1,3 +1,11 @@
+/**
+ * Modal for the lead to create tickets. Pick the project, who it is for (one
+ * student, or "All students" which creates a separate copy on every student's
+ * board), title, description, phase and an optional due date.
+ *   - ALL_STUDENTS: sentinel value for the "all" option.
+ *   - submit(): creates one ticket per target student, then onCreated(projectId).
+ */
+
 import { useState } from "react";
 import { PHASES } from "../constants/phases";
 import { createTicket } from "../ticketActions";

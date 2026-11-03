@@ -1,3 +1,9 @@
+/**
+ * Fully removes one student: tickets (with comments/history), related
+ * notifications, Firestore profile and Firebase Auth account.
+ * Run: npm run delete:student -- <email>
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import "../lib/firebaseAdmin.js";
@@ -7,11 +13,11 @@ const db = getFirestore();
 
 // Fully removes one student: their tickets (with comments/history), any
 // notifications that reference them, their Firestore profile, and their
-// Firebase Auth account. Usage: node scripts/delete-student.js <email>
+// Firebase Auth account. Usage: npm run delete:student -- <email>
 async function main() {
   const email = process.argv[2];
   if (!email) {
-    console.error("Usage: node scripts/delete-student.js <email>");
+    console.error("Usage: node scripts/maintenance/delete-student.js <email>");
     process.exit(1);
   }
 

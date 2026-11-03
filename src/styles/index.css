@@ -1,3 +1,8 @@
+/*
+   Stylesheet entry point. Each @import below is one area of the UI. The ORDER
+   matters (later rules override earlier ones), so keep it as is when adding files.
+*/
+
 @import "./base.css";
 @import "./login.css";
 @import "./layout.css";

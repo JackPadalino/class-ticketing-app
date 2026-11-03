@@ -1,3 +1,8 @@
+/**
+ * useSettings(): live copy of the class-wide settings/global document.
+ * Returns {} if it doesn't exist yet - treat missing fields as their default.
+ */
+
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../lib/firebase";

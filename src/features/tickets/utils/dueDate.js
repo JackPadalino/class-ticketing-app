@@ -1,3 +1,11 @@
+/**
+ * Due date helpers. dueDate is stored as a plain "YYYY-MM-DD" string.
+ *   - formatDueDate(dueDate): local-date display string (avoids the off-by-one-day
+ *     bug you get from parsing the string as UTC).
+ *   - isOverdue(dueDate, status): true if the date has passed and the ticket
+ *     isn't completed.
+ */
+
 import { STATUS } from "../constants/status";
 
 // dueDate is stored as a plain "YYYY-MM-DD" string. Parsing it with an

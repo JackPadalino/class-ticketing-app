@@ -1,3 +1,9 @@
+/**
+ * One-time migration: tickets created before projects existed have no projectId.
+ * Moves them into a "Test Project" (created if needed). Safe to re-run.
+ * Run: npm run migrate:test-project
+ */
+
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import "../lib/firebaseAdmin.js";
 

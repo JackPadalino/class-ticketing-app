@@ -1,3 +1,11 @@
+/**
+ * Turns http(s) URLs found inside plain text into clickable links.
+ *   - linkify(text): returns an array of strings and <a> elements (opens in a
+ *     new tab, rel="noreferrer noopener") ready to render inside a React element.
+ *     Trailing punctuation like ")" "." "," is kept out of the link itself.
+ * Used for ticket descriptions and comments.
+ */
+
 const URL_REGEX = /https?:\/\/[^\s]+/g;
 // A trailing char that's almost always punctuation closing the sentence
 // rather than part of the URL itself (e.g. "see https://example.com."

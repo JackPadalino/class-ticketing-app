@@ -1,3 +1,9 @@
+/*
+   Modals: backdrop, dialog box, close button, form fields in modals, and the
+   ticket detail modal (scrolling body, title row, status controls, support
+   prompt).
+*/
+
 /* ---- modal ---- */
 .modal-backdrop {
   position: fixed;

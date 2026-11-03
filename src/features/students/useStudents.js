@@ -1,3 +1,8 @@
+/**
+ * useStudents(enabled): live list of student profiles sorted by name. Only
+ * subscribes when `enabled` is true (the lead's screens).
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../lib/firebase";

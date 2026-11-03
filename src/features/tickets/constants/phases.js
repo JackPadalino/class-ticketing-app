@@ -1,3 +1,11 @@
+/**
+ * The four phases of the Engineering Cycle. Each project gives every student a
+ * separate board per phase.
+ *   - PHASES: [{ key, number, label, lines, color, emoji }] - ticket.phase stores
+ *     the key; the rest drive the phase diagram and badges.
+ *   - getPhase(key) / getPhaseLabel(key): look up a phase / its display name.
+ */
+
 // The four phases of "The Engineering Cycle" - each project gives every
 // student one separate Kanban board per phase. ticket.phase stores the
 // key; number/color/label drive the phase-picker wheel and badges.

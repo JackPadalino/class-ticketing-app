@@ -1,3 +1,7 @@
+/*
+   Notification bell: unread count badge, dropdown, items and "Mark all as read".
+*/
+
 /* ---- notification bell ---- */
 .notification-bell {
   position: relative;

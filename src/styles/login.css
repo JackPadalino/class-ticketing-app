@@ -1,3 +1,8 @@
+/*
+   Login page card and error text, plus the shared loading text (.loading,
+   .loading-screen) shown while data loads.
+*/
+
 /* ---- login ---- */
 .login-page {
   min-height: 100vh;

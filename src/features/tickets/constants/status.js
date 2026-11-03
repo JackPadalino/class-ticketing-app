@@ -1,3 +1,15 @@
+/**
+ * Ticket status vocabulary and the board's column layout.
+ *   - STATUS: every status value stored on a ticket (ready_to_start, in_progress,
+ *     ready_for_review, needs_revision, need_support, completed).
+ *   - COLUMNS: the four board columns and which statuses land in each.
+ *     needs_revision and need_support show in the In Progress column.
+ *   - STUDENT_STATUS_OPTIONS: what a student can choose in their status dropdown.
+ *   - LEAD_STATUS_OPTIONS: the student options plus Needs revisions and Approve.
+ *   - getStatusLabel(ticket): the badge text ("Need support" / "Needs revision")
+ *     or null when no badge applies.
+ */
+
 export const STATUS = {
   READY_TO_START: "ready_to_start",
   IN_PROGRESS: "in_progress",

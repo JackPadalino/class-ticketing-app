@@ -1,3 +1,7 @@
+/*
+   Small-screen overrides (max-width: 900px).
+*/
+
 @media (max-width: 900px) {
   .board {
     grid-template-columns: 1fr;

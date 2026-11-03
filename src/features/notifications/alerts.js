@@ -1,3 +1,11 @@
+/**
+ * Alert types the lead can switch on/off on the Settings page.
+ *   - ALERT_TYPES: [{ key, label, description }].
+ *   - isAlertEnabled(alertPrefs, key): missing or anything but false counts as
+ *     enabled, so new types need no migration.
+ *   - getEnabledAlertTypes(alertPrefs): the enabled keys (used to filter the bell).
+ */
+
 // Alert types the lead can toggle on/off from their Dashboard. Missing
 // from a lead's `alertPrefs` (or set to anything but `false`) counts as
 // enabled, so nothing needs a migration when a new type is added here.

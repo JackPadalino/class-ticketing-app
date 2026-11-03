@@ -1,3 +1,9 @@
+/**
+ * One ticket card on the board: phase badge, optional "Need support"/"Needs
+ * revision" pill, title, assignee, due date (red when overdue) and link count.
+ * Clicking it calls onOpen().
+ */
+
 import { getPhaseLabel } from "../constants/phases";
 import { STATUS, getStatusLabel } from "../constants/status";
 import { formatDueDate, isOverdue } from "../utils/dueDate";

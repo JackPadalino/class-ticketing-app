@@ -1,3 +1,10 @@
+/**
+ * Modal form to create a project, or edit one when a `project` prop is passed.
+ *   - submit(): calls createProject / updateProject, then onSaved(projectId).
+ * Creating a project needs no per-student setup - every student automatically
+ * gets their own board for it.
+ */
+
 import { useState } from "react";
 import { createProject, updateProject } from "./projectActions";
 

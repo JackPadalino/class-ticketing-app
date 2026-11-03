@@ -1,3 +1,10 @@
+/**
+ * Avatar button in the top bar with a dropdown menu.
+ *   - getInitials(name, email): the 1-2 letter avatar text.
+ *   - UserMenu: shows the user's name; the lead also gets Projects and Settings
+ *     links; everyone gets Sign out.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

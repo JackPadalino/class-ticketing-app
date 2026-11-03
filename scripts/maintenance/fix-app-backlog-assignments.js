@@ -1,3 +1,11 @@
+/**
+ * Reconciles every real student with roster.config.json's current assignedApp:
+ * updates their profile, deletes tickets that are neither onboarding tickets
+ * (ONBOARDING_TITLES) nor part of their current backlog, then creates missing
+ * backlog tickets. Idempotent.
+ * Run: npm run fix:app-backlog-assignments
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { loadRoster } from "../lib/firebaseAdmin.js";

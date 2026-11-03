@@ -1,3 +1,12 @@
+/**
+ * Firestore writes for ticket comments.
+ *   - addComment(ticket, { authorId, authorName, authorRole, text }): saves the
+ *     comment and creates a notification (lead_comment for the student, or
+ *     student_comment for the lead).
+ *   - updateComment(ticketId, commentId, text): edits text, stamps editedAt.
+ *   - deleteComment(ticketId, commentId).
+ */
+
 import {
   addDoc,
   collection,

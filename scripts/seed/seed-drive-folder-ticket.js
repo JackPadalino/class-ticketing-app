@@ -1,3 +1,11 @@
+/**
+ * Gives every real student the "Create Google Drive folder" ticket in the Unit 1
+ * Project 1 project, and assigns each student one of the project apps (APPS),
+ * saving the assignment back into roster.config.json.
+ *   - buildDescription(): the ticket's instructions text.
+ * Run: npm run seed:drive-folder-ticket
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { readFileSync, writeFileSync } from "fs";

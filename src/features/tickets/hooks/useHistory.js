@@ -1,3 +1,8 @@
+/**
+ * useHistory(ticketId): live history entries for one ticket, oldest first.
+ * Feeds the timeline on the ticket modal.
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../../lib/firebase";

@@ -1,3 +1,11 @@
+/**
+ * useNotifications({ role, uid, alertPrefs }): live unread notifications, newest first.
+ *   - Lead: pings from students, limited to the alert types switched on in their
+ *     alertPrefs (see alerts.js).
+ *   - Student: unread pings addressed to them (review decisions, lead comments).
+ * Sorted client-side to avoid needing a Firestore composite index.
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../lib/firebase";

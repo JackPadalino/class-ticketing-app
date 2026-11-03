@@ -1,3 +1,10 @@
+/**
+ * Creates the lead and student accounts from roster.config.json.
+ *   - upsertAccount(...): creates the Firebase Auth user (if missing) and writes
+ *     the users/{uid} profile. A password is only set when the account is created.
+ * Run: npm run seed:students
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { loadRoster } from "../lib/firebaseAdmin.js";

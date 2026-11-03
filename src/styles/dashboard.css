@@ -1,3 +1,9 @@
+/*
+   Page headers, back link and project description, plus the Settings page
+   sections (alert switches, "Needs your attention" feed) and the lead dashboard
+   controls.
+*/
+
 /* ---- dashboard ---- */
 .dashboard {
   padding: 24px 32px;

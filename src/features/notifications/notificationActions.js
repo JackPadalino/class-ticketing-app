@@ -1,3 +1,13 @@
+/**
+ * Firestore writes for notifications.
+ *   - notifyLead(type, ticket, student): student -> lead ping with no single
+ *     recipient (ready_for_review, need_support).
+ *   - notifyStudentOfReview(ticket, lead, decision): lead -> that ticket's student
+ *     ("approved" or "needs_revision").
+ *   - markNotificationRead(id), markAllNotificationsRead(ids): mark read (the bulk
+ *     version batches 450 at a time).
+ */
+
 import {
   addDoc,
   collection,

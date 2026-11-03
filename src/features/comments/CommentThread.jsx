@@ -1,3 +1,12 @@
+/**
+ * Comments on a ticket: the list plus a box to post a new one.
+ *   - CommentRow: one comment. The lead can edit or delete their own comments
+ *     (edit saves via updateComment; delete asks for confirmation). Comment text
+ *     is linkified.
+ *   - CommentThread: loads comments with useComments and posts via addComment,
+ *     stamping the author's role (lead/student).
+ */
+
 import { useState } from "react";
 import { useComments } from "./useComments";
 import { addComment, deleteComment, updateComment } from "./commentActions";

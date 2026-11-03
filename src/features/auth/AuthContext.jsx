@@ -1,3 +1,13 @@
+/**
+ * Authentication state for the whole app.
+ *   - AuthProvider: listens to Firebase Auth for the signed-in user, then live-
+ *     subscribes to that user's profile document (users/{uid}: role, displayName,
+ *     alertPrefs...). `loading` stays true until both are known.
+ *   - useAuth(): returns { user, profile, loading, login(email, password), logout() }.
+ *     Throws if used outside AuthProvider.
+ * `profile.role` ("lead" | "student") drives routing and what each screen shows.
+ */
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut as firebaseSignOut } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";

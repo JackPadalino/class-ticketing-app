@@ -1,3 +1,8 @@
+/**
+ * Live list of all projects (class-wide - every signed-in user sees them all),
+ * newest first. Returns { projects, loading }.
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../lib/firebase";

@@ -1,3 +1,10 @@
+/**
+ * Older password scheme: sets every account's password to the part of its email
+ * before the "@". Superseded by set-role-passwords.js.
+ *   - emailPrefixPassword(email): that prefix.
+ * Run: npm run reset:email-prefix-passwords
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { loadRoster } from "../lib/firebaseAdmin.js";
 

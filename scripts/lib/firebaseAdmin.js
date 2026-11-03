@@ -1,3 +1,11 @@
+/**
+ * Shared setup for the admin scripts. Importing this file initializes the Firebase
+ * Admin SDK using scripts/serviceAccountKey.json (gitignored) and exits with a
+ * helpful message if the key is missing.
+ *   - loadRoster(): reads scripts/roster.config.json (gitignored) - the lead and
+ *     student accounts, passwords and assigned apps - and exits if it's missing.
+ */
+
 import { readFileSync, existsSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";

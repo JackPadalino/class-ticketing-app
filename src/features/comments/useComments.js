@@ -1,3 +1,7 @@
+/**
+ * useComments(ticketId): live comments for one ticket, oldest first.
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../lib/firebase";

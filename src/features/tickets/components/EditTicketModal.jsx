@@ -1,3 +1,12 @@
+/**
+ * Modal for the lead to edit a ticket's title, description, phase and due date.
+ * The "Apply changes to" choice is this one ticket, or every copy of it across
+ * students (found by project + title + phase).
+ *   - changes: only the fields actually edited, so applying to everyone doesn't
+ *     overwrite per-student differences (e.g. a student's own description).
+ *   - matchCount: how many copies exist, shown in the dropdown.
+ */
+
 import { useEffect, useState } from "react";
 import { PHASES } from "../constants/phases";
 import { findMatchingTickets, updateTicketDetails } from "../ticketActions";

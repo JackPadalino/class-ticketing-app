@@ -1,3 +1,9 @@
+/*
+   Global foundation: color variables (:root), keyframe animations, the starfield
+   page background, base styles for buttons/inputs/labels, .blink, the drifting-
+   emoji layer (.space-floaters) and the reduced-motion overrides.
+*/
+
 :root {
   --bg: #000000;
   --card: #f1fff4;

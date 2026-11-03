@@ -1,3 +1,12 @@
+/**
+ * List of links on a ticket, with add/remove controls when `editable`.
+ *   - toSafeHttpUrl(raw): adds https:// if missing and rejects anything that isn't
+ *     http(s), so javascript: and similar URLs can't be saved.
+ *   - Each link is stamped with `addedBy` ("student" | "lead") when created and
+ *     can only be removed by that same role, so a student can't remove a link the
+ *     lead added. Older links with no addedBy count as student-added.
+ */
+
 import { useState } from "react";
 
 function toSafeHttpUrl(raw) {

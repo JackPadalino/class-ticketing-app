@@ -1,3 +1,11 @@
+/**
+ * Bell icon in the top bar with an unread count and a dropdown of alerts.
+ *   - notificationText(n): the sentence shown for each notification type.
+ *   - Clicking an alert closes the dropdown, calls onSelectNotification(n) (which
+ *     navigates to the ticket) and marks it read.
+ *   - "Mark all as read" marks every alert currently listed as read.
+ */
+
 import { useState } from "react";
 import { markAllNotificationsRead, markNotificationRead } from "./notificationActions";
 

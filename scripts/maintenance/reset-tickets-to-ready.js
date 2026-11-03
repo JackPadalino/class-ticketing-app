@@ -1,3 +1,8 @@
+/**
+ * Resets EVERY ticket back to "ready_to_start" and clears its review fields.
+ * Run: npm run reset:tickets   (affects all students' tickets)
+ */
+
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import "../lib/firebaseAdmin.js";
 

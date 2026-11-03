@@ -1,3 +1,8 @@
+/*
+   Ticket timeline: vertical list with dots for each history event. Also holds
+   the ticket modal's danger zone (.ticket-danger-zone, the Delete ticket area).
+*/
+
 /* ---- ticket timeline ---- */
 .ticket-timeline {
   border-top: 3px dashed var(--accent);

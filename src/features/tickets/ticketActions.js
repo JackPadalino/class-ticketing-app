@@ -1,3 +1,22 @@
+/**
+ * Firestore writes for tickets (everything except comments and notifications).
+ *   - createTicket(...): new ticket in "ready_to_start" + a "created" history entry.
+ *   - findMatchingTickets(ticket): all copies of "the same" ticket across students
+ *     (same project, title and phase) - tickets have no shared id.
+ *   - updateTicketDetails(ticket, changes, applyToAll): edit title/description/
+ *     phase/dueDate on one ticket or every copy. Only changed fields are sent.
+ *   - updateStudentStatus / markNeedSupport: a student's status change; alerts
+ *     the lead for "ready for review" and "need support" (which requires a comment).
+ *   - updateLinks, updateDueDate: edit a ticket's links / due date.
+ *   - approveTicket, requestRevision: the lead's review decisions (also notify
+ *     the student).
+ *   - updateTicketStatusAsLead: the lead's dropdown; routes Approve and Needs
+ *     revisions to the two functions above.
+ *   - deleteTicket(ticketId): deletes the ticket with its comments, history and
+ *     related notifications.
+ *   - STATUS_EVENT (private): maps a status to its history event type.
+ */
+
 import {
   addDoc,
   collection,

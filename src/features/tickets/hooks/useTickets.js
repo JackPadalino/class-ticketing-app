@@ -1,3 +1,10 @@
+/**
+ * useTickets({ projectId, uid, isLead }): live tickets for a project, oldest first.
+ * The lead gets every ticket; a student only their own. Returns { tickets, loading }.
+ * Uses only equality filters and sorts client-side so no Firestore composite
+ * index is required.
+ */
+
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../lib/firebase";

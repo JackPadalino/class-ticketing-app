@@ -1,3 +1,13 @@
+/**
+ * SVG diagram of the four Engineering Cycle phases (planning -> design ->
+ * development -> testing -> back to planning) with arrows between them.
+ *   - BOX_* / GAP_* / COL*_X / ROW*_Y constants: layout geometry.
+ *   - BOX_POS: top-left corner of each phase box, clockwise.
+ *   - ARROWS: SVG path for the connector between each pair of boxes.
+ *   - EngineeringCycleDiagram({ onSelectPhase }): each box is a keyboard-
+ *     accessible button; its color, number, label and emoji come from PHASES.
+ */
+
 import { PHASES } from "../tickets/constants/phases";
 
 const BOX_W = 240;

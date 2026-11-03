@@ -1,3 +1,10 @@
+/**
+ * A student's board for one phase of one project (/student/:projectId/:phase):
+ * only that student's own tickets in that phase, in the four status columns.
+ *   - openTicketId + navigation effect: opens the ticket modal when arriving from
+ *     a notification (router state { openTicketId }).
+ */
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";

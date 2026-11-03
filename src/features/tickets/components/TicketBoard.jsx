@@ -1,3 +1,10 @@
+/**
+ * The four-column Kanban board. Splits the tickets it is given into COLUMNS by
+ * status, renders a TicketCard for each, and shows the ticket detail modal for
+ * `openTicketId`.
+ *   - Props: tickets, isLead, currentUser, openTicketId, onOpenTicket, onCloseTicket.
+ */
+
 import { COLUMNS } from "../constants/status";
 import { TicketCard } from "./TicketCard";
 import { TicketDetailModal } from "./TicketDetailModal";

@@ -1,3 +1,8 @@
+/*
+   App shell: scrolling ticker (marquee), top bar and brand, footer, the CRT
+   scanline overlay, and the login page's sprite row and "insert coin" line.
+*/
+
 /* ---- app shell / persistent top nav ---- */
 .app-shell {
   min-height: 100vh;

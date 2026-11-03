@@ -1,3 +1,9 @@
+/**
+ * Gives every real student the "Share app" ticket (share the finished app with the
+ * lead and paste the link).
+ * Run: npm run seed:share-app-ticket
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { loadRoster } from "../lib/firebaseAdmin.js";

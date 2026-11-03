@@ -1,3 +1,10 @@
+/**
+ * Sets every existing account's password from roster.config.json (lead password;
+ * students get their own override or defaultStudentPassword). Re-run whenever the
+ * password scheme changes.
+ * Run: npm run reset:role-passwords
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { loadRoster } from "../lib/firebaseAdmin.js";
 

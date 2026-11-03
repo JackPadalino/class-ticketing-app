@@ -1,3 +1,12 @@
+/**
+ * Lead-only Settings page.
+ *   - Administrative: switch for "Allow students to update ticket status"
+ *     (writes settings/global.allowStudentStatusUpdates).
+ *   - Alerts: a switch per ALERT_TYPES entry (saved in the lead's alertPrefs).
+ *   - Needs your attention: the lead's unread alerts; clicking one opens the ticket.
+ *   - notificationText(n): sentence for each alert type.
+ */
+
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../lib/firebase";

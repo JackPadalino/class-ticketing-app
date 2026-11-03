@@ -1,3 +1,17 @@
+/**
+ * The ticket detail popup (view + actions).
+ * Everyone sees: title, assignee, status badge, description (links clickable),
+ * links, comments and the timeline.
+ * Lead gets: "Edit ticket" link, due date picker, a status dropdown (including
+ * Needs revisions and Approve), and a "Delete ticket" danger zone.
+ * Student gets: a status dropdown when the class-wide setting allows it (marking
+ * "Need support" requires a comment first), or a note that only the lead can
+ * change status; read-only due date; link editing until the ticket is completed.
+ *   - run(fn): runs an action with a busy flag and alerts on error.
+ *   - handleUpdateStatusClick / submitSupportComment: student status flow.
+ *   - handleDelete: confirms, then deleteTicket().
+ */
+
 import { useState } from "react";
 import { isStudentStatusUpdateAllowed } from "../../settings/statusUpdates";
 import { getPhaseLabel } from "../constants/phases";

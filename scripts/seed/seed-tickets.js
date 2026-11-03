@@ -1,3 +1,10 @@
+/**
+ * Gives every student a starter set of sample tickets, one per Engineering Cycle
+ * phase.
+ *   - SAMPLE_TICKETS: the tickets created for each student.
+ * Run: npm run seed:tickets
+ */
+
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { loadRoster } from "../lib/firebaseAdmin.js";
@@ -6,7 +13,7 @@ const auth = getAuth();
 const db = getFirestore();
 
 // One realistic ticket per phase of "The Engineering Cycle" (see
-// src/constants.js PHASES) — every student gets their own copy of this set.
+// src/features/tickets/constants/phases.js PHASES) — every student gets their own copy of this set.
 const SAMPLE_TICKETS = [
   {
     phase: "planning",

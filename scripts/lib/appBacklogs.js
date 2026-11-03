@@ -1,7 +1,18 @@
+/**
+ * The per-app ticket backlogs for Unit 1 Project 1 (from the project backlog doc).
+ *   - BACKLOGS: app name -> [{ type: "Core" | "Stretch", title }]; app names match
+ *     the `assignedApp` values in roster.config.json. All file under the
+ *     "development" phase.
+ *   - ticketTitle(item): the ticket title for a backlog item ("(Stretch) " is
+ *     prefixed for stretch items).
+ *   - ONBOARDING_TITLES: tickets every student has that are not part of an app
+ *     backlog (e.g. "Share app"); reconciliation must never delete these.
+ */
+
 // Straight from unit1_project_ticket_backlogs.docx — one backlog per app on
 // the Unit 1 Project Menu, keyed by the exact `assignedApp` string used in
 // roster.config.json. All tickets file under the "development" phase for
-// now (see PHASES in src/constants.js).
+// now (see PHASES in src/features/tickets/constants/phases.js).
 export const BACKLOGS = {
   "Budget Calculator": [
     { type: "Core", title: "Set up a way to organize records separately for each of the 12 months, so income and expenses don't get mixed together across different months." },

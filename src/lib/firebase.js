@@ -1,3 +1,11 @@
+/**
+ * Firebase initialization. Config comes from the VITE_FIREBASE_* variables in
+ * .env. Exports:
+ *   - auth: Firebase Authentication instance
+ *   - db:   Firestore instance
+ * Everything that talks to Firebase imports these two from here.
+ */
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

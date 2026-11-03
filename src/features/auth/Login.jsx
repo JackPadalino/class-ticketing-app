@@ -1,3 +1,12 @@
+/**
+ * Sign-in screen.
+ *   - EMAIL_DOMAIN / resolveEmail(raw): lets users type just their username
+ *     ("jpadalino") - it is turned into "jpadalino@amsbronx.org". A full email
+ *     with an "@" is used as typed.
+ *   - Login: username + password form, plus a sign-in instructions modal that
+ *     shows on load (showPasswordInfo). Shows a generic error on failure.
+ */
+
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { SpaceFloaters } from "../../components/effects/SpaceFloaters";

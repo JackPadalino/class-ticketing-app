@@ -1,3 +1,11 @@
+/**
+ * Projects landing page for both roles (isLead prop picks /lead vs /student links).
+ * Shows every project as a card. The lead also gets "+ New project" and a per-card
+ * menu to edit or delete a project.
+ *   - handleDelete(e, project): confirms, then deleteProjectCascade() removes the
+ *     project plus all its tickets/comments/history/notifications.
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";

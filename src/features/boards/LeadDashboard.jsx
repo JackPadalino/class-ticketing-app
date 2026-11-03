@@ -1,3 +1,15 @@
+/**
+ * The lead's board for one project (/lead/:projectId): all students' tickets in
+ * the four status columns.
+ *   - studentFilter: "all" or a student uid; narrows the board to one student.
+ *   - openTicketId: which ticket's detail modal is open.
+ *   - Navigation effect: when a notification is clicked, the router passes
+ *     { openTicketId, studentId }; the effect opens that ticket and applies the
+ *     student filter, then clears the router state. It runs on every navigation
+ *     so it also works when already on this board.
+ *   - "+ New ticket" opens CreateTicketModal (any project, one student or all).
+ */
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";

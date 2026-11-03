@@ -1,3 +1,9 @@
+/**
+ * One-time migration: backfills needsRevision: true on tickets whose status is
+ * "needs_revision", so the "Needs revision" badge persists after resubmission.
+ * Run: npm run migrate:needs-revision-flag
+ */
+
 import { getFirestore } from "firebase-admin/firestore";
 import "../lib/firebaseAdmin.js";
 

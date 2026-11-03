@@ -1,3 +1,8 @@
+/*
+   Comment thread: comment cards, author/meta line, edit/delete actions and the
+   new comment box.
+*/
+
 /* ---- comments ---- */
 .comment-thread {
   border-top: 3px dashed var(--accent);

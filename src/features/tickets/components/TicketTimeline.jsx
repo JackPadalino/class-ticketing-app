@@ -1,3 +1,10 @@
+/**
+ * Chronological list of what happened to a ticket (created, started, submitted,
+ * approved...), read from the ticket's history.
+ *   - EVENT_LABEL: history event type -> display text.
+ *   - formatTime(ts): Firestore timestamp -> local date/time string.
+ */
+
 import { useHistory } from "../hooks/useHistory";
 
 const EVENT_LABEL = {

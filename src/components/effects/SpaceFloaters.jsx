@@ -1,3 +1,12 @@
+/**
+ * Decorative background layer of slowly drifting space emoji (invaders, rockets,
+ * UFOs...). Purely visual: aria-hidden, click-through, and sits behind page
+ * content (see .space-floaters in styles/base.css).
+ *   - SHIPS:      the emoji used
+ *   - FLOATERS:   per-emoji position/size/speed/delay, computed once from the index
+ *   - SpaceFloaters: renders the spans; the CSS animation does the movement.
+ */
+
 const SHIPS = ["👾", "👽", "🛸", "🚀", "☄️", "👾", "🛰️", "👾", "🌟", "🛸", "👽", "🪐", "👾", "🚀"];
 
 const FLOATERS = SHIPS.map((emoji, i) => ({

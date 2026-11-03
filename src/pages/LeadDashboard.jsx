@@ -20,7 +20,17 @@ export function LeadDashboard() {
   const [project, setProject] = useState(null);
   const [openTicketId, setOpenTicketId] = useState(location.state?.openTicketId || null);
   const [showCreate, setShowCreate] = useState(false);
-  const [studentFilter, setStudentFilter] = useState("all");
+  const [studentFilter, setStudentFilter] = useState(location.state?.studentId || "all");
+
+  // Clicking a notification navigates here (possibly while already on this
+  // page, or on another project's board), so react to every new navigation
+  // rather than only reading the state on first render.
+  useEffect(() => {
+    if (!location.state?.openTicketId) return;
+    setOpenTicketId(location.state.openTicketId);
+    if (location.state.studentId) setStudentFilter(location.state.studentId);
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.key]);
 
   useEffect(() => {
     return onSnapshot(doc(db, "projects", projectId), (snap) => {

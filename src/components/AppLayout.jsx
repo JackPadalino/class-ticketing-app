@@ -18,7 +18,9 @@ export function AppLayout() {
     // The lead's board isn't split by phase, but a student's is - route
     // straight to the right phase board so the ticket can actually be found.
     const path = isLead || !n.phase ? `${base}/${n.projectId}` : `${base}/${n.projectId}/${n.phase}`;
-    navigate(path, { state: { openTicketId: n.ticketId } });
+    // For the lead, actorId is the student who triggered the alert - used to
+    // filter the board down to that student's tickets.
+    navigate(path, { state: { openTicketId: n.ticketId, studentId: isLead ? n.actorId : null } });
   };
 
   return (

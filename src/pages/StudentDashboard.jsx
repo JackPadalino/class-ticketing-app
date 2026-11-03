@@ -17,6 +17,12 @@ export function StudentDashboard() {
   const [openTicketId, setOpenTicketId] = useState(location.state?.openTicketId || null);
 
   useEffect(() => {
+    if (!location.state?.openTicketId) return;
+    setOpenTicketId(location.state.openTicketId);
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.key]);
+
+  useEffect(() => {
     return onSnapshot(doc(db, "projects", projectId), (snap) => {
       setProject(snap.exists() ? { id: snap.id, ...snap.data() } : null);
     });

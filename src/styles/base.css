@@ -65,6 +65,11 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes wing-flap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
 @keyframes sprite-bob {
   0%, 100% { transform: translateX(-4px); }
   50% { transform: translateX(4px); }
@@ -102,8 +107,18 @@
   animation: die-spin 16s steps(12) infinite;
 }
 
-.dungeon-floaters span.die.reverse svg {
+.dungeon-floaters span.die.reverse svg,
+.dungeon-floaters span.sword.reverse svg {
   animation-direction: reverse;
+}
+
+.dungeon-floaters span.sword svg {
+  animation: die-spin 22s steps(16) infinite;
+}
+
+/* Dragons beat their wings: a two-step hop on top of the slow fall. */
+.dungeon-floaters span.dragon svg {
+  animation: wing-flap 0.9s steps(2, end) infinite;
 }
 
 body:has(.projects-page) .dungeon-floaters {

@@ -12,8 +12,8 @@
   height: 36px;
   padding: 0;
   border-radius: 50%;
-  border: 2px outset var(--neon);
-  background: linear-gradient(135deg, var(--neon), var(--blue));
+  border: 2px outset var(--gold);
+  background: linear-gradient(135deg, var(--gold), #6b3fa0);
   color: #000;
   font-size: 13px;
   font-weight: 700;

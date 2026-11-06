@@ -1,0 +1,19 @@
+/*
+   Decoration: square gold studs in each corner of the main panels (login card,
+   modals, project cards, dashboard sections and board columns). Imported after
+   the component styles because their `background` shorthands would otherwise
+   reset the rivet images.
+*/
+
+.login-card,
+.modal,
+.project-card,
+.dashboard-section,
+.board-column {
+  background-image: linear-gradient(#d9a82e, #d9a82e), linear-gradient(#d9a82e, #d9a82e),
+    linear-gradient(#d9a82e, #d9a82e), linear-gradient(#d9a82e, #d9a82e);
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  background-position: 5px 5px, calc(100% - 5px) 5px, 5px calc(100% - 5px), calc(100% - 5px) calc(100% - 5px);
+}
+

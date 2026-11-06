@@ -12,7 +12,7 @@
 
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
-import { SpaceFloaters } from "../../components/effects/SpaceFloaters";
+import { DungeonFloaters, PixelD20, PixelSword, PixelShield } from "../../components/effects/DungeonFloaters";
 
 const EMAIL_DOMAIN = "amsbronx.org";
 
@@ -47,17 +47,17 @@ export function Login() {
   return (
     <div className="login-page">
       <div className="scanlines" aria-hidden="true" />
-      <SpaceFloaters />
+      <DungeonFloaters />
 
       <form className="login-card" onSubmit={submit}>
         <div className="login-sprites" aria-hidden="true">
-          <span>👾</span>
-          <span>🚀</span>
-          <span>🛸</span>
-          <span>👽</span>
+          <span><PixelD20 tone="ruby" size={40} /></span>
+          <span><PixelSword size={26} /></span>
+          <span><PixelShield size={36} /></span>
+          <span><PixelD20 tone="amethyst" size={40} /></span>
         </div>
-        <h1>AMS SWE INVADERS</h1>
-        <p className="insert-coin blink">INSERT COIN TO CONTINUE</p>
+        <h1>AMS SWE GUILD</h1>
+        <p className="insert-coin blink">ROLL FOR INITIATIVE</p>
         <label>
           Username
           <input
@@ -81,7 +81,7 @@ export function Login() {
         </label>
         {error && <p className="login-error">{error}</p>}
         <button type="submit" disabled={submitting}>
-          {submitting ? "LOADING..." : "PRESS START"}
+          {submitting ? "LOADING..." : "ENTER THE DUNGEON"}
         </button>
       </form>
     </div>

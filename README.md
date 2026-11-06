@@ -67,7 +67,7 @@ src/
   utils/linkify.jsx          turns URLs in text into links
   components/
     layout/                  AppLayout (top bar, ticker, footer), UserMenu
-    effects/                 SpaceFloaters (drifting background emoji)
+    effects/                 DungeonFloaters (pixel-art dice, torch flames and sprites)
   features/
     auth/                    AuthContext, Login
     projects/                ProjectsList, ProjectModal, useProjects, projectActions

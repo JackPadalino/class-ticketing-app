@@ -29,7 +29,7 @@
 }
 
 .board-column:nth-child(3) {
-  border-color: #ff8800;
+  border-color: #c0602a;
 }
 
 .board-column:nth-child(4) {
@@ -39,13 +39,13 @@
 .board-column h2::before {
   display: inline-block;
   font-size: 18px;
-  animation: invader-pop 1.8s ease-in-out infinite;
+  animation: sprite-pop 1.8s ease-in-out infinite;
 }
 
-.board-column:nth-child(1) h2::before { content: "🌍"; }
-.board-column:nth-child(2) h2::before { content: "🚀"; animation-delay: -0.5s; }
-.board-column:nth-child(3) h2::before { content: "🛸"; animation-delay: -1s; }
-.board-column:nth-child(4) h2::before { content: "👾"; animation-delay: -1.4s; }
+.board-column:nth-child(1) h2::before { content: "📜"; }
+.board-column:nth-child(2) h2::before { content: "⚔️"; animation-delay: -0.5s; }
+.board-column:nth-child(3) h2::before { content: "🔮"; animation-delay: -1s; }
+.board-column:nth-child(4) h2::before { content: "🏆"; animation-delay: -1.4s; }
 
 .board-column h2 {
   font-family: "Press Start 2P", monospace;
@@ -60,7 +60,7 @@
 }
 
 .column-count {
-  background: white;
+  background: #fff8e6;
   border: 2px solid var(--text);
   border-radius: 999px;
   padding: 1px 8px;
@@ -95,7 +95,7 @@
 }
 
 .ticket-card:hover {
-  background: #eafff0;
+  background: #fbefd0;
   border-color: var(--accent);
   transform: translate(-1px, -1px);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);

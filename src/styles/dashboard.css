@@ -25,25 +25,25 @@
 }
 
 .dashboard-header h1::before {
-  content: "👾 ";
+  content: "🐉 ";
 }
 
 .dashboard-header h1 {
   font-family: "Press Start 2P", monospace;
   font-size: 18px;
   margin: 0;
-  animation: rainbow-text 4s linear infinite;
+  animation: gold-shimmer 4s linear infinite;
 }
 
 .projects-page .dashboard-header h1 {
   animation: none;
-  color: var(--neon);
+  color: var(--gold);
 }
 
 .project-description {
   margin: 6px 0 0;
   font-size: 13px;
-  color: #c9ffd6;
+  color: #f0dcae;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   max-width: 520px;
   font-weight: 700;
@@ -52,7 +52,7 @@
 .board-scope {
   font-size: 16px;
   font-weight: 700;
-  color: #c9ffd6;
+  color: #f0dcae;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   margin: -8px 0 16px;
   text-decoration: underline wavy var(--accent);
@@ -69,7 +69,7 @@
 }
 
 .dashboard-section:nth-of-type(2) {
-  border-color: #00cc44;
+  border-color: #b8860b;
 }
 
 .dashboard-section h2 {
@@ -129,8 +129,8 @@
 .switch-track {
   position: absolute;
   inset: 0;
-  background: #ffd6d6;
-  border: 2px inset #808080;
+  background: var(--red-bg);
+  border: 2px inset #8a6a3f;
   border-radius: 0;
   transition: background 0.15s ease;
 }
@@ -148,7 +148,7 @@
 }
 
 .switch input:checked + .switch-track {
-  background: #ccffcc;
+  background: var(--green-bg);
 }
 
 .switch input:checked + .switch-track::before {
@@ -177,7 +177,7 @@
 }
 
 .alert-feed-item:hover {
-  background: #d6f5ff;
+  background: var(--blue-bg);
 }
 
 .header-right {
@@ -191,7 +191,7 @@
   background: transparent;
   border: none;
   box-shadow: none;
-  color: #7fdcff;
+  color: #b99cf0;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   padding: 0;
   font-size: 13px;

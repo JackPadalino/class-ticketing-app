@@ -1,6 +1,6 @@
 /**
- * Page chrome shared by every signed-in screen: scanlines overlay, drifting
- * space emoji, scrolling ticker, top bar (brand, notification bell, user menu),
+ * Page chrome shared by every signed-in screen: scanlines overlay, pixel
+ * dice and torch flames, scrolling ticker, top bar (brand, notification bell, user menu),
  * the routed page content (<Outlet />), and the footer.
  *   - AppLayout: also subscribes to the user's notifications (useNotifications).
  *   - openNotification(n): what happens when a notification is clicked. Navigates
@@ -17,7 +17,7 @@ import { useAuth } from "../../features/auth/AuthContext";
 import { useNotifications } from "../../features/notifications/useNotifications";
 import { NotificationBell } from "../../features/notifications/NotificationBell";
 import { UserMenu } from "./UserMenu";
-import { SpaceFloaters } from "../effects/SpaceFloaters";
+import { DungeonFloaters, PixelD20, PixelSword, PixelShield } from "../effects/DungeonFloaters";
 
 export function AppLayout() {
   const { user, profile, logout } = useAuth();
@@ -40,21 +40,21 @@ export function AppLayout() {
   return (
     <div className="app-shell">
       <div className="scanlines" aria-hidden="true" />
-      <SpaceFloaters />
+      <DungeonFloaters />
       <div className="marquee-bar" aria-hidden="true">
-        <span className="marquee-sprite">🚀</span>
+        <span className="marquee-sprite"><PixelD20 tone="ruby" size={26} /></span>
         <div className="marquee-viewport">
           <div className="marquee-track">
-            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
-            👾 HIGH SCORE 👾 DEFEND EARTH 👾 WELCOME TO THE AMS SWE INVADERS 👾 INSERT TICKET TO CONTINUE 👾 1UP READY
+            🎲 ROLL FOR INITIATIVE 🎲 THE QUEST BOARD AWAITS 🎲 WELCOME TO THE AMS SWE GUILD 🎲 ACCEPT A QUEST TO CONTINUE 🎲 NATURAL 20
+            🎲 ROLL FOR INITIATIVE 🎲 THE QUEST BOARD AWAITS 🎲 WELCOME TO THE AMS SWE GUILD 🎲 ACCEPT A QUEST TO CONTINUE 🎲 NATURAL 20
           </div>
         </div>
-        <span className="marquee-sprite">👾</span>
-        <span className="marquee-sprite">👽</span>
+        <span className="marquee-sprite"><PixelShield size={26} /></span>
+        <span className="marquee-sprite"><PixelSword size={18} /></span>
       </div>
       <nav className="topbar">
         <button type="button" className="brand" onClick={() => navigate(base)}>
-          👾 AMS SWE INVADERS 🚀
+          🐉 AMS SWE GUILD 🎲
         </button>
         <div className="topbar-right">
           <NotificationBell notifications={notifications} onSelectNotification={openNotification} />
@@ -65,11 +65,11 @@ export function AppLayout() {
         <Outlet />
       </div>
       <footer className="retro-footer">
-        <span className="footer-sprite">👾👾👾👾👾</span>
-        <span className="blink">INSERT COIN</span>
+        <span className="footer-sprite">⚔️⚔️⚔️⚔️⚔️</span>
+        <span className="blink">ROLL D20</span>
         <span className="retro-footer-sep">•</span>
-        <span className="hit-counter" title="totally real high score">
-          HIGH SCORE {"0" + "0" + "1" + "3" + "3" + "7" + "0" + "0"}
+        <span className="hit-counter" title="totally real experience points">
+          XP {"0" + "0" + "0" + "1" + "3" + "3" + "7" + "0"}
         </span>
       </footer>
     </div>

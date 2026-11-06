@@ -29,16 +29,16 @@
   line-height: 1.6;
   margin: 0 0 20px;
   text-align: center;
-  animation: rainbow-text 4s linear infinite;
+  animation: gold-shimmer 4s linear infinite;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 
 .login-card h1::before {
-  content: "👾 ";
+  content: "🐉 ";
 }
 
 .login-card h1::after {
-  content: " 🚀";
+  content: " 🎲";
 }
 
 .login-error {
@@ -51,7 +51,7 @@
 .loading {
   padding: 40px;
   text-align: center;
-  color: #c9ffd6;
+  color: #f0dcae;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   font-weight: 700;
 }

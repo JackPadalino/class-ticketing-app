@@ -1,6 +1,6 @@
 /*
-   App shell: scrolling ticker (marquee), top bar and brand, footer, the CRT
-   scanline overlay, and the login page's sprite row and "insert coin" line.
+   App shell: scrolling ticker (marquee), top bar and brand, footer, the
+   scanline overlay, and the login page's sprite row and "roll for initiative" line.
 */
 
 /* ---- app shell / persistent top nav ---- */
@@ -14,8 +14,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #000;
-  color: var(--neon);
+  background: #0f0c0a;
+  color: var(--gold);
   font-family: "Press Start 2P", monospace;
   font-size: 11px;
   padding: 4px 12px;
@@ -37,7 +37,7 @@
   font-size: 22px;
   line-height: 28px;
   flex-shrink: 0;
-  animation: invader-bob 0.8s steps(2, end) infinite;
+  animation: sprite-bob 0.8s steps(2, end) infinite;
 }
 
 .marquee-sprite:nth-of-type(2) { animation-delay: -0.2s; }
@@ -49,7 +49,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 14px 32px;
-  background: linear-gradient(90deg, #000000, #001a33, #000000);
+  background: linear-gradient(90deg, #0f0c0a, #2a1740, #0f0c0a);
   border-bottom: 4px dashed var(--accent);
   position: sticky;
   top: 0;
@@ -60,7 +60,7 @@
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--neon);
+  color: var(--gold);
   font-family: "Press Start 2P", monospace;
   font-weight: 400;
   font-size: 12px;
@@ -81,8 +81,8 @@
 
 .retro-footer {
   margin-top: auto;
-  background: #000;
-  color: var(--neon);
+  background: #0f0c0a;
+  color: var(--gold);
   font-size: 12px;
   padding: 12px 20px;
   display: flex;
@@ -94,16 +94,20 @@
   text-align: center;
 }
 
+.retro-footer .blink {
+  color: #e8604f;
+}
+
 .retro-footer-sep {
   color: var(--accent);
 }
 
 .hit-counter {
   font-family: "Press Start 2P", monospace;
-  background: #111;
-  color: var(--neon);
+  background: #1a1426;
+  color: var(--gold);
   padding: 3px 6px;
-  border: 2px inset #444;
+  border: 2px inset #6b3fa0;
   letter-spacing: 1px;
 }
 
@@ -111,11 +115,11 @@
   display: inline-block;
   font-size: 15px;
   letter-spacing: 2px;
-  animation: invader-bob 1s steps(2, end) infinite;
+  animation: sprite-bob 1s steps(2, end) infinite;
 }
 
-/* CRT scanline overlay - a fixed, click-through strip pattern over the
-   whole viewport so every page reads like it's on an arcade monitor. */
+/* Scanline overlay - a fixed, click-through strip pattern over the
+   whole viewport that gives every page a chunky pixel-display texture. */
 .scanlines {
   position: fixed;
   inset: 0;
@@ -143,12 +147,17 @@
   font-size: 40px;
   line-height: 1;
   display: inline-block;
-  animation: invader-bob 0.9s steps(2, end) infinite;
+  animation: sprite-bob 0.9s steps(2, end) infinite;
 }
 
 .login-sprites span:nth-child(2) { animation-delay: -0.2s; }
 .login-sprites span:nth-child(3) { animation-delay: -0.4s; }
 .login-sprites span:nth-child(4) { animation-delay: -0.6s; }
+
+.login-sprites svg,
+.marquee-sprite svg {
+  display: block;
+}
 
 .insert-coin {
   text-align: center;

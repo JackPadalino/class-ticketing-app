@@ -121,30 +121,32 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               </button>
             )}
           </div>
-          <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
-          {statusLabel && (
-            <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
-              {statusLabel}
-            </span>
-          )}
+          <div className="ticket-meta">
+            <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
+            {statusLabel && (
+              <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
+                {statusLabel}
+              </span>
+            )}
 
-          {isLead ? (
-            <div className="due-date-field">
-              <label htmlFor="due-date-input">Due date</label>
-              <input
-                id="due-date-input"
-                type="date"
-                value={ticket.dueDate || ""}
-                onChange={(e) => run(() => updateDueDate(ticket.id, e.target.value))}
-              />
-            </div>
-          ) : (
-            ticket.dueDate && (
-              <p className={`ticket-due-date ${overdue ? "overdue" : ""}`}>
-                Due: {formatDueDate(ticket.dueDate)}
-              </p>
-            )
-          )}
+            {isLead ? (
+              <div className="due-date-field">
+                <label htmlFor="due-date-input">Due date</label>
+                <input
+                  id="due-date-input"
+                  type="date"
+                  value={ticket.dueDate || ""}
+                  onChange={(e) => run(() => updateDueDate(ticket.id, e.target.value))}
+                />
+              </div>
+            ) : (
+              ticket.dueDate && (
+                <p className={`ticket-due-date ${overdue ? "overdue" : ""}`}>
+                  Due: {formatDueDate(ticket.dueDate)}
+                </p>
+              )
+            )}
+          </div>
 
           <p className="ticket-description">{linkify(ticket.description)}</p>
 

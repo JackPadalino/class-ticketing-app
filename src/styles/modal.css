@@ -89,16 +89,46 @@
   font-size: 13px;
 }
 
+.ticket-modal-scroll > .phase-badge {
+  margin-bottom: 4px;
+}
+
+/* Assignee, status pill and due date: a vertical stack with even gaps. */
+.ticket-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+
+.ticket-meta .ticket-assignee,
+.ticket-meta .ticket-due-date,
+.ticket-meta .due-date-field {
+  margin: 0;
+}
+
+.ticket-meta .due-date-field {
+  gap: 12px;
+}
+
 .ticket-description {
   white-space: pre-wrap;
   color: var(--text);
   font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+
+.ticket-modal-scroll > h4 {
+  margin: 0 0 10px;
+  color: var(--accent-dark);
 }
 
 .modal-actions {
   display: flex;
-  gap: 10px;
-  margin: 18px 0;
+  gap: 12px;
+  margin: 20px 0 28px;
   flex-wrap: wrap;
   align-items: center;
 }

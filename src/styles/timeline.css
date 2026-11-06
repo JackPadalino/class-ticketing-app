@@ -6,14 +6,14 @@
 /* ---- ticket timeline ---- */
 .ticket-timeline {
   border-top: 3px dashed var(--accent);
-  padding-top: 14px;
-  margin-top: 16px;
+  padding-top: 18px;
+  margin-top: 28px;
 }
 
 .ticket-danger-zone {
   border-top: 3px dashed var(--red);
-  padding-top: 14px;
-  margin-top: 16px;
+  padding-top: 18px;
+  margin-top: 28px;
 }
 
 .ticket-timeline h4 {

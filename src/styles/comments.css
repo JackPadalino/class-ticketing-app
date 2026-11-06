@@ -6,8 +6,8 @@
 /* ---- comments ---- */
 .comment-thread {
   border-top: 3px dashed var(--accent);
-  padding-top: 14px;
-  margin-top: 8px;
+  padding-top: 18px;
+  margin-top: 0;
 }
 
 .comment-thread h4 {

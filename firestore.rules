@@ -111,6 +111,7 @@ service cloud.firestore {
       // review, needs revision, approved, ...) - visible to the same
       // people as the ticket itself. Either role can log one, but only
       // as themselves.
+      // Students can't log one on a ticket the lead has closed.
       match /history/{eventId} {
         allow read: if isLead() ||
           (isSignedIn() &&
@@ -119,7 +120,8 @@ service cloud.firestore {
           request.resource.data.actorId == request.auth.uid &&
           (
             isLead() ||
-            get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid
+            (get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid &&
+              get(/databases/$(database)/documents/tickets/$(ticketId)).data.status != 'closed')
           );
         allow update: if false;
         allow delete: if isLead();

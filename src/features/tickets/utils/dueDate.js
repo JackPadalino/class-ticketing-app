@@ -3,7 +3,7 @@
  *   - formatDueDate(dueDate): local-date display string (avoids the off-by-one-day
  *     bug you get from parsing the string as UTC).
  *   - isOverdue(dueDate, status): true if the date has passed and the ticket
- *     isn't completed or closed.
+ *     isn't completed.
  *
  * Appears in the following files:
  *   - formatDueDate: features/tickets/components/TicketCard.jsx,
@@ -24,7 +24,7 @@ export function formatDueDate(dueDate) {
 }
 
 export function isOverdue(dueDate, status) {
-  if (!dueDate || status === STATUS.COMPLETED || status === STATUS.CLOSED) return false;
+  if (!dueDate || status === STATUS.COMPLETED) return false;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return new Date(`${dueDate}T00:00:00`) < today;

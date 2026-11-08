@@ -6,7 +6,7 @@
 /* ---- board ---- */
 .board {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   align-items: stretch;
   flex: 1;
@@ -36,10 +36,6 @@
   border-color: var(--green);
 }
 
-.board-column:nth-child(5) {
-  border-color: var(--muted);
-}
-
 .board-column h2::before {
   display: inline-block;
   font-size: 18px;
@@ -50,7 +46,6 @@
 .board-column:nth-child(2) h2::before { content: "⚔️"; animation-delay: -0.5s; }
 .board-column:nth-child(3) h2::before { content: "🔮"; animation-delay: -1s; }
 .board-column:nth-child(4) h2::before { content: "🏆"; animation-delay: -1.4s; }
-.board-column:nth-child(5) h2::before { content: "🔒"; animation-delay: -1.8s; }
 
 .board-column h2 {
   font-family: "Press Start 2P", monospace;

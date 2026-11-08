@@ -1,13 +1,11 @@
 /**
  * Ticket status vocabulary and the board's column layout.
  *   - STATUS: every status value stored on a ticket (ready_to_start, in_progress,
- *     ready_for_review, needs_revision, need_support, completed, closed).
- *   - COLUMNS: the five board columns and which statuses land in each.
+ *     ready_for_review, needs_revision, need_support, completed).
+ *   - COLUMNS: the four board columns and which statuses land in each.
  *     needs_revision and need_support show in the In Progress column.
  *   - STUDENT_STATUS_OPTIONS: what a student can choose in their status dropdown.
- *   - LEAD_STATUS_OPTIONS: the student options plus Needs revisions, Approve and Close.
- *   - isLockedForStudent(ticket): true once a ticket is completed or closed -
- *     the student can no longer change its status, links or (if closed) comments.
+ *   - LEAD_STATUS_OPTIONS: the student options plus Needs revisions and Approve.
  *   - getStatusLabel(ticket): the badge text ("Need support" / "Needs revision")
  *     or null when no badge applies.
  *
@@ -22,7 +20,6 @@
  *   - LEAD_STATUS_OPTIONS: features/tickets/components/TicketDetailModal.jsx
  *   - getStatusLabel: features/tickets/components/TicketCard.jsx,
  *       features/tickets/components/TicketDetailModal.jsx
- *   - isLockedForStudent: features/tickets/components/TicketDetailModal.jsx
  */
 
 export const STATUS = {
@@ -32,7 +29,6 @@ export const STATUS = {
   NEEDS_REVISION: "needs_revision",
   NEED_SUPPORT: "need_support",
   COMPLETED: "completed",
-  CLOSED: "closed",
 };
 
 export const COLUMNS = [
@@ -44,7 +40,6 @@ export const COLUMNS = [
   },
   { key: "in_review", title: "In Review", statuses: [STATUS.READY_FOR_REVIEW] },
   { key: "completed", title: "Completed", statuses: [STATUS.COMPLETED] },
-  { key: "closed", title: "Closed", statuses: [STATUS.CLOSED] },
 ];
 
 // Statuses students can pick from the status dropdown. Ready for review
@@ -67,9 +62,7 @@ export const STUDENT_STATUS_OPTIONS = [
 ];
 
 // The lead's own status dropdown - everything a student can pick, plus
-// Needs revisions, Approve and Close. Close is the lead's way of locking
-// a ticket for good: the student can't change anything on it anymore
-// (status, links, or comments - enforced in firestore.rules too). Selecting either still routes through
+// Needs revisions and Approve. Selecting either still routes through
 // the same requestRevision()/approveTicket() the old review buttons
 // used (reviewedBy/reviewedAt, history, and the student notification
 // all stay consistent regardless of which control triggered it).
@@ -77,15 +70,10 @@ export const LEAD_STATUS_OPTIONS = [
   ...STUDENT_STATUS_OPTIONS,
   { value: STATUS.NEEDS_REVISION, label: "Needs revisions" },
   { value: STATUS.COMPLETED, label: "Approve" },
-  { value: STATUS.CLOSED, label: "Close" },
 ];
-
-export function isLockedForStudent(ticket) {
-  return ticket.status === STATUS.COMPLETED || ticket.status === STATUS.CLOSED;
-}
 
 export function getStatusLabel(ticket) {
   if (ticket.status === STATUS.NEED_SUPPORT) return "Need support";
-  if (ticket.needsRevision && !isLockedForStudent(ticket)) return "Needs revision";
+  if (ticket.needsRevision && ticket.status !== STATUS.COMPLETED) return "Needs revision";
   return null;
 }

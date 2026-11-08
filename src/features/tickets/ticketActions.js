@@ -112,7 +112,6 @@ const STATUS_EVENT = {
   [STATUS.IN_PROGRESS]: "started",
   [STATUS.READY_FOR_REVIEW]: "submitted_for_review",
   [STATUS.NEED_SUPPORT]: "requested_support",
-  [STATUS.CLOSED]: "closed",
 };
 
 // The one action behind the student's status dropdown + "Update status"

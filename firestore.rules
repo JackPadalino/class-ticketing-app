@@ -59,14 +59,15 @@ service cloud.firestore {
       // they can never touch title/description/phase/assignedTo, and
       // never set status to 'completed' themselves (only the lead's
       // approval does that). Editing links alone (status unchanged) is
-      // always allowed regardless of which non-completed status it's in;
-      // actually changing status additionally requires the lead's
+      // always allowed while the ticket isn't completed or closed (a
+      // closed ticket is locked entirely for the student); actually
+      // changing status additionally requires the lead's
       // settings/global.allowStudentStatusUpdates toggle to not be off
       // (missing doc/field defaults to allowed, matching the client).
       allow update: if isLead() || (
         isSignedIn() &&
         resource.data.assignedTo == request.auth.uid &&
-        resource.data.status != 'completed' &&
+        !(resource.data.status in ['completed', 'closed']) &&
         request.resource.data.diff(resource.data).affectedKeys()
           .hasOnly(['status', 'links', 'updatedAt']) &&
         (
@@ -88,12 +89,14 @@ service cloud.firestore {
         // Either the lead or the ticket's own student can post a comment,
         // but only as themselves and with the role that actually matches
         // who they are - a student can't stamp authorRole 'lead' on one.
+        // Students can't comment on a ticket the lead has closed.
         allow create: if isSignedIn() &&
           request.resource.data.authorId == request.auth.uid &&
           (
             (isLead() && request.resource.data.authorRole == 'lead') ||
             (request.resource.data.authorRole == 'student' &&
-              get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid)
+              get(/databases/$(database)/documents/tickets/$(ticketId)).data.assignedTo == request.auth.uid &&
+              get(/databases/$(database)/documents/tickets/$(ticketId)).data.status != 'closed')
           );
         // Only the lead who wrote a comment can edit it, and only its
         // text - delete stays broad (isLead(), not author-restricted) so

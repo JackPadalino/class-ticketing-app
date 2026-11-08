@@ -20,6 +20,7 @@ const EVENT_LABEL = {
   needs_revision: "Needs revisions",
   approved: "Approved",
   requested_support: "Requested support",
+  closed: "Closed",
 };
 
 function formatTime(ts) {

@@ -9,6 +9,7 @@ A Kanban-style ticket tracker for a lead engineer and a roster of students, buil
 - **Students** see only their own tickets, only within a project they've opened. They can mark a ticket "Working on it" and later "Ready for review" (which notifies the lead). They can add/edit links (Google Docs, drawings, deployed app URLs, etc.) on their own tickets.
 - **Lead** sees every student's tickets within a project, gets a notification when a ticket is marked ready for review (from the Projects screen), and can leave comments plus **Approve** (moves the ticket to Completed) or **Needs Revisions** (sends it back to Working on It).
 - Tickets can only reach the **Completed** column through lead approval — students cannot mark their own ticket complete.
+- The lead can also **Close** a ticket (moves it to the **Closed** column, right of Completed). A closed ticket is read-only for the student: no status changes, link edits, or new comments.
 
 ## Firestore data model
 
@@ -31,7 +32,7 @@ tickets/{ticketId}
   phase: string                 // e.g. "Planning", "Design", "Development"...
   assignedTo: uid
   assignedToName: string        // denormalized for display
-  status: "ready_to_start" | "in_progress" | "ready_for_review" | "needs_revision" | "completed"
+  status: "ready_to_start" | "in_progress" | "ready_for_review" | "needs_revision" | "need_support" | "completed" | "closed"
   links: [{ label, url }]
   createdAt, updatedAt: timestamp
   reviewedBy: uid | null

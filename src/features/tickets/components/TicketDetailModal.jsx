@@ -7,6 +7,8 @@
  * Student gets: a status dropdown when the class-wide setting allows it (marking
  * "Need support" requires a comment first), or a note that only the lead can
  * change status; read-only due date; link editing until the ticket is completed.
+ * Once the lead closes a ticket it is fully read-only for the student (no status,
+ * links or new comments).
  *   - run(fn): runs an action with a busy flag and alerts on error.
  *   - handleUpdateStatusClick / submitSupportComment: student status flow.
  *   - handleDelete: confirms, then deleteTicket().
@@ -23,6 +25,7 @@ import {
   STATUS,
   STUDENT_STATUS_OPTIONS,
   getStatusLabel,
+  isLockedForStudent,
 } from "../constants/status";
 import { formatDueDate, isOverdue } from "../utils/dueDate";
 import { useSettings } from "../../settings/useSettings";
@@ -65,7 +68,8 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
     }
   };
 
-  const studentCanEditLinks = !isLead && ticket.status !== STATUS.COMPLETED;
+  const studentCanEditLinks = !isLead && !isLockedForStudent(ticket);
+  const isClosed = ticket.status === STATUS.CLOSED;
   const statusLabel = getStatusLabel(ticket);
   const overdue = isOverdue(ticket.dueDate, ticket.status);
 
@@ -177,7 +181,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               </div>
             )}
 
-            {!isLead && ticket.status !== STATUS.COMPLETED && (
+            {!isLead && !isLockedForStudent(ticket) && (
               canStudentUpdateStatus ? (
                 <div className="status-update">
                   <select value={selectedStatus} onChange={(e) => handleStatusChange(e.target.value)}>
@@ -228,12 +232,16 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               </div>
             )}
 
+            {!isLead && isClosed && (
+              <p className="hint">This ticket was closed by your lead and can no longer be edited.</p>
+            )}
+
             {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
               <p className="waiting-note">Waiting on lead review.</p>
             )}
           </div>
 
-          <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} />
+          <CommentThread ticket={ticket} isLead={isLead} currentUser={currentUser} canPost={isLead || !isClosed} />
 
           <TicketTimeline ticketId={ticket.id} />
 

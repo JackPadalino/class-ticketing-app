@@ -4,7 +4,8 @@
  *     (edit saves via updateComment; delete asks for confirmation). Comment text
  *     is linkified.
  *   - CommentThread: loads comments with useComments and posts via addComment,
- *     stamping the author's role (lead/student).
+ *     stamping the author's role (lead/student). The post box is hidden when
+ *     canPost is false (a student on a closed ticket).
  *
  * Appears in the following files:
  *   - CommentThread: features/tickets/components/TicketDetailModal.jsx
@@ -104,7 +105,7 @@ function CommentRow({ ticketId, comment, canEdit }) {
   );
 }
 
-export function CommentThread({ ticket, isLead, currentUser }) {
+export function CommentThread({ ticket, isLead, currentUser, canPost = true }) {
   const comments = useComments(ticket.id);
   const [text, setText] = useState("");
   const [posting, setPosting] = useState(false);
@@ -140,17 +141,19 @@ export function CommentThread({ ticket, isLead, currentUser }) {
           />
         ))}
       </ul>
-      <div className="comment-add">
-        <textarea
-          placeholder={isLead ? "Leave feedback for the student..." : "Ask a question or post an update..."}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          rows={2}
-        />
-        <button type="button" disabled={posting || !text.trim()} onClick={post}>
-          Post comment
-        </button>
-      </div>
+      {canPost && (
+        <div className="comment-add">
+          <textarea
+            placeholder={isLead ? "Leave feedback for the student..." : "Ask a question or post an update..."}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={2}
+          />
+          <button type="button" disabled={posting || !text.trim()} onClick={post}>
+            Post comment
+          </button>
+        </div>
+      )}
     </div>
   );
 }

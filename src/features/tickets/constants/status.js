@@ -19,7 +19,8 @@
  *   - COLUMNS: features/tickets/components/TicketBoard.jsx
  *   - STUDENT_STATUS_OPTIONS: features/tickets/components/TicketDetailModal.jsx; also inside
  *       this file by LEAD_STATUS_OPTIONS
- *   - LEAD_STATUS_OPTIONS: features/tickets/components/TicketDetailModal.jsx
+ *   - LEAD_STATUS_OPTIONS: features/tickets/components/EditTicketModal.jsx,
+ *       features/tickets/components/TicketDetailModal.jsx
  *   - getStatusLabel: features/tickets/components/TicketCard.jsx,
  *       features/tickets/components/TicketDetailModal.jsx
  *   - isLockedForStudent: features/tickets/components/TicketDetailModal.jsx

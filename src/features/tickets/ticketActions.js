@@ -12,6 +12,9 @@
  *     the student).
  *   - updateTicketStatusAsLead: the lead's dropdown; routes Approve and Needs
  *     revisions to the two functions above.
+ *   - updateTicketStatusForCopies(ticket, lead, newStatus, applyToAll): the same
+ *     status change on one ticket or on every copy across students (skipping
+ *     copies already at that status).
  *   - deleteTicket(ticketId): deletes the ticket with its comments, history and
  *     related notifications.
  *   - STATUS_EVENT (private): maps a status to its history event type.
@@ -28,7 +31,9 @@
  *   - updateDueDate: features/tickets/components/TicketDetailModal.jsx
  *   - approveTicket: also inside this file by updateTicketStatusAsLead
  *   - requestRevision: also inside this file by updateTicketStatusAsLead
- *   - updateTicketStatusAsLead: features/tickets/components/TicketDetailModal.jsx
+ *   - updateTicketStatusAsLead: features/tickets/components/TicketDetailModal.jsx; also
+ *       inside this file by updateTicketStatusForCopies
+ *   - updateTicketStatusForCopies: features/tickets/components/EditTicketModal.jsx
  *   - deleteTicket: features/tickets/components/TicketDetailModal.jsx
  *   - Local helpers (only used in this file): STATUS_EVENT
  */
@@ -219,6 +224,22 @@ export async function updateTicketStatusAsLead(ticket, lead, newStatus) {
 // Deletes a single ticket along with its comments, history, and any
 // notifications that reference it. Firestore doesn't cascade deletes
 // on its own, so this has to walk the tree itself.
+// The lead's status change from the Edit ticket form: this one ticket, or every
+// student's copy. Each copy goes through updateTicketStatusAsLead so history and
+// student notifications stay correct; copies already at newStatus are skipped.
+export async function updateTicketStatusForCopies(ticket, lead, newStatus, applyToAll) {
+  if (!applyToAll) {
+    await updateTicketStatusAsLead(ticket, lead, newStatus);
+    return 1;
+  }
+  const matches = await findMatchingTickets(ticket);
+  const targets = matches.map((d) => ({ id: d.id, ...d.data() })).filter((t) => t.status !== newStatus);
+  for (const target of targets) {
+    await updateTicketStatusAsLead(target, lead, newStatus);
+  }
+  return targets.length;
+}
+
 export async function deleteTicket(ticketId) {
   const [commentsSnap, historySnap, notificationsSnap] = await Promise.all([
     getDocs(collection(db, "tickets", ticketId, "comments")),

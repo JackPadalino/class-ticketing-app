@@ -17,7 +17,7 @@
  *   - TicketDetailModal: features/tickets/components/TicketBoard.jsx
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isStudentStatusUpdateAllowed } from "../../settings/statusUpdates";
 import { getPhaseLabel } from "../constants/phases";
 import {
@@ -54,6 +54,12 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
     LEAD_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS
   );
   const [showEdit, setShowEdit] = useState(false);
+
+  // Keep the lead's dropdown in step when the status changes elsewhere (e.g. from
+  // the Edit ticket form), so "Update status" doesn't light up for a stale value.
+  useEffect(() => {
+    setSelectedLeadStatus(LEAD_STATUS_OPTIONS.some((o) => o.value === ticket.status) ? ticket.status : STATUS.IN_PROGRESS);
+  }, [ticket.status]);
   const [showSupportPrompt, setShowSupportPrompt] = useState(false);
   const [supportComment, setSupportComment] = useState("");
 
@@ -255,7 +261,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
         </div>
       </div>
     </div>
-    {showEdit && <EditTicketModal ticket={ticket} onClose={() => setShowEdit(false)} />}
+    {showEdit && <EditTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />}
     </>
   );
 }

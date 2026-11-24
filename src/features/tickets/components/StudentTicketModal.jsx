@@ -1,27 +1,33 @@
 /**
- * Modal for a student to create a ticket in the project they have open. They pick
- * the phase, who the ticket is assigned to (themselves or a classmate) and which
- * other students can see it. The assignee and the creator can always see it, and
- * the lead sees every ticket.
+ * Modal for a student to create a ticket in the project they have open, or (when
+ * given `ticket`) to edit one they created. They pick the phase, who the ticket
+ * is assigned to (themselves or a classmate) and which other students can see it.
+ * The assignee and the creator can always see it, and the lead sees every ticket.
  *   - assignedTo: uid of the assignee (defaults to the student creating it).
  *   - sharedWith: uids of the extra students who can see it.
- *   - submit(): creates the ticket, then onCreated().
+ *   - submit(): creates the ticket, or saves only the fields that changed.
  *
  * Appears in the following files:
- *   - StudentCreateTicketModal: features/boards/StudentDashboard.jsx
+ *   - StudentTicketModal: features/boards/StudentDashboard.jsx (create),
+ *       features/tickets/components/TicketDetailModal.jsx (edit)
  */
 
 import { useState } from "react";
 import { PHASES } from "../constants/phases";
-import { createTicket } from "../ticketActions";
+import { useStudents } from "../../students/useStudents";
+import { createTicket, updateStudentTicket } from "../ticketActions";
 
-export function StudentCreateTicketModal({ projectId, defaultPhase, students, currentUser, onClose }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [phase, setPhase] = useState(defaultPhase || PHASES[0].key);
-  const [dueDate, setDueDate] = useState("");
-  const [assignedTo, setAssignedTo] = useState(currentUser.uid);
-  const [sharedWith, setSharedWith] = useState([]);
+export function StudentTicketModal({ ticket, projectId, defaultPhase, currentUser, onClose }) {
+  const students = useStudents(true);
+  const editing = Boolean(ticket);
+  const [title, setTitle] = useState(ticket?.title || "");
+  const [description, setDescription] = useState(ticket?.description || "");
+  const [phase, setPhase] = useState(ticket?.phase || defaultPhase || PHASES[0].key);
+  const [dueDate, setDueDate] = useState(ticket?.dueDate || "");
+  const [assignedTo, setAssignedTo] = useState(ticket?.assignedTo || currentUser.uid);
+  const [sharedWith, setSharedWith] = useState(
+    (ticket?.visibleTo || []).filter((id) => id !== ticket.createdBy && id !== ticket.assignedTo)
+  );
   const [saving, setSaving] = useState(false);
 
   const nameOf = (s) => s.displayName || s.email || "";
@@ -37,20 +43,35 @@ export function StudentCreateTicketModal({ projectId, defaultPhase, students, cu
     e.preventDefault();
     if (!title.trim() || !assignee) return;
     setSaving(true);
+    const visibleTo = sharedWith.filter((id) => id !== assignedTo);
     try {
-      await createTicket({
-        projectId,
-        title: title.trim(),
-        description: description.trim(),
-        phase,
-        dueDate,
-        assignedTo,
-        assignedToName: nameOf(assignee),
-        links: [],
-        createdBy: currentUser,
-        createdByRole: "student",
-        visibleTo: sharedWith.filter((id) => id !== assignedTo),
-      });
+      if (editing) {
+        const changes = {};
+        if (title.trim() !== ticket.title) changes.title = title.trim();
+        if (description.trim() !== (ticket.description || "")) changes.description = description.trim();
+        if (phase !== ticket.phase) changes.phase = phase;
+        if (dueDate !== (ticket.dueDate || "")) changes.dueDate = dueDate;
+        if (assignedTo !== ticket.assignedTo) {
+          changes.assignedTo = assignedTo;
+          changes.assignedToName = nameOf(assignee);
+        }
+        changes.visibleTo = visibleTo;
+        await updateStudentTicket(ticket, changes);
+      } else {
+        await createTicket({
+          projectId,
+          title: title.trim(),
+          description: description.trim(),
+          phase,
+          dueDate,
+          assignedTo,
+          assignedToName: nameOf(assignee),
+          links: [],
+          createdBy: currentUser,
+          createdByRole: "student",
+          visibleTo,
+        });
+      }
       onClose();
     } catch (err) {
       alert(err.message);
@@ -65,7 +86,7 @@ export function StudentCreateTicketModal({ projectId, defaultPhase, students, cu
         <button type="button" className="modal-close" onClick={onClose}>
           ✕
         </button>
-        <h2>New ticket</h2>
+        <h2>{editing ? "Edit ticket" : "New ticket"}</h2>
 
         <label>
           Title
@@ -132,7 +153,7 @@ export function StudentCreateTicketModal({ projectId, defaultPhase, students, cu
 
         <div className="modal-actions">
           <button type="submit" disabled={saving || !title.trim() || !assignee}>
-            {saving ? "Creating..." : "Create ticket"}
+            {saving ? (editing ? "Saving..." : "Creating...") : editing ? "Save changes" : "Create ticket"}
           </button>
         </div>
       </form>

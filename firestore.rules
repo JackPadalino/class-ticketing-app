@@ -15,6 +15,14 @@ service cloud.firestore {
       return isSignedIn() && myProfile().role == 'lead';
     }
 
+    // A ticket a student created themselves, which they may edit/delete
+    // until the lead completes or closes it.
+    function isOwnOpenStudentTicket(t) {
+      return t.get('createdBy', null) == request.auth.uid &&
+        t.get('createdByRole', null) == 'student' &&
+        !(t.status in ['completed', 'closed']);
+    }
+
     // A ticket's data map (for the comments/history subcollections).
     function ticketData(ticketId) {
       return get(/databases/$(database)/documents/tickets/$(ticketId)).data;
@@ -90,7 +98,9 @@ service cloud.firestore {
         exists(/databases/$(database)/documents/projects/$(request.resource.data.projectId))
       );
 
-      allow delete: if isLead();
+      // The lead can delete any ticket; a student only one they created
+      // (and while it is still open).
+      allow delete: if isLead() || (isSignedIn() && isOwnOpenStudentTicket(resource.data));
 
       // Lead can change anything. A student who owns the ticket may only
       // flip it between the working statuses and edit their links -
@@ -102,7 +112,23 @@ service cloud.firestore {
       // changing status additionally requires the lead's
       // settings/global.allowStudentStatusUpdates toggle to not be off
       // (missing doc/field defaults to allowed, matching the client).
+      //
+      // A student who created the ticket can also edit its title,
+      // description, phase, due date, assignee and visibleTo (never its
+      // status or review fields), as long as it stays visible to them and
+      // to a real student assignee.
       allow update: if isLead() || (
+        isSignedIn() &&
+        isOwnOpenStudentTicket(resource.data) &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['title', 'description', 'phase', 'dueDate', 'assignedTo', 'assignedToName', 'visibleTo', 'updatedAt']) &&
+        request.resource.data.visibleTo is list &&
+        request.resource.data.visibleTo.size() <= 60 &&
+        request.auth.uid in request.resource.data.visibleTo &&
+        request.resource.data.assignedTo in request.resource.data.visibleTo &&
+        exists(/databases/$(database)/documents/users/$(request.resource.data.assignedTo)) &&
+        get(/databases/$(database)/documents/users/$(request.resource.data.assignedTo)).data.role == 'student'
+      ) || (
         isSignedIn() &&
         resource.data.assignedTo == request.auth.uid &&
         !(resource.data.status in ['completed', 'closed']) &&
@@ -137,12 +163,14 @@ service cloud.firestore {
               ticketData(ticketId).status != 'closed')
           );
         // Only the lead who wrote a comment can edit it, and only its
-        // text - delete stays broad (isLead(), not author-restricted) so
-        // a project's cascade delete can still remove every comment.
+        // text - delete stays broad (not author-restricted) so a cascade
+        // delete (a project, or a student deleting their own ticket) can
+        // still remove every comment.
         allow update: if isLead() &&
           resource.data.authorId == request.auth.uid &&
           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'editedAt']);
-        allow delete: if isLead();
+        allow delete: if isLead() ||
+          (isSignedIn() && isOwnOpenStudentTicket(ticketData(ticketId)));
       }
 
       // System-logged lifecycle events (created, started, submitted for
@@ -163,7 +191,8 @@ service cloud.firestore {
               ticketData(ticketId).status != 'closed')
           );
         allow update: if false;
-        allow delete: if isLead();
+        allow delete: if isLead() ||
+          (isSignedIn() && isOwnOpenStudentTicket(ticketData(ticketId)));
       }
     }
 
@@ -174,9 +203,16 @@ service cloud.firestore {
     // "ticket_reviewed" and "lead_comment" (the lead -> the specific
     // student, via recipientId).
     match /notifications/{notificationId} {
-      allow read, update: if isLead() ||
+      // Readable/deletable by the person who triggered it too, so a student
+      // deleting their own ticket can clear the alerts about it.
+      allow read: if isLead() ||
+        (isSignedIn() && (resource.data.recipientId == request.auth.uid ||
+          resource.data.actorId == request.auth.uid));
+      allow update: if isLead() ||
         (isSignedIn() && resource.data.recipientId == request.auth.uid);
-      allow delete: if isLead();
+      allow delete: if isLead() ||
+        (isSignedIn() && (resource.data.recipientId == request.auth.uid ||
+          resource.data.actorId == request.auth.uid));
       allow create: if isSignedIn() && (
         (request.resource.data.type in ['ready_for_review', 'student_comment', 'need_support'] &&
           request.resource.data.actorId == request.auth.uid) ||

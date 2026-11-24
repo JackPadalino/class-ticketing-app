@@ -15,9 +15,8 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { useAuth } from "../auth/AuthContext";
 import { useTickets } from "../tickets/hooks/useTickets";
-import { useStudents } from "../students/useStudents";
 import { TicketBoard } from "../tickets/components/TicketBoard";
-import { StudentCreateTicketModal } from "../tickets/components/StudentCreateTicketModal";
+import { StudentTicketModal } from "../tickets/components/StudentTicketModal";
 import { getPhase } from "../tickets/constants/phases";
 
 export function StudentDashboard() {
@@ -26,7 +25,6 @@ export function StudentDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const { tickets, loading } = useTickets({ projectId, uid: user.uid, isLead: false });
-  const students = useStudents(true);
   const [project, setProject] = useState(null);
   const [showCreate, setShowCreate] = useState(false);
   const [openTicketId, setOpenTicketId] = useState(location.state?.openTicketId || null);
@@ -77,10 +75,9 @@ export function StudentDashboard() {
       )}
 
       {showCreate && (
-        <StudentCreateTicketModal
+        <StudentTicketModal
           projectId={projectId}
           defaultPhase={phase}
-          students={students}
           currentUser={currentUser}
           onClose={() => setShowCreate(false)}
         />

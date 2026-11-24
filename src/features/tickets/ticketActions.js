@@ -15,16 +15,20 @@
  *   - updateTicketStatusForCopies(ticket, lead, newStatus, applyToAll): the same
  *     status change on one ticket or on every copy across students (skipping
  *     copies already at that status).
- *   - deleteTicket(ticketId): deletes the ticket with its comments, history and
- *     related notifications.
+ *   - updateStudentTicket(ticket, changes): a student editing a ticket they
+ *     created (title, description, phase, due date, assignee, who can see it).
+ *   - deleteTicket(ticketId, { actorId }): deletes the ticket with its comments,
+ *     history and related notifications. A student passes their own uid so only
+ *     the alerts they are allowed to touch are cleared.
  *   - STATUS_EVENT (private): maps a status to its history event type.
  *
  * Appears in the following files:
  *   - createTicket: features/tickets/components/CreateTicketModal.jsx,
- *       features/tickets/components/StudentCreateTicketModal.jsx
+ *       features/tickets/components/StudentTicketModal.jsx
  *   - findMatchingTickets: features/tickets/components/EditTicketModal.jsx; also inside this
  *       file by updateTicketDetails
  *   - updateTicketDetails: features/tickets/components/EditTicketModal.jsx
+ *   - updateStudentTicket: features/tickets/components/StudentTicketModal.jsx
  *   - updateStudentStatus: features/tickets/components/TicketDetailModal.jsx; also inside this
  *       file by markNeedSupport
  *   - markNeedSupport: features/tickets/components/TicketDetailModal.jsx
@@ -35,7 +39,8 @@
  *   - updateTicketStatusAsLead: features/tickets/components/TicketDetailModal.jsx; also
  *       inside this file by updateTicketStatusForCopies
  *   - updateTicketStatusForCopies: features/tickets/components/EditTicketModal.jsx
- *   - deleteTicket: features/tickets/components/TicketDetailModal.jsx
+ *   - deleteTicket: features/tickets/components/TicketDetailModal.jsx (lead and the
+ *       student who created the ticket)
  *   - Local helpers (only used in this file): STATUS_EVENT
  */
 
@@ -139,6 +144,20 @@ export async function updateTicketDetails(ticket, changes, applyToAll) {
     await batch.commit();
   }
   return matches.length;
+}
+
+// A student's edit of a ticket they created. `changes` holds only the fields
+// that actually changed; visibleTo (when sent) is rebuilt so it always still
+// contains the creator and the (possibly new) assignee. Everyone who can see
+// the ticket gets the update live via their board's snapshot listener.
+export async function updateStudentTicket(ticket, changes) {
+  const data = { ...changes, updatedAt: serverTimestamp() };
+  if ("dueDate" in data) data.dueDate = data.dueDate || null;
+  if ("visibleTo" in data || "assignedTo" in data) {
+    const assignedTo = data.assignedTo ?? ticket.assignedTo;
+    data.visibleTo = [...new Set([...(data.visibleTo ?? ticket.visibleTo ?? []), assignedTo, ticket.createdBy])];
+  }
+  await updateDoc(doc(db, "tickets", ticket.id), data);
 }
 
 const STATUS_EVENT = {
@@ -269,17 +288,28 @@ export async function updateTicketStatusForCopies(ticket, lead, newStatus, apply
   return targets.length;
 }
 
-export async function deleteTicket(ticketId) {
-  const [commentsSnap, historySnap, notificationsSnap] = await Promise.all([
+export async function deleteTicket(ticketId, { actorId } = {}) {
+  // The lead can find every notification about the ticket. A student can only
+  // read the ones they triggered or received, so query for exactly those.
+  const notificationQueries = actorId
+    ? [
+        query(collection(db, "notifications"), where("ticketId", "==", ticketId), where("actorId", "==", actorId)),
+        query(collection(db, "notifications"), where("ticketId", "==", ticketId), where("recipientId", "==", actorId)),
+      ]
+    : [query(collection(db, "notifications"), where("ticketId", "==", ticketId))];
+
+  const [commentsSnap, historySnap, ...notificationSnaps] = await Promise.all([
     getDocs(collection(db, "tickets", ticketId, "comments")),
     getDocs(collection(db, "tickets", ticketId, "history")),
-    getDocs(query(collection(db, "notifications"), where("ticketId", "==", ticketId))),
+    ...notificationQueries.map((q) => getDocs(q)),
   ]);
 
   const batch = writeBatch(db);
   commentsSnap.docs.forEach((d) => batch.delete(d.ref));
   historySnap.docs.forEach((d) => batch.delete(d.ref));
-  notificationsSnap.docs.forEach((d) => batch.delete(d.ref));
+  const notificationRefs = new Map();
+  notificationSnaps.forEach((snap) => snap.docs.forEach((d) => notificationRefs.set(d.id, d.ref)));
+  notificationRefs.forEach((ref) => batch.delete(ref));
   batch.delete(doc(db, "tickets", ticketId));
   await batch.commit();
 }

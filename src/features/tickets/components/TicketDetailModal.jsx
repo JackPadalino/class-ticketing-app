@@ -8,6 +8,8 @@
  * (marking "Need support" requires a comment first), or a note that only the lead
  * can change status; read-only due date; link editing until the ticket is completed.
  * A student a ticket is only shared with can read it and comment, nothing else.
+ * The student who created a ticket (and only while it isn't completed/closed) also
+ * gets "Edit ticket" and a "Delete ticket" danger zone for it.
  * Once the lead closes a ticket it is fully read-only for the student (no status,
  * links or new comments).
  *   - run(fn): runs an action with a busy flag and alerts on error.
@@ -33,6 +35,7 @@ import { useSettings } from "../../settings/useSettings";
 import { linkify } from "../../../utils/linkify";
 import { LinksEditor } from "./LinksEditor";
 import { EditTicketModal } from "./EditTicketModal";
+import { StudentTicketModal } from "./StudentTicketModal";
 import { CommentThread } from "../../comments/CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
@@ -76,6 +79,8 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
   };
 
   const isAssignee = ticket.assignedTo === currentUser.uid;
+  const isCreator = !isLead && ticket.createdByRole === "student" && ticket.createdBy === currentUser.uid;
+  const canManageOwnTicket = isCreator && !isLockedForStudent(ticket);
   const studentCanEditLinks = !isLead && isAssignee && !isLockedForStudent(ticket);
   const isClosed = ticket.status === STATUS.CLOSED;
   const statusLabel = getStatusLabel(ticket);
@@ -110,7 +115,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
     );
     if (!confirmed) return;
     run(async () => {
-      await deleteTicket(ticket.id);
+      await deleteTicket(ticket.id, isLead ? {} : { actorId: currentUser.uid });
       onClose();
     });
   };
@@ -127,7 +132,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           <span className="phase-badge">{getPhaseLabel(ticket.phase)}</span>
           <div className="ticket-title-row">
             <h2>{ticket.title}</h2>
-            {isLead && (
+            {(isLead || canManageOwnTicket) && (
               <button type="button" className="link-style" onClick={() => setShowEdit(true)}>
                 Edit ticket
               </button>
@@ -262,7 +267,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
 
           <TicketTimeline ticketId={ticket.id} />
 
-          {isLead && (
+          {(isLead || canManageOwnTicket) && (
             <div className="ticket-danger-zone">
               <button type="button" className="danger" disabled={busy} onClick={handleDelete}>
                 Delete ticket
@@ -272,7 +277,12 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
         </div>
       </div>
     </div>
-    {showEdit && <EditTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />}
+    {showEdit && isLead && (
+      <EditTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />
+    )}
+    {showEdit && !isLead && (
+      <StudentTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />
+    )}
     </>
   );
 }

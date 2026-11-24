@@ -1,6 +1,7 @@
 /**
  * One ticket card on the board: phase badge, optional "Need support"/"Needs
- * revision" pill, title, assignee, due date (red when overdue) and link count.
+ * revision" pill, title, assignee, who created it (when a student did), due date
+ * (red when overdue) and link count.
  * Clicking it calls onOpen().
  *
  * Appears in the following files:
@@ -26,6 +27,9 @@ export function TicketCard({ ticket, onOpen }) {
       </div>
       <h3>{ticket.title}</h3>
       <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
+      {ticket.createdByRole === "student" && ticket.createdByName && ticket.createdBy !== ticket.assignedTo && (
+        <p className="ticket-assignee">Created by: {ticket.createdByName}</p>
+      )}
       {ticket.dueDate && (
         <p className={`ticket-due-date ${overdue ? "overdue" : ""}`}>
           Due: {formatDueDate(ticket.dueDate)}

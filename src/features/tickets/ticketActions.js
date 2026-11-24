@@ -20,7 +20,8 @@
  *   - STATUS_EVENT (private): maps a status to its history event type.
  *
  * Appears in the following files:
- *   - createTicket: features/tickets/components/CreateTicketModal.jsx
+ *   - createTicket: features/tickets/components/CreateTicketModal.jsx,
+ *       features/tickets/components/StudentCreateTicketModal.jsx
  *   - findMatchingTickets: features/tickets/components/EditTicketModal.jsx; also inside this
  *       file by updateTicketDetails
  *   - updateTicketDetails: features/tickets/components/EditTicketModal.jsx
@@ -42,6 +43,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   serverTimestamp,
@@ -55,7 +57,26 @@ import { notifyLead } from "../notifications/notificationActions";
 import { notifyStudentOfReview } from "../notifications/notificationActions";
 import { STATUS } from "./constants/status";
 
-export async function createTicket({ projectId, title, description, phase, dueDate, assignedTo, assignedToName, links, createdBy }) {
+// `createdBy` is the creating user ({ uid, email, displayName }). `visibleTo`
+// is the list of student uids who can see the ticket; the assignee and the
+// creator (when a student) are always included. The lead sees every ticket
+// regardless.
+export async function createTicket({
+  projectId,
+  title,
+  description,
+  phase,
+  dueDate,
+  assignedTo,
+  assignedToName,
+  links,
+  createdBy,
+  createdByRole = "lead",
+  visibleTo = [],
+}) {
+  const viewers = new Set([...visibleTo, assignedTo]);
+  if (createdByRole === "student") viewers.add(createdBy.uid);
+
   const ref = await addDoc(collection(db, "tickets"), {
     projectId,
     title,
@@ -64,6 +85,10 @@ export async function createTicket({ projectId, title, description, phase, dueDa
     dueDate: dueDate || null,
     assignedTo,
     assignedToName,
+    createdBy: createdBy.uid,
+    createdByName: createdBy.displayName || createdBy.email || "",
+    createdByRole,
+    visibleTo: [...viewers],
     links: links || [],
     status: STATUS.READY_TO_START,
     needsRevision: false,
@@ -72,7 +97,7 @@ export async function createTicket({ projectId, title, description, phase, dueDa
     reviewedBy: null,
     reviewedAt: null,
   });
-  await logHistory(ref.id, { type: "created", actor: createdBy, actorRole: "lead" });
+  await logHistory(ref.id, { type: "created", actor: createdBy, actorRole: createdByRole });
 }
 
 // Tickets have no shared id across students, so "the same ticket for
@@ -80,6 +105,10 @@ export async function createTicket({ projectId, title, description, phase, dueDa
 // (that's how "Add ticket -> All students" creates them). Includes the
 // ticket itself.
 export async function findMatchingTickets(ticket) {
+  if (ticket.createdByRole === "student") {
+    const own = await getDoc(doc(db, "tickets", ticket.id));
+    return own.exists() ? [own] : [];
+  }
   const snap = await getDocs(
     query(
       collection(db, "tickets"),
@@ -87,7 +116,7 @@ export async function findMatchingTickets(ticket) {
       where("title", "==", ticket.title)
     )
   );
-  return snap.docs.filter((d) => d.data().phase === ticket.phase);
+  return snap.docs.filter((d) => d.data().phase === ticket.phase && d.data().createdByRole !== "student");
 }
 
 // `changes` should only hold the fields the lead actually edited, so

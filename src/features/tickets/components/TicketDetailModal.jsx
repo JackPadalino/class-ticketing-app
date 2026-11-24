@@ -4,9 +4,10 @@
  * links, comments and the timeline.
  * Lead gets: "Edit ticket" link, due date picker, a status dropdown (including
  * Needs revisions and Approve), and a "Delete ticket" danger zone.
- * Student gets: a status dropdown when the class-wide setting allows it (marking
- * "Need support" requires a comment first), or a note that only the lead can
- * change status; read-only due date; link editing until the ticket is completed.
+ * Assigned student gets: a status dropdown when the class-wide setting allows it
+ * (marking "Need support" requires a comment first), or a note that only the lead
+ * can change status; read-only due date; link editing until the ticket is completed.
+ * A student a ticket is only shared with can read it and comment, nothing else.
  * Once the lead closes a ticket it is fully read-only for the student (no status,
  * links or new comments).
  *   - run(fn): runs an action with a busy flag and alerts on error.
@@ -74,7 +75,8 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
     }
   };
 
-  const studentCanEditLinks = !isLead && !isLockedForStudent(ticket);
+  const isAssignee = ticket.assignedTo === currentUser.uid;
+  const studentCanEditLinks = !isLead && isAssignee && !isLockedForStudent(ticket);
   const isClosed = ticket.status === STATUS.CLOSED;
   const statusLabel = getStatusLabel(ticket);
   const overdue = isOverdue(ticket.dueDate, ticket.status);
@@ -133,6 +135,9 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
           </div>
           <div className="ticket-meta">
             <p className="ticket-assignee">Assigned to: {ticket.assignedToName}</p>
+            {ticket.createdByRole === "student" && ticket.createdByName && (
+              <p className="ticket-assignee">Created by: {ticket.createdByName}</p>
+            )}
             {statusLabel && (
               <span className={`status-pill ${ticket.status === STATUS.NEED_SUPPORT ? "need-support" : ""}`}>
                 {statusLabel}
@@ -187,7 +192,13 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               </div>
             )}
 
-            {!isLead && !isLockedForStudent(ticket) && (
+            {!isLead && !isAssignee && (
+              <p className="hint">
+                {ticket.assignedToName} is working on this ticket. You can view it and leave comments.
+              </p>
+            )}
+
+            {!isLead && isAssignee && !isLockedForStudent(ticket) && (
               canStudentUpdateStatus ? (
                 <div className="status-update">
                   <select value={selectedStatus} onChange={(e) => handleStatusChange(e.target.value)}>
@@ -206,7 +217,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               )
             )}
 
-            {!isLead && canStudentUpdateStatus && showSupportPrompt && (
+            {!isLead && isAssignee && canStudentUpdateStatus && showSupportPrompt && (
               <div className="support-prompt">
                 <p className="support-prompt-message">
                   Let the lead know what you're stuck on — a comment is required before marking a ticket
@@ -242,7 +253,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
               <p className="hint">This ticket was closed by your lead and can no longer be edited.</p>
             )}
 
-            {!isLead && ticket.status === STATUS.READY_FOR_REVIEW && (
+            {!isLead && isAssignee && ticket.status === STATUS.READY_FOR_REVIEW && (
               <p className="waiting-note">Waiting on lead review.</p>
             )}
           </div>

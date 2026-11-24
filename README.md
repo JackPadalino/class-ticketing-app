@@ -6,7 +6,7 @@ A Kanban-style ticket tracker for a lead engineer and a roster of students, buil
 
 - **Projects** are class-wide: when the lead creates one, every student automatically gets their own blank board for it — no per-student setup needed. Both roles land on a Projects list after signing in and click into one to see its board.
 - **Columns** (within a project, per student): Ready to Start → Working on It → Completed.
-- **Students** see only their own tickets, only within a project they've opened. They can mark a ticket "Working on it" and later "Ready for review" (which notifies the lead). They can add/edit links (Google Docs, drawings, deployed app URLs, etc.) on their own tickets.
+- **Students** see the tickets assigned to them or shared with them, only within a project they've opened. They can also create their own tickets (**+ New ticket** on a phase board), choosing who it's assigned to and which classmates can see it; a student it's only shared with can read and comment but not change it. They can mark a ticket "Working on it" and later "Ready for review" (which notifies the lead). They can add/edit links (Google Docs, drawings, deployed app URLs, etc.) on their own tickets.
 - **Lead** sees every student's tickets within a project, gets a notification when a ticket is marked ready for review (from the Projects screen), and can leave comments plus **Approve** (moves the ticket to Completed) or **Needs Revisions** (sends it back to Working on It).
 - Tickets can only reach the **Completed** column through lead approval — students cannot mark their own ticket complete.
 - The lead can also **Close** a ticket (moves it to the **Closed** column, right of Completed). A closed ticket is read-only for the student: no status changes, link edits, or new comments.
@@ -32,6 +32,10 @@ tickets/{ticketId}
   phase: string                 // e.g. "Planning", "Design", "Development"...
   assignedTo: uid
   assignedToName: string        // denormalized for display
+  createdBy: uid                // who created it (lead or student)
+  createdByName: string
+  createdByRole: "lead" | "student"
+  visibleTo: [uid]              // students who can see it (always includes the assignee)
   status: "ready_to_start" | "in_progress" | "ready_for_review" | "needs_revision" | "need_support" | "completed" | "closed"
   links: [{ label, url }]
   createdAt, updatedAt: timestamp

@@ -1,9 +1,10 @@
 /**
  * useStudents(enabled): live list of student profiles sorted by name. Only
- * subscribes when `enabled` is true (the lead's screens).
+ * subscribes when `enabled` is true (the lead's screens, and the student board
+ * so a student can pick classmates when creating a ticket).
  *
  * Appears in the following files:
- *   - useStudents: features/boards/LeadDashboard.jsx
+ *   - useStudents: features/boards/LeadDashboard.jsx, features/boards/StudentDashboard.jsx
  */
 
 import { useEffect, useState } from "react";

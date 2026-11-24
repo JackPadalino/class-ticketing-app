@@ -1,6 +1,7 @@
 /**
  * A student's board for one phase of one project (/student/:projectId/:phase):
- * only that student's own tickets in that phase, in the four status columns.
+ * the tickets assigned to or shared with that student in that phase, in the
+ * status columns, plus a "+ New ticket" button so students can create their own.
  *   - openTicketId + navigation effect: opens the ticket modal when arriving from
  *     a notification (router state { openTicketId }).
  *
@@ -14,7 +15,9 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { useAuth } from "../auth/AuthContext";
 import { useTickets } from "../tickets/hooks/useTickets";
+import { useStudents } from "../students/useStudents";
 import { TicketBoard } from "../tickets/components/TicketBoard";
+import { StudentCreateTicketModal } from "../tickets/components/StudentCreateTicketModal";
 import { getPhase } from "../tickets/constants/phases";
 
 export function StudentDashboard() {
@@ -23,7 +26,9 @@ export function StudentDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const { tickets, loading } = useTickets({ projectId, uid: user.uid, isLead: false });
+  const students = useStudents(true);
   const [project, setProject] = useState(null);
+  const [showCreate, setShowCreate] = useState(false);
   const [openTicketId, setOpenTicketId] = useState(location.state?.openTicketId || null);
 
   useEffect(() => {
@@ -51,6 +56,11 @@ export function StudentDashboard() {
           </button>
           <h1>{phaseInfo?.label || "Tickets"}</h1>
         </div>
+        <div className="header-right">
+          <button type="button" onClick={() => setShowCreate(true)}>
+            + New ticket
+          </button>
+        </div>
       </header>
 
       {loading ? (
@@ -63,6 +73,16 @@ export function StudentDashboard() {
           openTicketId={openTicketId}
           onOpenTicket={setOpenTicketId}
           onCloseTicket={() => setOpenTicketId(null)}
+        />
+      )}
+
+      {showCreate && (
+        <StudentCreateTicketModal
+          projectId={projectId}
+          defaultPhase={phase}
+          students={students}
+          currentUser={currentUser}
+          onClose={() => setShowCreate(false)}
         />
       )}
     </div>

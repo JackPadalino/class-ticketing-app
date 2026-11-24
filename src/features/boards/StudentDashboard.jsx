@@ -16,7 +16,7 @@ import { db } from "../../lib/firebase";
 import { useAuth } from "../auth/AuthContext";
 import { useTickets } from "../tickets/hooks/useTickets";
 import { TicketBoard } from "../tickets/components/TicketBoard";
-import { StudentTicketModal } from "../tickets/components/StudentTicketModal";
+import { TicketFormModal } from "../tickets/components/TicketFormModal";
 import { getPhase } from "../tickets/constants/phases";
 
 export function StudentDashboard() {
@@ -75,7 +75,8 @@ export function StudentDashboard() {
       )}
 
       {showCreate && (
-        <StudentTicketModal
+        <TicketFormModal
+          isLead={false}
           projectId={projectId}
           defaultPhase={phase}
           currentUser={currentUser}

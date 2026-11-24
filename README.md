@@ -78,7 +78,7 @@ src/
     projects/                ProjectsList, ProjectModal, useProjects, projectActions
     boards/                  LeadDashboard, StudentDashboard, PhaseMenu, EngineeringCycleDiagram
     tickets/
-      components/            TicketBoard, TicketCard, TicketDetailModal, Create/EditTicketModal,
+      components/            TicketBoard, TicketCard, TicketDetailModal, TicketFormModal (create, shared by lead and students), EditTicketModal,
                              TicketTimeline, LinksEditor
       hooks/                 useTickets, useHistory
       constants/             status.js (statuses, columns, dropdown options), phases.js

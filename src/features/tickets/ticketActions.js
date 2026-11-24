@@ -23,12 +23,11 @@
  *   - STATUS_EVENT (private): maps a status to its history event type.
  *
  * Appears in the following files:
- *   - createTicket: features/tickets/components/CreateTicketModal.jsx,
- *       features/tickets/components/StudentTicketModal.jsx
+ *   - createTicket: features/tickets/components/TicketFormModal.jsx
  *   - findMatchingTickets: features/tickets/components/EditTicketModal.jsx; also inside this
  *       file by updateTicketDetails
  *   - updateTicketDetails: features/tickets/components/EditTicketModal.jsx
- *   - updateStudentTicket: features/tickets/components/StudentTicketModal.jsx
+ *   - updateStudentTicket: features/tickets/components/TicketFormModal.jsx
  *   - updateStudentStatus: features/tickets/components/TicketDetailModal.jsx; also inside this
  *       file by markNeedSupport
  *   - markNeedSupport: features/tickets/components/TicketDetailModal.jsx

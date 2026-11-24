@@ -35,7 +35,7 @@ import { useSettings } from "../../settings/useSettings";
 import { linkify } from "../../../utils/linkify";
 import { LinksEditor } from "./LinksEditor";
 import { EditTicketModal } from "./EditTicketModal";
-import { StudentTicketModal } from "./StudentTicketModal";
+import { TicketFormModal } from "./TicketFormModal";
 import { CommentThread } from "../../comments/CommentThread";
 import { TicketTimeline } from "./TicketTimeline";
 import {
@@ -281,7 +281,7 @@ export function TicketDetailModal({ ticket, isLead, currentUser, onClose }) {
       <EditTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />
     )}
     {showEdit && !isLead && (
-      <StudentTicketModal ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />
+      <TicketFormModal isLead={false} ticket={ticket} currentUser={currentUser} onClose={() => setShowEdit(false)} />
     )}
     </>
   );

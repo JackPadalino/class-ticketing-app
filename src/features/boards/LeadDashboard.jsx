@@ -7,7 +7,7 @@
  *     { openTicketId, studentId }; the effect opens that ticket and applies the
  *     student filter, then clears the router state. It runs on every navigation
  *     so it also works when already on this board.
- *   - "+ New ticket" opens CreateTicketModal (any project, one student or all).
+ *   - "+ New ticket" opens TicketFormModal (any project, one student or all).
  *
  * Appears in the following files:
  *   - LeadDashboard: App.jsx
@@ -22,7 +22,7 @@ import { useTickets } from "../tickets/hooks/useTickets";
 import { useStudents } from "../students/useStudents";
 import { useProjects } from "../projects/useProjects";
 import { TicketBoard } from "../tickets/components/TicketBoard";
-import { CreateTicketModal } from "../tickets/components/CreateTicketModal";
+import { TicketFormModal } from "../tickets/components/TicketFormModal";
 
 export function LeadDashboard() {
   const { user, profile } = useAuth();
@@ -100,10 +100,10 @@ export function LeadDashboard() {
       )}
 
       {showCreate && (
-        <CreateTicketModal
+        <TicketFormModal
+          isLead
           projects={projects}
           defaultProjectId={projectId}
-          students={students}
           defaultTarget={studentFilter === "all" ? "all" : studentFilter}
           currentUser={currentUser}
           onClose={() => setShowCreate(false)}

@@ -7,7 +7,7 @@
  *
  * Appears in the following files:
  *   - PHASES: features/boards/EngineeringCycleDiagram.jsx,
- *       features/tickets/components/CreateTicketModal.jsx,
+ *       features/tickets/components/TicketFormModal.jsx,
  *       features/tickets/components/EditTicketModal.jsx; also inside this file by getPhase
  *   - getPhase: features/boards/StudentDashboard.jsx; also inside this file by getPhaseLabel
  *   - getPhaseLabel: features/tickets/components/TicketCard.jsx,

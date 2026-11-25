@@ -77,7 +77,7 @@ export function StudentDashboard() {
       {showCreate && (
         <TicketFormModal
           isLead={false}
-          projectId={projectId}
+          defaultProjectId={projectId}
           defaultPhase={phase}
           currentUser={currentUser}
           onClose={() => setShowCreate(false)}
